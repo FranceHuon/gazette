@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@gazette/shared": "workspace:*",
     "@hookform/resolvers": "^5.0.1",
+    "@tanstack/react-query": "^5.81.5",
     "framer-motion": "^11.0.3",
     "i18next": "^23.7.16",
     "ky": "^1.1.0",

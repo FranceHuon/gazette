@@ -1,4 +1,6 @@
+export * from './dtos/media.dto'
 export * from './dtos/rss.dto'
+export * from './dtos/subscription.dto'
 export * from './dtos/user.dto'
 export * from './enums'
 export * from './interfaces'

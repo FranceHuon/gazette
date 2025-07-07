@@ -1,9 +1,12 @@
-// import { Controller, Get } from '@nestjs/common';
+// import { Module } from '@nestjs/common'
+// import { RssModule } from '../rss/rss.module'
+// import { ContentController } from './content.controller'
+// import { ContentService } from './content.service'
 
-// @Controller('content')
-// export class ContentController {
-//   @Get()
-//   findAll(): string {
-//     return 'This action returns all content';
-//   }
-// }
+// @Module({
+//   imports: [RssModule],
+//   controllers: [ContentController],
+//   providers: [ContentService],
+//   exports: [ContentService],
+// })
+// export class ContentModule {}
