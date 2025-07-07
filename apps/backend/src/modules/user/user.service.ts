@@ -45,6 +45,7 @@ export class UsersService {
       createdAt: user.createdAt,
       lastConnection: user.lastConnection,
       role: user.role,
+      subscriptions: user.subscriptions,
     }))
   }
 

@@ -14,6 +14,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { createUser } from '@/services/api/user'
 import { Field } from '../ui/field'
 import Button from './Button'
+import { WelcomeModal } from './Modal'
 
 function FormSignUp() {
   const { t } = useTranslation('common', {
@@ -23,6 +24,7 @@ function FormSignUp() {
   const toast = useToast()
   const { login } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false)
 
   type FormValuesSignUp = Omit<CreateUserDto, 'role'>
 
@@ -57,10 +59,11 @@ function FormSignUp() {
         isClosable: true,
       })
 
-      // Attendre un court instant avant la redirection
-      setTimeout(() => {
-        router.push('/explore')
-      }, 1000)
+      setIsWelcomeModalOpen(true)
+      // // Attendre un court instant avant la redirection
+      // setTimeout(() => {
+      //   router.push('/explore')
+      // }, 1000)
     }
     catch (error) {
       console.error(error)
@@ -169,6 +172,13 @@ function FormSignUp() {
           </VStack>
         </Stack>
       </form>
+      <WelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={() => {
+          setIsWelcomeModalOpen(false)
+          router.push('/explore')
+        }}
+      />
     </Flex>
   )
 }
