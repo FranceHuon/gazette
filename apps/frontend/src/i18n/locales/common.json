@@ -29,7 +29,8 @@
     "home": "Accueil",
     "menu": "Menu",
     "appTitle": "Gazette",
-    "account": "Mon compte"
+    "account": "Mon compte",
+    "subscriptions": "Abonnements"
   },
   "form": {
     "passwordInstructions": "Votre mot de passe doit inclure : <ul><li>au moins 8 caractères</li> <li>une majuscule</li> <li>une minuscule</li> <li>un chiffre</li> <li>un caractère spécial (+ - [ ] * ~ _ # : ?)</li></ul>"

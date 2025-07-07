@@ -25,6 +25,7 @@ function WelcomeDisplay() {
           lg: '20',
         }}
       >
+        <Heading>Gazette, c'est quoi ?</Heading>
         <Heading
           width="100%"
           fontSize={{

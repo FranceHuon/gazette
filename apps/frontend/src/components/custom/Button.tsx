@@ -23,7 +23,7 @@ function Button({
       color={fontColor}
       bgColor={backgroundColor}
       shadow="sm"
-      borderRadius="xl"
+      borderRadius="20px"
       margin="3"
       {...props} // all the other props of chakra ui are transmetted here
     >
