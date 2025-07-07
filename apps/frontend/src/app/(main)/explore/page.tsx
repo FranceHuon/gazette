@@ -1,6 +1,6 @@
 'use client'
 
-import { Text as ChakraText, Flex, Heading, Link, Text, VStack } from '@chakra-ui/react'
+import { Text as ChakraText, Flex, Heading, Link, VStack } from '@chakra-ui/react'
 import { MediaDto } from '@gazette/shared'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
