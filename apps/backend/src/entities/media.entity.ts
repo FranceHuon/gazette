@@ -1,5 +1,6 @@
-import { Entity, Property } from '@mikro-orm/core'
+import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
 import { PrimaryKeyUuid } from '../utils/PrimaryKeyUuid.decorator'
+import { Subscription } from './subscription.entity'
 
 @Entity()
 export class Media {
@@ -20,4 +21,7 @@ export class Media {
 
   @Property()
   createdAt = new Date()
+
+  @OneToMany(() => Subscription, subscription => subscription.media)
+  subscribers = new Collection<Subscription>(this)
 }
