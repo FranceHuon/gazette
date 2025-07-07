@@ -1,8 +1,13 @@
 'use client'
 
-import { Text as ChakraText, Flex, Link } from '@chakra-ui/react'
+import { Text as ChakraText, Flex, Heading, Link, Text, VStack } from '@chakra-ui/react'
+import { MediaDto } from '@gazette/shared'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
+import MediaCard from '@/components/custom/MediaCard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
+import Title from '@/components/layout/Title'
+import { api } from '@/config'
 import { useAuth } from '@/hooks/useAuth'
 
 export default function ExplorePage() {
@@ -10,11 +15,19 @@ export default function ExplorePage() {
     keyPrefix: 'accountManagement',
   })
 
-  const { t: tNav } = useTranslation('common', {
-    keyPrefix: 'navigateApp',
+  const { user, loading, logout } = useAuth()
+
+  const { data: medias } = useQuery<MediaDto[]>({
+    queryKey: ['medias'],
+    queryFn: async () => await api.get('medias').json(),
+    enabled: !!user,
   })
 
-  const { user, loading, logout } = useAuth()
+  const handleSubscribe = (mediaId: string) => {
+    // Exemple : appel API ou mutation
+    console.warn('Subscribed to', mediaId)
+    // await api.post(`/subscriptions`, { mediaId })
+  }
 
   if (loading) {
     return (
@@ -39,18 +52,18 @@ export default function ExplorePage() {
   }
 
   return (
-    <ResponsiveLayout
-      title={tNav('explore')}
-      showFormTitle={true}
-    >
-      {/* Contenu spécifique à la page */}
-      <Flex direction="column" align="center" gap={4}>
-        <ChakraText
-          fontSize={{ base: 'xl', lg: '2xl' }}
-          fontWeight="bold"
-        >
-          {`Bienvenue ${user.pseudo || user.email || 'Utilisateur'}`}
-        </ChakraText>
+    <ResponsiveLayout>
+      <VStack spacing={8} align="stretch">
+        <Title text={`Bienvenue ${user.pseudo || user.email || 'Utilisateur'}`} fontColor="color.chaletGreen" />
+        <Heading>Médias disponibles</Heading>
+
+        <Flex gap="60px" flexWrap="wrap" justifyContent="center">
+          {medias?.map(media => (
+            <MediaCard key={media.id} media={media} onSubscribe={handleSubscribe} width="400px" height="400px" />
+          ))}
+        </Flex>
+
+        <Heading>Articles disponibles</Heading>
 
         <Link
           href="/"
@@ -58,10 +71,11 @@ export default function ExplorePage() {
           fontSize={{ base: '1rem', lg: '2rem' }}
           onClick={logout}
           _hover={{ textDecoration: 'underline' }}
+          textAlign="center"
         >
           {tAccount('logout')}
         </Link>
-      </Flex>
+      </VStack>
     </ResponsiveLayout>
   )
 }
