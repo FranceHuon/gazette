@@ -1,5 +1,5 @@
 import { CreateSubscriptionDto } from '@gazette/shared'
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common'
 import { Subscription } from 'src/entities/subscription.entity'
 import { SubscriptionsService } from './subscription.service'
 
@@ -10,5 +10,10 @@ export class SubscriptionsController {
   @Post()
   async subscribe(@Body() dto: CreateSubscriptionDto): Promise<Subscription> {
     return this.subscriptionsService.create(dto)
+  }
+
+  @Delete(':id')
+  async unsubscribe(@Param('id') id: string): Promise<void> {
+    return this.subscriptionsService.delete(id)
   }
 }
