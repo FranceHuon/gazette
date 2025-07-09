@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from '@/contexts/AuthContext'
 
@@ -7,17 +7,21 @@ interface AuthGuardProps {
 }
 
 export function AuthGuard({ children }: AuthGuardProps) {
-  const auth = useContext(AuthContext)
+  const { user, loading } = useContext(AuthContext) ?? {}
   const router = useRouter()
 
   useEffect(() => {
-    if (auth && !auth.loading && !auth.user) {
+    if (!loading && !user) {
       router.push('/login')
     }
-  }, [auth, router])
+  }, [user, loading, router])
 
-  if (!auth || auth.loading || !auth.user) {
-    return <div>Loading...</div>
+  if (loading) {
+    return <div>Chargement</div>
+  }
+
+  if (!user) {
+    return <div>Non connecté</div>
   }
 
   return <>{children}</>

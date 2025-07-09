@@ -13,11 +13,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-// Fonction utilitaire pour charger le profil utilisateur
 async function loadUserProfile(setUser: (user: UserDto | null) => void) {
   try {
     const res = await getUserProfile()
-    // Transformation simple et directe
     setUser({
       id: res.user.sub,
       email: res.user.email,
