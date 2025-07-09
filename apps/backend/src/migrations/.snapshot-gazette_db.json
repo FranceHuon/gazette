@@ -137,15 +137,6 @@
           "length": 255,
           "mappedType": "string"
         },
-        "media_id_id": {
-          "name": "media_id_id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "uuid"
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamptz",
@@ -155,6 +146,15 @@
           "nullable": false,
           "length": 6,
           "mappedType": "datetime"
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
         }
       },
       "name": "content",
@@ -173,10 +173,10 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "content_media_id_id_foreign": {
-          "constraintName": "content_media_id_id_foreign",
+        "content_media_id_foreign": {
+          "constraintName": "content_media_id_foreign",
           "columnNames": [
-            "media_id_id"
+            "media_id"
           ],
           "localTableName": "public.content",
           "referencedColumnNames": [

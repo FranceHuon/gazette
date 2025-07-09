@@ -19,9 +19,9 @@ export class Content {
   @Property({ nullable: true })
   link!: string
 
-  @ManyToOne(() => Media, { nullable: true })
-  mediaId?: Media
-
   @Property()
   createdAt = new Date()
+
+  @ManyToOne(() => Media, { nullable: true })
+  media: Media
 }
