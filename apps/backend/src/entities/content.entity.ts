@@ -13,7 +13,7 @@ export class Content {
   @Property()
   date = new Date()
 
-  @Property({ nullable: true })
+  @Property({ nullable: true, length: 2000 })
   description!: string
 
   @Property({ nullable: true })
