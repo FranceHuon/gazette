@@ -9,9 +9,9 @@ import { LoggerModule } from 'nestjs-pino'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './modules/auth/auth.module'
-// import { ContentModule } from './modules/content/content.module'
-import { FavoritesModule } from './modules/favorite/favorite.module'
-// import { JobService } from './modules/job/job.service'
+import { ContentModule } from './modules/content/content.module'
+import { LikesModule } from './modules/like/like.module'
+import { JobService } from './modules/job/job.service'
 import { JwtConfigModule } from './modules/jwt/jwt.config.module'
 import { MediaModule } from './modules/media/media.module'
 import { RssModule } from './modules/rss/rss.module'
@@ -67,16 +67,14 @@ import { UsersModule } from './modules/user/user.module'
     ScheduleModule.forRoot(),
     UsersModule,
     AuthModule,
-    // ContentModule,
+    ContentModule,
     JwtConfigModule,
-    FavoritesModule,
+    LikesModule,
     RssModule,
     MediaModule,
     SubscriptionsModule,
   ],
   controllers: [AppController],
-  providers: [AppService,
-    // JobService
-  ],
+  providers: [AppService, JobService],
 })
 export class AppModule { }

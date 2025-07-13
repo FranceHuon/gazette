@@ -119,12 +119,12 @@
         },
         "description": {
           "name": "description",
-          "type": "varchar(255)",
+          "type": "varchar(2000)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "length": 255,
+          "length": 2000,
           "mappedType": "string"
         },
         "link": {
@@ -390,8 +390,8 @@
           "nullable": false,
           "mappedType": "uuid"
         },
-        "media_type_id": {
-          "name": "media_type_id",
+        "content_id": {
+          "name": "content_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -410,11 +410,11 @@
           "mappedType": "datetime"
         }
       },
-      "name": "favorite",
+      "name": "like",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "favorite_pkey",
+          "keyName": "like_pkey",
           "columnNames": [
             "id"
           ],
@@ -426,28 +426,28 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "favorite_user_id_foreign": {
-          "constraintName": "favorite_user_id_foreign",
+        "like_user_id_foreign": {
+          "constraintName": "like_user_id_foreign",
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "public.favorite",
+          "localTableName": "public.like",
           "referencedColumnNames": [
             "id"
           ],
           "referencedTableName": "public.user",
           "updateRule": "cascade"
         },
-        "favorite_media_type_id_foreign": {
-          "constraintName": "favorite_media_type_id_foreign",
+        "like_content_id_foreign": {
+          "constraintName": "like_content_id_foreign",
           "columnNames": [
-            "media_type_id"
+            "content_id"
           ],
-          "localTableName": "public.favorite",
+          "localTableName": "public.like",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.media",
+          "referencedTableName": "public.content",
           "updateRule": "cascade"
         }
       },
