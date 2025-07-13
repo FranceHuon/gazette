@@ -25,6 +25,7 @@
   "navigateApp": {
     "explore": "Explorer",
     "subscribe": "S'abonner",
+    "unsubscribe": "Se désabonner",
     "subscriber": "Abonné·e",
     "home": "Accueil",
     "menu": "Menu",
@@ -34,5 +35,24 @@
   },
   "form": {
     "passwordInstructions": "Votre mot de passe doit inclure : <ul><li>au moins 8 caractères</li> <li>une majuscule</li> <li>une minuscule</li> <li>un chiffre</li> <li>un caractère spécial (+ - [ ] * ~ _ # : ?)</li></ul>"
+  },
+  "login": {
+    "error": "Erreur de connexion",
+    "errorCreation": "Une erreur est survenue lors de la connexion",
+    "success": "Succès",
+    "passwordRequirements": "Votre mot de passe doit inclure :",
+    "passwordRequirementsList": {
+      "minLength": "au moins 8 caractères",
+      "uppercase": "une majuscule",
+      "lowercase": "une minuscule",
+      "number": "un chiffre",
+      "specialChar": "un caractère spécial (- [ ] ( ) * ~ _ # : ?)"
+    }
+  },
+  "signup": {
+    "error": "Erreur d'inscription",
+    "errorCreation": "Une erreur est survenue lors de la création du compte",
+    "success": "Compte créé avec succès",
+    "confirmCreation": "Votre compte a bien été créé"
   }
 }
