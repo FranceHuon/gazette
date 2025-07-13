@@ -1,4 +1,4 @@
-import { FeedSource, RssItemDTO } from '@gazette/shared'
+import { ContentDto, FeedSource } from '@gazette/shared'
 import { XMLParser } from 'fast-xml-parser'
 
 // Fonction simple pour décoder les entités HTML courantes
@@ -42,7 +42,7 @@ export const BondyBlogFeed: FeedSource = {
   name: 'bondyblog',
   url: 'https://www.bondyblog.fr/feed/',
 
-  async fetch(): Promise<RssItemDTO[]> {
+  async fetch(): Promise<ContentDto[]> {
     const res = await fetch(this.url)
     const xml = await res.text()
     const parser = new XMLParser()
@@ -73,13 +73,14 @@ export const BondyBlogFeed: FeedSource = {
 
     const items = data.rss?.channel?.item ?? []
 
-    return items.map((item: any): RssItemDTO => ({
+    return items.map((item: any): ContentDto => ({
       title: decodeHtmlEntities(item.title),
       link: item.link,
       pubDate: item.pubDate,
       description: item.description ? decodeHtmlEntities(item.description) : undefined,
       source: 'bondyblog',
       logo: logoUrl,
+      mediaId: 'bondyblog-media-id', // À remplacer par l'ID réel du média
     }))
   },
 }

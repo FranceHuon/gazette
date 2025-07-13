@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { Cron } from '@nestjs/schedule'
-import { RssService } from '../rss/rss.service'
+import { ContentService } from '../content/content.service'
 
 @Injectable()
 export class JobService {
   constructor(
-    private readonly rssService: RssService,
-    // private readonly contentService: ContentService,
+    private readonly contentService: ContentService,
   ) {}
 
   @Cron('0 0 * * *') // toutes les 24 heures (minuit)

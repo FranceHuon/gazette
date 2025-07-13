@@ -1,39 +1,27 @@
-import { FeedSource, RssItemDTO } from '@gazette/shared'
+import { ContentDto, FeedSource } from '@gazette/shared'
 import { XMLParser } from 'fast-xml-parser'
 
 export const BlastFeed: FeedSource = {
   name: 'blast',
   url: 'https://api.blast-info.fr/rss.xml',
 
-  async fetch(): Promise<RssItemDTO[]> {
+  async fetch(): Promise<ContentDto[]> {
     const res = await fetch(this.url)
     const xml = await res.text()
     const parser = new XMLParser()
     const data = parser.parse(xml)
 
-    console.warn('Objet parsé:', JSON.stringify(data, null, 2))
-
-    // Récupérer les informations du channel (logo, titre, description)
-    const channel = data.rss?.channel
-    if (channel) {
-      console.warn('=== INFORMATIONS DU CHANNEL BLAST ===')
-      console.warn('Titre:', channel.title)
-      console.warn('Description:', channel.description)
-      console.warn('Lien:', channel.link)
-
-      // Informations sur l'image/logo
-      if (channel.image) {
-        console.warn('=== LOGO BLAST ===')
-        console.warn('URL du logo:', channel.image.url)
-        console.warn('Titre du logo:', channel.image.title)
-        console.warn('Lien du logo:', channel.image.link)
-      }
-      console.warn('=== FIN INFORMATIONS CHANNEL ===')
-    }
-
     const items = data.rss?.channel?.item ?? []
 
-    return items.map((item: any): RssItemDTO => ({
+    // Log de la structure complète du premier article
+    if (items.length > 0) {
+      console.warn('=== STRUCTURE COMPLÈTE DU PREMIER ARTICLE BLAST ===')
+      console.warn('Tous les champs disponibles:', Object.keys(items[0]))
+      console.warn('Valeur complète:', JSON.stringify(items[0], null, 2))
+      console.warn('=== FIN STRUCTURE ===')
+    }
+
+    return items.map((item: any): ContentDto => ({
       title: item.title,
       link: item.link,
       pubDate: item.pubDate,

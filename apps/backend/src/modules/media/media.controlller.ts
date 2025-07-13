@@ -1,12 +1,34 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Post } from '@nestjs/common'
+import { MediaSeeder } from '../../scripts/seed-media'
 import { MediaService } from './media.service'
 
 @Controller('medias')
 export class MediaController {
-  constructor(private readonly mediaService: MediaService) {}
+  constructor(
+    private readonly mediaService: MediaService,
+    private readonly mediaSeeder: MediaSeeder,
+  ) {}
 
   @Get()
   async findAll() {
-    return this.mediaService.findAll()
+    const medias = await this.mediaService.findAll()
+    console.log('[MediaController] Médias trouvés:', medias.map(m => ({ id: m.id, name: m.name, urlRss: m.urlRss })))
+    return medias
+  }
+
+  @Get('details')
+  async getDetails() {
+    return this.mediaService.getAllWithDetails()
+  }
+
+  @Get('mapping')
+  async getMapping() {
+    return this.mediaService.getMediaIdsBySource()
+  }
+
+  @Post('seed')
+  async seed() {
+    await this.mediaSeeder.seed()
+    return { message: 'Médias créés avec succès' }
   }
 }

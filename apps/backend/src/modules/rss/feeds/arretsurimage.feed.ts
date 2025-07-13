@@ -1,4 +1,4 @@
-import { FeedSource, RssItemDTO } from '@gazette/shared'
+import { ContentDto, FeedSource } from '@gazette/shared'
 import { XMLParser } from 'fast-xml-parser'
 
 // Fonction pour nettoyer le HTML des descriptions
@@ -22,7 +22,7 @@ export const ArretSurImageFeed: FeedSource = {
   name: 'arretsurimage',
   url: 'https://api.arretsurimages.net/api/public/rss/all-content',
 
-  async fetch(): Promise<RssItemDTO[]> {
+  async fetch(): Promise<ContentDto[]> {
     const res = await fetch(this.url)
     const xml = await res.text()
     const parser = new XMLParser()
@@ -48,7 +48,7 @@ export const ArretSurImageFeed: FeedSource = {
 
     const items = data.rss?.channel?.item ?? []
 
-    return items.map((item: any): RssItemDTO => ({
+    return items.map((item: any): ContentDto => ({
       title: item.title,
       link: item.link,
       pubDate: item.pubDate,

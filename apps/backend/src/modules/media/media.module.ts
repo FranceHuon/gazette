@@ -1,6 +1,7 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs'
 import { Module } from '@nestjs/common'
 import { Media } from 'src/entities/media.entity'
+import { MediaSeeder } from '../../scripts/seed-media'
 import { MediaController } from './media.controlller'
 import { MediaService } from './media.service'
 
@@ -9,7 +10,7 @@ import { MediaService } from './media.service'
     MikroOrmModule.forFeature([Media]),
   ],
   controllers: [MediaController],
-  providers: [MediaService],
+  providers: [MediaService, MediaSeeder],
   exports: [MediaService],
 })
 export class MediaModule {}
