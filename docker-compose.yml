@@ -66,6 +66,7 @@ services:
     volumes:
       # Synchroniser le code source pour le développement
       - ./apps/frontend:/app/apps/frontend
+      - ./apps/frontend/src/i18n/locales:/app/apps/frontend/src/i18n/locales
       - ./packages:/app/packages
       - ./package.json:/app/package.json
       - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
