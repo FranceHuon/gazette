@@ -5,8 +5,8 @@ export async function createSubscription(dto: CreateSubscriptionDto): Promise<Su
   return api.post('subscriptions', { json: dto }).json()
 }
 
-export async function getUserSubscriptions(userId: string): Promise<SubscriptionDto[]> {
-  return api.get(`users/${userId}/subscriptions`).json()
+export async function getUserSubscriptions(): Promise<SubscriptionDto[]> {
+  return api.get('user/subscriptions').json()
 }
 
 export async function deleteSubscription(subscriptionId: string): Promise<void> {

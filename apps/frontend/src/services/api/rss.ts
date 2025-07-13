@@ -1,6 +1,6 @@
-import { RssItemDTO } from '@gazette/shared'
+import { ContentDto } from '@gazette/shared'
 import { api } from '@/config'
 
-export async function fetchFeeds(): Promise<RssItemDTO[]> {
-  return api.get('rss').json<RssItemDTO[]>()
+export async function fetchFeeds(): Promise<ContentDto[]> {
+  return api.get('rss').json<ContentDto[]>()
 }
