@@ -11,7 +11,7 @@ import {
 import { MediaDto } from '@gazette/shared'
 import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
-import { useSubscription } from '@/hooks/useSubscriptions'
+import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 import { api } from '../../config'
 import { AuthContext } from '../../contexts/AuthContext'
 import { AuthGuard } from '../guards/AuthGuard'
@@ -36,12 +36,10 @@ export function WelcomeModal({ isOpen: externalIsOpen, onClose: externalOnClose 
     enabled: !!user,
   })
 
-  const { create } = useSubscription(user!.id)
+  const { subscribe } = useSubscriptionsContext()
 
   const handleSubscribe = (mediaId: string) => {
-    if (!user)
-      return
-    create.mutate({ userId: user.id, mediaId })
+    subscribe(mediaId)
   }
 
   return (
@@ -80,7 +78,13 @@ export function WelcomeModal({ isOpen: externalIsOpen, onClose: externalOnClose 
             {isLoadingMedias && <p style={{ color: 'white' }}>Chargement...</p>}
             {isError && <p style={{ color: 'red' }}>Erreur lors du chargement des médias.</p>}
             {medias?.map(media => (
-              <MediaCard key={media.id} media={media} onSubscribe={handleSubscribe} width="450px" height="450px" />
+              <MediaCard
+                key={media.id}
+                media={media}
+                onSubscribe={handleSubscribe}
+                width="450px"
+                height="450px"
+              />
             ))}
           </Flex>
           <ModalCloseButton />
