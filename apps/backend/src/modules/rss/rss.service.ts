@@ -1,12 +1,10 @@
 import { ContentDto, FeedSource } from '@gazette/shared'
 import { Injectable } from '@nestjs/common'
-import { ArretSurImageFeed } from '../rss/feeds/arretsurimage.feed'
-import { BlastFeed } from '../rss/feeds/blast.feed'
-import { BondyBlogFeed } from '../rss/feeds/bondyblog.feed'
+import { RSS_FEEDS } from './feeds'
 
 @Injectable()
 export class RssService {
-  private readonly sources: FeedSource[] = [BondyBlogFeed, ArretSurImageFeed, BlastFeed]
+  private readonly sources: FeedSource[] = Object.values(RSS_FEEDS)
 
   async fetchAllFeeds(): Promise<ContentDto[]> {
     const results = await Promise.all(this.sources.map(src => src.fetch()))
@@ -14,14 +12,14 @@ export class RssService {
   }
 
   async fetchBondyBlogFeed(): Promise<ContentDto[]> {
-    return BondyBlogFeed.fetch()
+    return RSS_FEEDS.bondyblog.fetch()
   }
 
   async fetchArretSurImageFeed(): Promise<ContentDto[]> {
-    return ArretSurImageFeed.fetch()
+    return RSS_FEEDS.arretsurimage.fetch()
   }
 
   async fetchBlastFeed(): Promise<ContentDto[]> {
-    return BlastFeed.fetch()
+    return RSS_FEEDS.blast.fetch()
   }
 }
