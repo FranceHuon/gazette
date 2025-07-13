@@ -15,7 +15,7 @@ export const CreateUserSchema = z
       .string()
       .min(8, { message: 'must contains at least 8 characters' })
       .regex(passwordValidation, { message: 'Password must contain at least one uppercase, one lowercase, one number, and one special character (- [ ] ( ) * ~ _ # : ?)' }),
-    role: z.nativeEnum(UserRole).default(UserRole.USER),
+    role: z.nativeEnum(UserRole).default(UserRole.USER).optional(),
   })
   .refine(values => values.password === values.confirmPassword, {
     message: 'Passwords must match!',
