@@ -1,28 +1,19 @@
 import { Badge, Box, Card, CardBody, CardFooter, Heading, HStack, Link, Text, VStack } from '@chakra-ui/react'
+import { ContentDto } from '@gazette/shared'
 import { Heart } from 'lucide-react'
 
 interface RssCardProps {
-  title: string
-  link: string
-  comments?: string
-  pubDate?: string
-  category?: string
-  description?: string
-  content?: string
-  author?: string
-  guid?: string
-  source?: string
-  logo?: string
+  content: ContentDto
+  like: (contentId: string) => void
+  dislike: (contentId: string) => void
+  isLiked: (contentId: string) => boolean
 }
 
 function RssCard({
-  title,
-  link,
-  pubDate,
-  category,
-  author,
-  source,
-  description,
+  content,
+  like,
+  dislike,
+  isLiked,
 }: RssCardProps) {
   const formatDate = (dateString?: string) => {
     if (!dateString)
@@ -36,6 +27,9 @@ function RssCard({
       minute: '2-digit',
     })
   }
+
+  const isLikeOnlyMode = !dislike || !isLiked
+  const isCurrentlyLiked = isLiked ? isLiked(content.id) : false
 
   return (
     <Card
@@ -52,48 +46,28 @@ function RssCard({
           <VStack align="stretch" spacing={3}>
             <HStack justify="space-between" align="start">
               <HStack spacing={2}>
-                {source && (
-                  <Badge colorScheme="blue" variant="subtle">
-                    {source}
-                  </Badge>
-                )}
-                {category && (
-                  <Badge colorScheme="green" variant="subtle">
-                    {category}
-                  </Badge>
-                )}
+                <Badge colorScheme="blue" variant="subtle">
+                  {content.source}
+                </Badge>
               </HStack>
-              {pubDate && (
-                <Text fontSize="sm" color="gray.500">
-                  {formatDate(pubDate)}
-                </Text>
-              )}
+
+              <Text fontSize="sm" color="gray.500">
+                {formatDate(content.pubDate)}
+              </Text>
             </HStack>
-
             <Heading size="md" lineHeight="1.2" textAlign="center">
-              {title}
+              {content.title}
             </Heading>
-
-            {description && (
-              <Text color="gray.600" fontSize="sm" lineHeight="1.4">
-                {description}
-              </Text>
-            )}
-
-            {author && (
-              <Text fontSize="xs" color="gray.500" fontStyle="italic">
-                Par
-                {' '}
-                {author}
-              </Text>
-            )}
+            <Text color="gray.600" fontSize="sm" lineHeight="1.4">
+              {content.description}
+            </Text>
           </VStack>
         </CardBody>
 
         <CardFooter pt={0}>
           <HStack justify="space-between" w="full">
             <Link
-              href={link}
+              href={content.link}
               isExternal
               color="blue.500"
               fontSize="sm"
@@ -101,7 +75,11 @@ function RssCard({
             >
               Lire l'article Lien
             </Link>
-            <Heart stroke="#606c38" strokeWidth={3} />
+
+            {!isLikeOnlyMode && isCurrentlyLiked
+              ? (
+                  <Heart stroke="#606c38" strokeWidth={3} fill="#606c38" onClick={() => dislike!(content.id)} cursor="pointer" />)
+              : (<Heart stroke="#606c38" strokeWidth={3} onClick={() => like(content.id)} cursor="pointer" />)}
           </HStack>
         </CardFooter>
       </Box>
