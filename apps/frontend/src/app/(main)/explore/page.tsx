@@ -7,11 +7,23 @@ import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
 import Title from '@/components/layout/Title'
 import { useAuth } from '@/hooks/useAuth'
 import { useContents } from '@/hooks/useContents'
+import { useLikes } from '@/hooks/useLikes'
 
 function ExplorePageContent() {
   const { user } = useAuth()
-
   const { contents } = useContents()
+  const { like, dislike, isLiked } = useLikes()
+
+  const likedContents = contents?.filter(content => isLiked(content.id)) || []
+  const unlikedContents = contents?.filter(content => !isLiked(content.id)) || []
+
+  const handleLike = (contentId: string) => {
+    like(contentId)
+  }
+
+  const handleDislike = (contentId: string) => {
+    dislike(contentId)
+  }
 
   return (
     <ResponsiveLayout>
@@ -20,16 +32,25 @@ function ExplorePageContent() {
 
         <Heading>Vos articles</Heading>
         <Flex gap="20px" flexWrap="wrap" justifyContent="space-between">
-          {' '}
-          {contents.map(content => (
+          {likedContents.map(content => (
             <RssCard
-              key={content.title}
-              title={content.title}
-              link={content.link}
-              pubDate={content.pubDate}
-              description={content.description}
-              source={content.source}
-              logo={content.logo}
+              key={content.id}
+              content={content}
+              like={handleLike}
+              dislike={handleDislike}
+              isLiked={isLiked}
+            />
+          ))}
+        </Flex>
+        <Heading>Articles qui pourraient vous intéresser</Heading>
+        <Flex gap="20px" flexWrap="wrap" justifyContent="space-between">
+          {unlikedContents.map(content => (
+            <RssCard
+              key={content.id}
+              content={content}
+              like={handleLike}
+              dislike={handleDislike}
+              isLiked={isLiked}
             />
           ))}
         </Flex>
