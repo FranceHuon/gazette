@@ -5,10 +5,9 @@ import { ContentService } from './content.service'
 
 interface RequestWithUser extends Request {
   user: {
-    sub: string
+    id: string
     email: string
     pseudo: string
-    role: string
   }
 }
 
@@ -31,7 +30,7 @@ export class ContentController {
   @Get('user/subscriptions')
   @UseGuards(AuthGuard)
   async getUserSubscriptions(@Req() req: RequestWithUser) {
-    const contents = await this.contentService.getByUserSubscriptions(req.user.sub)
+    const contents = await this.contentService.getByUserSubscriptions(req.user.id)
     return contents
   }
 }

@@ -9,7 +9,6 @@ interface RequestWithUser extends Request {
     id: string
     email: string
     pseudo: string
-    role: string
   }
 }
 
@@ -30,11 +29,14 @@ export class LikesController {
   }
 
   @Post('likes')
-  async like(@Body() dto: CreateLikeDto): Promise<Like> {
-    return this.likesService.create(dto)
+  @UseGuards(AuthGuard)
+  async like(@Body() dto: CreateLikeDto, @Req() req: RequestWithUser): Promise<Like> {
+    const likeDto = { ...dto, userId: req.user.id }
+    return this.likesService.create(likeDto)
   }
 
   @Delete('likes/:id')
+  @UseGuards(AuthGuard)
   async unlike(@Param('id') id: string): Promise<void> {
     return this.likesService.delete(id)
   }

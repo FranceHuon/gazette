@@ -17,10 +17,9 @@ import { AuthService } from './auth.service'
 
 interface RequestWithUser extends Request {
   user: {
-    sub: string
+    id: string
     email: string
     pseudo: string
-    role: string
   }
 }
 

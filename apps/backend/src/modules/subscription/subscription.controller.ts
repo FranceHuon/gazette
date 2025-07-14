@@ -10,7 +10,6 @@ interface RequestWithUser extends Request {
     id: string
     email: string
     pseudo: string
-    role: string
   }
 }
 
@@ -31,11 +30,13 @@ export class SubscriptionsController {
   }
 
   @Post('subscriptions')
-  async subscribe(@Body() dto: CreateSubscriptionDto): Promise<Subscription> {
-    return this.subscriptionsService.create(dto)
+  @UseGuards(AuthGuard)
+  async subscribe(@Body() dto: CreateSubscriptionDto, @Req() req: RequestWithUser): Promise<Subscription> {
+    return this.subscriptionsService.create(dto, req.user.id)
   }
 
   @Delete('subscriptions/:id')
+  @UseGuards(AuthGuard)
   async unsubscribe(@Param('id') id: string): Promise<void> {
     return this.subscriptionsService.delete(id)
   }

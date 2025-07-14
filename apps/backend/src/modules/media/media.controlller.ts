@@ -1,5 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common'
+import { Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { MediaSeeder } from '../../scripts/seed-media'
+import { AuthGuard } from '../auth/auth.guard'
 import { MediaService } from './media.service'
 
 @Controller('medias')
@@ -12,7 +13,7 @@ export class MediaController {
   @Get()
   async findAll() {
     const medias = await this.mediaService.findAll()
-    console.log('[MediaController] Médias trouvés:', medias.map(m => ({ id: m.id, name: m.name, urlRss: m.urlRss })))
+    console.warn('[MediaController] Médias trouvés:', medias.map(m => ({ id: m.id, name: m.name, urlRss: m.urlRss })))
     return medias
   }
 
@@ -27,6 +28,7 @@ export class MediaController {
   }
 
   @Post('seed')
+  @UseGuards(AuthGuard)
   async seed() {
     await this.mediaSeeder.seed()
     return { message: 'Médias créés avec succès' }

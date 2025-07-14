@@ -1,22 +1,7 @@
 import { EntityManager } from '@mikro-orm/core'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import * as bcrypt from 'bcryptjs'
 import { User } from 'src/entities/user.entity'
-
-export async function hashPassword(password: string): Promise<string> {
-  const salt = await bcrypt.genSalt()
-  const hash = await bcrypt.hash(password, salt)
-  return hash
-}
-
-export async function verifyPassword(
-  inputPassword: string,
-  hashedPassword: string,
-): Promise<boolean> {
-  return await bcrypt.compare(inputPassword, hashedPassword)
-}
-
-export type NewUser = any
+import { hashPassword, verifyPassword } from './user.utils'
 
 @Injectable()
 export class UsersService {
@@ -44,7 +29,6 @@ export class UsersService {
       id: user.id,
       createdAt: user.createdAt,
       lastConnection: user.lastConnection,
-      role: user.role,
       subscriptions: user.subscriptions,
     }))
   }
@@ -62,3 +46,5 @@ export class UsersService {
     await this.em.removeAndFlush(user)
   }
 }
+
+export { hashPassword, verifyPassword }
