@@ -1,4 +1,4 @@
-import { ContentDto, FeedSource } from '@gazette/shared'
+import { FeedSource, RssItemDto } from '@gazette/shared'
 import { XMLParser } from 'fast-xml-parser'
 import { RSS_SOURCES, RssSourceKey } from '../../../config/rss-sources'
 
@@ -16,7 +16,7 @@ export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
     name: config.sourceKey,
     url: sourceConfig.url,
 
-    async fetch(): Promise<ContentDto[]> {
+    async fetch(): Promise<RssItemDto[]> {
       const res = await fetch(this.url)
       const xml = await res.text()
       const parser = new XMLParser()
@@ -34,7 +34,7 @@ export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
 
       const items = data.rss?.channel?.item ?? []
 
-      return items.map((item: any): ContentDto => ({
+      return items.map((item: any): RssItemDto => ({
         title: config.titleCleaner ? config.titleCleaner(item.title) : item.title,
         link: item.link,
         pubDate: item.pubDate,

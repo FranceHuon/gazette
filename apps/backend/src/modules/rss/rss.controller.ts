@@ -1,4 +1,4 @@
-import { ContentDto } from '@gazette/shared'
+import { RssItemDto } from '@gazette/shared'
 import { Controller, Get } from '@nestjs/common'
 import { RssService } from './rss.service'
 
@@ -7,22 +7,22 @@ export class RssController {
   constructor(private readonly rssService: RssService) {}
 
   @Get()
-  async getFeeds(): Promise<ContentDto[]> {
+  async getFeeds(): Promise<RssItemDto[]> {
     return this.rssService.fetchAllFeeds()
   }
 
   @Get('bondyblog')
-  async getBondyBlogFeed(): Promise<ContentDto[]> {
+  async getBondyBlogFeed(): Promise<RssItemDto[]> {
     return this.rssService.fetchBondyBlogFeed()
   }
 
   @Get('arretsurimage')
-  async getArretSurImageFeed(): Promise<ContentDto[]> {
+  async getArretSurImageFeed(): Promise<RssItemDto[]> {
     return this.rssService.fetchArretSurImageFeed()
   }
 
   @Get('blast')
-  async getBlastFeed(): Promise<ContentDto[]> {
+  async getBlastFeed(): Promise<RssItemDto[]> {
     return this.rssService.fetchBlastFeed()
   }
 }
