@@ -20,7 +20,6 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
   const createMutation = useMutation({
     mutationFn: (dto: CreateSubscriptionDto) => createSubscription(dto),
     onSuccess: () => {
-      console.warn('Subscription created successfully')
       queryClient.invalidateQueries({ queryKey: ['subscriptions', userId] })
     },
     onError: (error) => {
@@ -39,13 +38,10 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
   })
 
   const subscribe = (mediaId: string) => {
-    console.warn('subscribe called with mediaId:', mediaId, 'userId:', userId)
     if (!userId) {
-      console.warn('No userId found, returning early')
       return
     }
-    console.warn('Calling createMutation with:', { userId, mediaId })
-    createMutation.mutate({ userId, mediaId })
+    createMutation.mutate({ mediaId })
   }
 
   const unsubscribe = (mediaId: string) => {

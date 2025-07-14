@@ -1,5 +1,4 @@
 export interface CreateSubscriptionDto {
-  userId: string
   mediaId: string
 }
 
