@@ -1,6 +1,7 @@
 // Fonction pour nettoyer le HTML des descriptions
 export function cleanHtmlDescription(html: string): string {
-  if (!html) return ''
+  if (!html)
+    return ''
 
   // Supprimer les balises HTML tout en gardant le texte
   return html
@@ -16,7 +17,8 @@ export function cleanHtmlDescription(html: string): string {
 
 // Fonction pour décoder les entités HTML courantes
 export function decodeHtmlEntities(text: string): string {
-  if (!text) return text
+  if (!text)
+    return text
 
   // Décoder les entités numériques (&#233; -> é)
   let decoded = text.replace(/&#(\d+);/g, (match, code) => {
@@ -48,4 +50,4 @@ export function decodeHtmlEntities(text: string): string {
     .replace(/&bull;/g, '*')
 
   return decoded
-} 
+}

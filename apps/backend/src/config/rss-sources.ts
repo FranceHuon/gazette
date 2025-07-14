@@ -19,4 +19,4 @@ export const RSS_SOURCES = {
   },
 } as const
 
-export type RssSourceKey = keyof typeof RSS_SOURCES 
+export type RssSourceKey = keyof typeof RSS_SOURCES

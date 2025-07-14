@@ -1,7 +1,6 @@
 import { ContentDto, FeedSource } from '@gazette/shared'
 import { XMLParser } from 'fast-xml-parser'
 import { RSS_SOURCES, RssSourceKey } from '../../../config/rss-sources'
-import { decodeHtmlEntities, cleanHtmlDescription } from '../../../utils/html-cleaner'
 
 interface GenericRssConfig {
   sourceKey: RssSourceKey
@@ -12,7 +11,7 @@ interface GenericRssConfig {
 
 export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
   const sourceConfig = RSS_SOURCES[config.sourceKey]
-  
+
   return {
     name: config.sourceKey,
     url: sourceConfig.url,
@@ -28,7 +27,8 @@ export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
 
       if (config.extractLogo) {
         logoUrl = config.extractLogo(channel)
-      } else if (channel?.image) {
+      }
+      else if (channel?.image) {
         logoUrl = channel.image.url
       }
 
@@ -38,7 +38,7 @@ export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
         title: config.titleCleaner ? config.titleCleaner(item.title) : item.title,
         link: item.link,
         pubDate: item.pubDate,
-        description: item.description 
+        description: item.description
           ? (config.descriptionCleaner ? config.descriptionCleaner(item.description) : item.description)
           : undefined,
         source: config.sourceKey,
@@ -46,4 +46,4 @@ export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
       }))
     },
   }
-} 
+}

@@ -1,6 +1,6 @@
 import { CreateSubscriptionDto } from '@gazette/shared'
 import { EntityManager } from '@mikro-orm/core'
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { Media } from 'src/entities/media.entity'
 import { Subscription } from 'src/entities/subscription.entity'
 import { User } from 'src/entities/user.entity'

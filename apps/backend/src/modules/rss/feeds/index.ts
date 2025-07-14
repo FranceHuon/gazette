@@ -20,4 +20,4 @@ export const RSS_FEEDS = {
   bondyblog: BondyBlogFeed,
   arretsurimage: ArretSurImageFeed,
   blast: BlastFeed,
-} 
+}
