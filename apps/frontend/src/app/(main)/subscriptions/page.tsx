@@ -1,23 +1,15 @@
 'use client'
 import { Flex, Heading } from '@chakra-ui/react'
-import { MediaDto } from '@gazette/shared'
-import { useQuery } from '@tanstack/react-query'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
-import { api } from '@/config'
 import { useAuth } from '@/hooks/useAuth'
+import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
 function SubscriptionsPageContent() {
-  const { user } = useAuth()
-
-  const { data: medias } = useQuery<MediaDto[]>({
-    queryKey: ['medias'],
-    queryFn: async () => await api.get('medias').json(),
-    enabled: !!user,
-  })
-
+  const { medias } = useMedias()
   const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
+
   const subscribedMedias = medias?.filter(media => isSubscribed(media.id)) || []
   const unsubscribedMedias = medias?.filter(media => !isSubscribed(media.id)) || []
 

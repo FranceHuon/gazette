@@ -15,7 +15,6 @@ import { Field } from '../ui/field'
 import Button from './Button'
 import { WelcomeModal } from './Modal'
 
-// Schéma de validation pour l'inscription
 const SignUpSchema = SignUpFormSchema
 
 function FormSignUp() {
