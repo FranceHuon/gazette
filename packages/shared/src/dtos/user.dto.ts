@@ -1,4 +1,3 @@
-// Interface pour la représentation d'un utilisateur (response)
 export interface UserResponse {
   id: string
   firstName: string
@@ -13,12 +12,12 @@ export interface LoginDto {
   password: string
 }
 
-// Représentation de l'utilisateur tel qu'il est retourné par l'API
+// CreateUserDto is now defined in schemas/index.ts using Zod
+
 export interface ApiUser {
-  sub: string
+  id: string
   email: string
   pseudo: string
-  role: string
 }
 
 export interface UserProfileDto {
@@ -30,15 +29,12 @@ export interface UserDto {
   id: string
   email: string
   pseudo: string
-  role: 'user' | 'admin'
 }
 
-// Fonction utilitaire pour transformer ApiUser en UserDto
 export function transformApiUserToUserDto(apiUser: ApiUser): UserDto {
   return {
-    id: apiUser.sub,
+    id: apiUser.id,
     email: apiUser.email,
     pseudo: apiUser.pseudo,
-    role: apiUser.role as 'user' | 'admin',
   }
 }
