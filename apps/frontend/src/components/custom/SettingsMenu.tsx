@@ -13,7 +13,6 @@ function SettingsMenu() {
   const handleLogout = async () => {
     try {
       await logout()
-      // La redirection sera gérée par le contexte ou le routeur
     }
     catch (error) {
       console.error('Erreur lors de la déconnexion:', error)
@@ -22,7 +21,6 @@ function SettingsMenu() {
 
   const handleDeleteAccount = async () => {
     try {
-      // TODO: Implémenter la suppression de compte
       console.warn('Suppression de compte à implémenter')
     }
     catch (error) {
@@ -31,7 +29,7 @@ function SettingsMenu() {
   }
 
   return (
-    <Box textAlign="center">
+    <Box textAlign="left">
       <List spacing={2} variant="plain">
         <ListItem>
           <Icon as={LogOut} mr={2} />

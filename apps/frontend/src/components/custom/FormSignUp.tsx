@@ -1,20 +1,23 @@
 'use client'
 
-import type { CreateUserDto } from '@gazette/shared'
 import { Flex, Input, Stack, Text, useToast, VStack } from '@chakra-ui/react'
-import { CreateUserSchema, UserRole } from '@gazette/shared'
+import { SignUpFormSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 import { PasswordInput } from '@/components/ui/password-input'
 import { useAuth } from '@/hooks/useAuth'
 import { createUser } from '@/services/api/user'
 import { Field } from '../ui/field'
 import Button from './Button'
 import { WelcomeModal } from './Modal'
+
+// Schéma de validation pour l'inscription
+const SignUpSchema = SignUpFormSchema
 
 function FormSignUp() {
   const { t } = useTranslation('common', {
@@ -26,14 +29,19 @@ function FormSignUp() {
   const [isLoading, setIsLoading] = useState(false)
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false)
 
-  type FormValuesSignUp = Omit<CreateUserDto, 'role'>
+  interface FormValuesSignUp {
+    pseudo: string
+    email: string
+    password: string
+    confirmPassword: string
+  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValuesSignUp>({
-    resolver: zodResolver(CreateUserSchema),
+    resolver: zodResolver(SignUpSchema),
     defaultValues: {
       pseudo: '',
       email: '',
@@ -45,10 +53,12 @@ function FormSignUp() {
   const onSubmit = async (data: FormValuesSignUp) => {
     setIsLoading(true)
     try {
-      // Créer le compte
-      await createUser({ ...data, role: UserRole.USER })
+      await createUser({
+        pseudo: data.pseudo,
+        email: data.email,
+        password: data.password,
+      })
 
-      // Connecter automatiquement l'utilisateur après l'inscription
       await login(data.email, data.password)
 
       toast({
@@ -60,10 +70,6 @@ function FormSignUp() {
       })
 
       setIsWelcomeModalOpen(true)
-      // // Attendre un court instant avant la redirection
-      // setTimeout(() => {
-      //   router.push('/explore')
-      // }, 1000)
     }
     catch (error) {
       console.error(error)
