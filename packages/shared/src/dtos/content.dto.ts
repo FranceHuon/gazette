@@ -6,10 +6,19 @@ export interface ContentDto {
   description?: string
   source: string
   logo?: string
-  mediaId?: string // ID du média associé
+  mediaId?: string
 }
 
-// Type pour les données RSS brutes (avant sauvegarde en base)
+export interface ContentWithMediaDto extends ContentDto {
+  media: {
+    id: string
+    name: string
+    description?: string
+    picture?: string
+    urlRss?: string
+  }
+}
+
 export interface RssItemDto {
   title: string
   link: string
