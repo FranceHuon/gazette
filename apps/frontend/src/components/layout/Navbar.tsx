@@ -11,7 +11,7 @@ function Navbar() {
     keyPrefix: 'navigateApp',
   })
 
-  const { iconSize, fontSize, spacing, navbarStyles } = useResponsiveTokens()
+  const { iconSize, spacing, navbarStyles } = useResponsiveTokens()
 
   return (
     <Box
@@ -36,9 +36,7 @@ function Navbar() {
         >
           <Home size={iconSize} />
           <Text
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontWeight="semibold"
-            fontSize={fontSize}
+            textStyle="navbar"
             display={{ base: 'none', sm: 'block' }}
           >
             {t('home')}
@@ -59,9 +57,7 @@ function Navbar() {
         >
           <Compass size={iconSize} />
           <Text
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontWeight="semibold"
-            fontSize={fontSize}
+            textStyle="navbar"
             display={{ base: 'none', sm: 'block' }}
           >
             {t('explore')}
@@ -82,9 +78,7 @@ function Navbar() {
         >
           <Library size={iconSize} />
           <Text
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontWeight="semibold"
-            fontSize={fontSize}
+            textStyle="navbar"
             display={{ base: 'none', sm: 'block' }}
           >
             {t('subscriptions')}
@@ -105,9 +99,7 @@ function Navbar() {
         >
           <User size={iconSize} />
           <Text
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontWeight="semibold"
-            fontSize={fontSize}
+            textStyle="navbar"
             display={{ base: 'none', sm: 'block' }}
           >
             {t('account')}
