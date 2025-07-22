@@ -16,10 +16,10 @@ function CardExplorer() {
         alt="Green double couch with wooden legs"
       />
       <CardBody>
-        <Heading size="md" mb={2}>Titre</Heading>
+        <Heading textStyle="cardTitle" mb={2}>Titre</Heading>
         {/* Using of flex to align the description and the button */}
         <Flex align="center" justify="space-between">
-          <Text color="gray.600">Genre</Text>
+          <Text textStyle="cardContent">Genre</Text>
           <Button
             fontColor={isSubscribed ? '#606c38' : '#ffffff'} // si abonné, 1ere couleur, sinon 2eme
             backgroundColor={isSubscribed ? '#ffffff' : '#606c38'} // si abonné, 1ere couleur, sinon 2eme

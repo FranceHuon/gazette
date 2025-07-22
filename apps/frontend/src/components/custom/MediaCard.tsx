@@ -8,10 +8,18 @@ interface MediaCardProps {
   onSubscribe: (mediaId: string) => void
   onUnsubscribe?: (mediaId: string) => void
   isSubscribed?: (mediaId: string) => boolean
-  width: string
-  height: string
+  width?: string
+  height?: string
 }
-function MediaCard({ media, onSubscribe, onUnsubscribe, isSubscribed, width, height }: MediaCardProps) {
+
+function MediaCard({
+  media,
+  onSubscribe,
+  onUnsubscribe,
+  isSubscribed,
+  width = '400px',
+  height = '400px',
+}: MediaCardProps) {
   const { t } = useTranslation('common', {
     keyPrefix: 'navigateApp',
   })
@@ -20,30 +28,57 @@ function MediaCard({ media, onSubscribe, onUnsubscribe, isSubscribed, width, hei
   const isCurrentlySubscribed = isSubscribed ? isSubscribed(media.id) : false
 
   return (
-    <Card width={width} height={height} borderRadius="40px" overflow="hidden">
-      <CardBody>
-        <Flex flexDirection="column" gap={6}>
-          <Flex mb={4} width="100px" height="100px">
+    <Card
+      width={{ base: '100%', sm: '350px', md: width, lg: width }}
+      height={{ base: 'auto', sm: '400px', md: height, lg: height }}
+      minHeight={{ base: '400px', sm: '400px', md: height, lg: height }}
+      borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
+      overflow="hidden"
+      _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
+      transition="all 0.2s ease-in-out"
+    >
+      <CardBody padding={{ base: '16px', md: '20px' }}>
+        <Flex flexDirection="column" gap={{ base: 4, md: 6 }} height="100%">
+          <Flex
+            mb={{ base: 3, md: 4 }}
+            width={{ base: '80px', md: '100px' }}
+            height={{ base: '80px', md: '100px' }}
+            justifyContent="center"
+          >
             <Image
               src={media.picture}
               alt={media.name}
               maxW="100%"
-              maxH="120px"
+              maxH={{ base: '80px', md: '120px' }}
               objectFit="contain"
               fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
             />
           </Flex>
 
-          <Flex flexDirection="column" gap={2} height="150px" justifyContent="center">
-            <Heading size="xl">
+          <Flex
+            flexDirection="column"
+            gap={{ base: 1, md: 2 }}
+            flex="1"
+            justifyContent="center"
+          >
+            <Heading
+              size={{ base: 'lg', md: 'xl' }}
+              fontSize={{ base: 'lg', md: 'xl' }}
+              lineHeight="1.2"
+            >
               {media.name}
             </Heading>
-            <Text fontSize="xl" textAlign="left">
+            <Text
+              fontSize={{ base: 'md', md: 'xl' }}
+              textAlign="left"
+              lineHeight="1.4"
+              noOfLines={{ base: 3, md: 4 }}
+            >
               {media.description}
             </Text>
           </Flex>
 
-          <Flex justifyContent="flex-end" mb={2}>
+          <Flex justifyContent="flex-end" mt="auto">
             {!isSubscribeOnlyMode && isCurrentlySubscribed
               ? (
                   <Button
@@ -67,7 +102,6 @@ function MediaCard({ media, onSubscribe, onUnsubscribe, isSubscribed, width, hei
                 )}
           </Flex>
         </Flex>
-
       </CardBody>
     </Card>
   )
