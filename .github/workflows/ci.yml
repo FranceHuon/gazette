@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+      - dev
+  pull_request:
+    branches:
+      - main
+      - staging
+      - dev
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+
+      - name: Setup pnpm
+        run: npm install -g pnpm@10.11.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run ESLint
+        run: pnpm lint
+
+  typecheck:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+
+      - name: Setup pnpm
+        run: npm install -g pnpm@10.11.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run TypeScript typecheck
+        run: pnpm -r run typecheck
+
+  build:
+    needs: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+
+      - name: Setup pnpm
+        run: npm install -g pnpm@10.11.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build packages
+        env:
+          NODE_ENV: production
+          CI: true
+        run: pnpm -r build
