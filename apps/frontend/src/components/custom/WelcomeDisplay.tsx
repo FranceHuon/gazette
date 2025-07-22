@@ -28,12 +28,7 @@ function WelcomeDisplay() {
         <Heading>Gazette, c'est quoi ?</Heading>
         <Heading
           width="100%"
-          fontSize={{
-            base: '6rem',
-            lg: '20rem',
-          }}
-          fontWeight="bold"
-          textAlign="center"
+          textStyle="welcomeTitle"
         >
           {t('appTitle')}
         </Heading>
@@ -47,22 +42,14 @@ function WelcomeDisplay() {
         >
           <Link
             href="/signin"
-            fontSize={{
-              base: '1rem',
-              lg: '2rem',
-            }}
-            fontWeight="bold"
+            textStyle="welcomeLink"
             color="color.white"
           >
             {t('create')}
           </Link>
           <Link
             href="/login"
-            fontSize={{
-              base: '1rem',
-              lg: '2rem',
-            }}
-            fontWeight="bold"
+            textStyle="welcomeLink"
             color="color.white"
           >
             {t('login')}

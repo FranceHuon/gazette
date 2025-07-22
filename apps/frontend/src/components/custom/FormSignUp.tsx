@@ -160,8 +160,7 @@ function FormSignUp() {
             <Button
               type="submit"
               width="22rem"
-              fontSize="1.375rem"
-              fontWeight="bold"
+              textStyle="button"
               fontColor="color.white"
               backgroundColor="color.chaletGreen"
               text={t('signIn')}

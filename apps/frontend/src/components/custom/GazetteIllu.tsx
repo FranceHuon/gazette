@@ -16,28 +16,13 @@ function GazetteIllu() {
       alignItems="center"
     >
       <Flex flexDirection="column">
-        <Text
-          fontSize="10rem"
-          fontWeight="bold"
-          fontFamily="Staatliches"
-          lineHeight="18rem"
-        >
+        <Text textStyle="appTitle">
           {t('navigateApp.appTitle')}
         </Text>
-        <Text
-          fontSize="10rem"
-          fontWeight="bold"
-          fontFamily="Staatliches"
-          lineHeight="18rem"
-        >
+        <Text textStyle="appTitle">
           {t('navigateApp.appTitle')}
         </Text>
-        <Text
-          fontSize="10rem"
-          fontWeight="bold"
-          fontFamily="Staatliches"
-          lineHeight="18rem"
-        >
+        <Text textStyle="appTitle">
           {t('navigateApp.appTitle')}
         </Text>
       </Flex>
