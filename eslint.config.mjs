@@ -5,37 +5,29 @@ export default antfu(
   // Configures for antfu's config and global rules
   {
     react: true,
+    typescript: true,
     css: true,
     html: true,
     ignores: [
       '**/dist/',
       '**/temp/',
-      'ai-research/',
-      'apps/backoffice/src/routeTree.gen.ts',
-      'apps/api/yaak/',
-      'apps/backoffice/src/components/ui/',
-      'packages/nest-crud-helpers',
+      '**/node_modules/',
+      '**/.next/',
+      '**/coverage/',
+      '**/build/',
+      '**/.vercel/',
     ],
   },
   // Starting from the second arguments they are ESLint Flat Configs
   // Careful, antfu renames some plugins for consistency https://github.com/antfu/eslint-config?tab=readme-ov-file#plugins-renaming
-  {
-    files: ['apps/api/**/*.ts', 'apps/api/**/*.json'],
-    rules: {
-      'ts/consistent-type-imports': 'off',
-      '@typescript-eslint/consistent-type-imports': 'off',
-      'node/prefer-global/process': ['error', 'always'],
-    },
-  },
   {
     files: ['apps/backend/**/*.ts'],
     rules: {
       'ts/consistent-type-imports': 'off',
       '@typescript-eslint/consistent-type-imports': 'off',
       'node/prefer-global/process': ['error', 'always'],
-      'react-hooks-extra/no-unnecessary-use-prefix': 'off',
-      'react/no-unstable-default-props': 'off',
-      'react/no-array-index-key': 'off',
+      'ts/no-unused-vars': 'warn',
+      'ts/no-explicit-any': 'warn',
     },
   },
   {
@@ -43,7 +35,11 @@ export default antfu(
     rules: {
       'ts/consistent-type-imports': 'off',
       '@typescript-eslint/consistent-type-imports': 'off',
-      'node/prefer-global/process': 'off', // Next.js utilise process.env globalement
+      'node/prefer-global/process': 'off',
+      'react/no-unescaped-entities': 'off',
+      'react/display-name': 'off',
+      'ts/no-unused-vars': 'warn',
+      'ts/no-explicit-any': 'warn',
     },
   },
 )
