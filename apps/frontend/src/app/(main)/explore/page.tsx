@@ -5,6 +5,7 @@ import RssCard from '@/components/custom/RssCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
 import Title from '@/components/layout/Title'
+import { CardGrid } from '@/components/ui/responsive-grid'
 import { useAuth } from '@/hooks/useAuth'
 import { useContents } from '@/hooks/useContents'
 import { useLikes } from '@/hooks/useLikes'
@@ -27,34 +28,56 @@ function ExplorePageContent() {
 
   return (
     <ResponsiveLayout>
-      <Flex flexDirection="column" gap="40px" padding="40px" width="100%">
-        <Title text={`Bienvenue ${user?.pseudo || user?.email || 'Utilisateur'}`} fontColor="color.chaletGreen" />
+      <Flex
+        flexDirection="column"
+        gap={{ base: '24px', md: '32px', lg: '40px' }}
+        width="100%"
+      >
+        <Title
+          text={`Bienvenue ${user?.pseudo || user?.email || 'Utilisateur'}`}
+          fontColor="color.chaletGreen"
+        />
 
-        <Heading>Vos articles</Heading>
-        <Flex gap="40px" flexWrap="wrap" justifyContent="space-between" margin="40px">
-          {likedContents.map(content => (
-            <RssCard
-              key={content.id}
-              content={content}
-              like={handleLike}
-              dislike={handleDislike}
-              isLiked={isLiked}
-            />
-          ))}
-        </Flex>
-        <Heading>Articles qui pourraient vous intéresser</Heading>
-        <Flex gap="40px" flexWrap="wrap" justifyContent="space-between" margin="40px">
-          {unlikedContents.map(content => (
-            <RssCard
-              key={content.id}
-              content={content}
-              like={handleLike}
-              dislike={handleDislike}
-              isLiked={isLiked}
-            />
-          ))}
-        </Flex>
-        </Flex>
+        <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
+          <Heading
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
+            color="color.chaletGreen"
+          >
+            Vos articles
+          </Heading>
+          <CardGrid>
+            {likedContents.map(content => (
+              <RssCard
+                key={content.id}
+                content={content}
+                like={handleLike}
+                dislike={handleDislike}
+                isLiked={isLiked}
+              />
+            ))}
+          </CardGrid>
+        </VStack>
+
+        <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
+          <Heading
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
+            color="color.chaletGreen"
+          >
+            Articles qui pourraient vous intéresser
+          </Heading>
+          <CardGrid>
+            {unlikedContents.map(content => (
+              <RssCard
+                key={content.id}
+                content={content}
+                like={handleLike}
+                dislike={handleDislike}
+                isLiked={isLiked}
+              />
+            ))}
+          </CardGrid>
+        </VStack>
+      </Flex>
     </ResponsiveLayout>
   )
 }

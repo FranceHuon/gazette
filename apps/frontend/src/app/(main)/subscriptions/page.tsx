@@ -1,7 +1,9 @@
 'use client'
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Heading, VStack } from '@chakra-ui/react'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
+import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
+import { CardGrid } from '@/components/ui/responsive-grid'
 import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
@@ -21,37 +23,49 @@ function SubscriptionsPageContent() {
   }
 
   return (
-    <Flex>
-      <Heading>Vos abonnements</Heading>
-      <Flex gap="60px" flexWrap="wrap" justifyContent="center">
-        {subscribedMedias.map(media => (
-          <MediaCard
-            key={media.id}
-            media={media}
-            onSubscribe={handleSubscribe}
-            onUnsubscribe={handleUnsubscribe}
-            isSubscribed={isSubscribed}
-            width="400px"
-            height="400px"
-          />
-        ))}
-      </Flex>
+    <ResponsiveLayout>
+      <Flex flexDirection="column" gap={{ base: '24px', md: '32px', lg: '40px' }} width="100%">
+        <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
+          <Heading
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
+            color="color.chaletGreen"
+          >
+            Vos abonnements
+          </Heading>
+          <CardGrid>
+            {subscribedMedias.map(media => (
+              <MediaCard
+                key={media.id}
+                media={media}
+                onSubscribe={handleSubscribe}
+                onUnsubscribe={handleUnsubscribe}
+                isSubscribed={isSubscribed}
+              />
+            ))}
+          </CardGrid>
+        </VStack>
 
-      <Heading>Médias disponibles</Heading>
-      <Flex gap="60px" flexWrap="wrap" justifyContent="center">
-        {unsubscribedMedias.map(media => (
-          <MediaCard
-            key={media.id}
-            media={media}
-            onSubscribe={handleSubscribe}
-            onUnsubscribe={handleUnsubscribe}
-            isSubscribed={isSubscribed}
-            width="400px"
-            height="400px"
-          />
-        ))}
+        <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
+          <Heading
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
+            color="color.chaletGreen"
+          >
+            Médias disponibles
+          </Heading>
+          <CardGrid>
+            {unsubscribedMedias.map(media => (
+              <MediaCard
+                key={media.id}
+                media={media}
+                onSubscribe={handleSubscribe}
+                onUnsubscribe={handleUnsubscribe}
+                isSubscribed={isSubscribed}
+              />
+            ))}
+          </CardGrid>
+        </VStack>
       </Flex>
-    </Flex>
+    </ResponsiveLayout>
   )
 }
 

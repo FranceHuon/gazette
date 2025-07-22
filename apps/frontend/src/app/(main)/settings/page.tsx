@@ -1,8 +1,9 @@
 'use client'
 
-import { Flex } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import SettingsMenu from '@/components/custom/SettingsMenu'
+import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
 import Title from '@/components/layout/Title'
 
 export default function SettingsPage() {
@@ -11,17 +12,17 @@ export default function SettingsPage() {
   })
 
   return (
-    <Flex
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      width="100%"
-      height="100%"
-      padding="2rem"
-    >
-      <Title text={t('account')} fontColor="color.chaletGreen" />
-      <SettingsMenu />
-    </Flex>
-
+    <ResponsiveLayout>
+      <VStack
+        spacing={{ base: '24px', md: '32px', lg: '40px' }}
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+        minHeight="60vh"
+      >
+        <Title text={t('account')} fontColor="color.chaletGreen" />
+        <SettingsMenu />
+      </VStack>
+    </ResponsiveLayout>
   )
 }
