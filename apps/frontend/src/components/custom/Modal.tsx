@@ -98,7 +98,7 @@ export function WelcomeModal({ isOpen: externalIsOpen, onClose: externalOnClose 
           gap="20px"
           paddingTop="100px"
         >
-          <Heading color="color.white" fontSize="3.5rem" textAlign="center" letterSpacing="0.05em">
+          <Heading color="color.white" textStyle="modalTitle" textAlign="center">
             Choisissez votre média préféré
           </Heading>
           <ModalCloseButton />
@@ -110,8 +110,7 @@ export function WelcomeModal({ isOpen: externalIsOpen, onClose: externalOnClose 
                   onClick={() => handleMediaSelection(mediaType)}
                   padding="40px"
                   fontColor="color.white"
-                  fontFamily="Staatliches"
-                  fontSize="2.5rem"
+                  textStyle="modalButton"
                   backgroundColor="color.chaletGreen"
                   text={mediaType.name}
                   letterSpacing="0.05em"

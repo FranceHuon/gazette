@@ -36,8 +36,7 @@ function SettingsMenu() {
           <Link
             onClick={handleLogout}
             cursor="pointer"
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontSize={{ base: '1rem', lg: '2rem' }}
+            textStyle="nav"
           >
             {t('logout')}
           </Link>
@@ -47,8 +46,7 @@ function SettingsMenu() {
           <Link
             onClick={handleDeleteAccount}
             cursor="pointer"
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontSize={{ base: '1rem', lg: '2rem' }}
+            textStyle="nav"
           >
             {t('delete')}
           </Link>
@@ -57,8 +55,7 @@ function SettingsMenu() {
           <Icon as={HelpCircle} mr={2} />
           <Link
             href="/about"
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontSize={{ base: '1rem', lg: '2rem' }}
+            textStyle="nav"
           >
             {t('about')}
           </Link>
@@ -66,8 +63,7 @@ function SettingsMenu() {
         <ListItem>
           <Icon as={FileBadge} mr={2} />
           <Link
-            fontFamily={{ base: 'Poppins', lg: 'Staatliches' }}
-            fontSize={{ base: '1rem', lg: '2rem' }}
+            textStyle="nav"
           >
             {t('policy')}
           </Link>
