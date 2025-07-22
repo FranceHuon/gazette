@@ -10,7 +10,7 @@ export class MediaSeeder {
   async seed(): Promise<void> {
     console.log('[MediaSeeder] Début de la création des médias...')
 
-    for (const [sourceKey, sourceConfig] of Object.entries(RSS_SOURCES)) {
+    for (const [, sourceConfig] of Object.entries(RSS_SOURCES)) {
       // Vérifier si le média existe déjà
       const existing = await this.em.findOne(Media, { urlRss: sourceConfig.url })
 

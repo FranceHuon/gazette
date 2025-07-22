@@ -6,7 +6,7 @@ interface GenericRssConfig {
   sourceKey: RssSourceKey
   titleCleaner?: (title: string) => string
   descriptionCleaner?: (description: string) => string
-  extractLogo?: (channel: any) => string | undefined
+  extractLogo?: (channel: unknown) => string | undefined
 }
 
 export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
@@ -34,16 +34,19 @@ export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
 
       const items = data.rss?.channel?.item ?? []
 
-      return items.map((item: any): RssItemDto => ({
-        title: config.titleCleaner ? config.titleCleaner(item.title) : item.title,
-        link: item.link,
-        pubDate: item.pubDate,
-        description: item.description
-          ? (config.descriptionCleaner ? config.descriptionCleaner(item.description) : item.description)
-          : undefined,
-        source: config.sourceKey,
-        logo: logoUrl,
-      }))
+      return items.map((item: unknown): RssItemDto => {
+        const itemData = item as { title: string, link: string, pubDate: string, description?: string }
+        return {
+          title: config.titleCleaner ? config.titleCleaner(itemData.title) : itemData.title,
+          link: itemData.link,
+          pubDate: itemData.pubDate,
+          description: itemData.description
+            ? (config.descriptionCleaner ? config.descriptionCleaner(itemData.description) : itemData.description)
+            : undefined,
+          source: config.sourceKey,
+          logo: logoUrl,
+        }
+      })
     },
   }
 }

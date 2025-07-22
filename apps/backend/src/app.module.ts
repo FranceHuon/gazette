@@ -22,7 +22,7 @@ import { UsersModule } from './modules/user/user.module'
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      validate: (config: Record<string, any>) => {
+      validate: (config: Record<string, unknown>) => {
         return config
       },
     }),
