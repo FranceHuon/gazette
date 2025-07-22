@@ -1,6 +1,6 @@
 import { CreateLikeDto, LikeDto } from '@gazette/shared'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useContext, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { createLike, deleteLike, getUserLikes } from '@/services/api/likes'
 import { AuthContext } from './AuthContext'
 import { LikeContext } from './LikeContext.types'
@@ -38,26 +38,27 @@ export function LikeProvider({ children }: { children: React.ReactNode }) {
     },
   })
 
-  const like = (contentId: string) => {
+  const like = useCallback((contentId: string) => {
     if (!userId) {
       return
     }
     createMutation.mutate({ userId, contentId })
-  }
+  }, [userId, createMutation])
 
-  const dislike = (contentId: string) => {
+  const dislike = useCallback((contentId: string) => {
     if (!userId)
       return
     const like = likes.find((l: LikeDto) => l.contentId === contentId)
     if (like)
       deleteMutation.mutate(like.id)
-  }
+  }, [userId, likes, deleteMutation])
 
-  const isLiked = (contentId: string): boolean => {
+  const isLiked = useCallback((contentId: string): boolean => {
     const liked = likes.some((l: LikeDto) => l.contentId === contentId)
     return liked
-  }
-  const value = useMemo(() => ({ likes, isLoading, isError, like, dislike, isLiked }), [likes, isLoading, isError])
+  }, [likes])
+
+  const value = useMemo(() => ({ likes, isLoading, isError, like, dislike, isLiked }), [likes, isLoading, isError, like, dislike, isLiked])
 
   return (
     <LikeContext.Provider value={value}>

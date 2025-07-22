@@ -9,10 +9,11 @@ export async function createUser(user: CreateUserDto): Promise<CreateUserDto> {
     console.warn('Réponse backend :', data)
     return data as CreateUserDto
   }
-  catch (error: any) {
+  catch (error: unknown) {
     console.error('Erreur lors de la création utilisateur :', error)
-    if (error.response) {
-      const errorData = await error.response.json()
+    if (error && typeof error === 'object' && 'response' in error) {
+      const errorResponse = error as { response: { json: () => Promise<unknown> } }
+      const errorData = await errorResponse.response.json()
       console.error('Détail erreur backend :', errorData)
     }
     throw error

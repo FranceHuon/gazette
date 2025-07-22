@@ -1,6 +1,6 @@
 import { CreateSubscriptionDto, SubscriptionDto } from '@gazette/shared'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useContext, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import { createSubscription, deleteSubscription, getUserSubscriptions } from '@/services/api/subscriptions'
 import { AuthContext } from './AuthContext'
 import { SubscriptionContext } from './SubscriptionContext.types'
@@ -37,27 +37,27 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
     },
   })
 
-  const subscribe = (mediaId: string) => {
+  const subscribe = useCallback((mediaId: string) => {
     if (!userId) {
       return
     }
     createMutation.mutate({ mediaId })
-  }
+  }, [userId, createMutation])
 
-  const unsubscribe = (mediaId: string) => {
+  const unsubscribe = useCallback((mediaId: string) => {
     if (!userId)
       return
     const sub = subscriptions.find((s: SubscriptionDto) => s.mediaId === mediaId)
     if (sub)
       deleteMutation.mutate(sub.id)
-  }
+  }, [userId, subscriptions, deleteMutation])
 
-  const isSubscribed = (mediaId: string): boolean => {
+  const isSubscribed = useCallback((mediaId: string): boolean => {
     const subscribed = subscriptions.some((s: SubscriptionDto) => s.mediaId === mediaId)
     return subscribed
-  }
+  }, [subscriptions])
 
-  const value = useMemo(() => ({ subscriptions, isLoading, isError, subscribe, unsubscribe, isSubscribed }), [subscriptions, isLoading, isError])
+  const value = useMemo(() => ({ subscriptions, isLoading, isError, subscribe, unsubscribe, isSubscribed }), [subscriptions, isLoading, isError, subscribe, unsubscribe, isSubscribed])
 
   return (
     <SubscriptionContext.Provider value={value}>
