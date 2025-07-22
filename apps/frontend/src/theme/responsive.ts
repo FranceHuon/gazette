@@ -55,11 +55,68 @@ export function useResponsiveTokens() {
     lg: '7rem',
   })
 
+  // Nouveaux tokens pour les cartes
+  const cardDimensions = useBreakpointValue({
+    base: { width: '100%', height: 'auto', minHeight: '400px' },
+    sm: { width: '350px', height: '400px' },
+    md: { width: '450px', height: '500px' },
+    lg: { width: '600px', height: '600px' },
+  })
+
+  const cardSpacing = useBreakpointValue({
+    base: '16px',
+    md: '24px',
+    lg: '40px',
+  })
+
+  const pagePadding = useBreakpointValue({
+    base: '16px',
+    md: '24px',
+    lg: '40px',
+  })
+
+  const headingSizes = useBreakpointValue({
+    base: { h1: 'xl', h2: 'lg', h3: 'md' },
+    md: { h1: '2xl', h2: 'xl', h3: 'lg' },
+    lg: { h1: '3xl', h2: '2xl', h3: 'xl' },
+  })
+
   return {
     iconSize,
     fontSize,
     spacing,
     navbarStyles,
     titleFontSize,
+    cardDimensions,
+    cardSpacing,
+    pagePadding,
+    headingSizes,
   }
+}
+
+// Hook pour détecter si on est sur mobile
+export function useIsMobile() {
+  return useBreakpointValue({
+    base: true,
+    lg: false,
+  }) || false
+}
+
+// Hook pour détecter si on est sur desktop
+export function useIsDesktop() {
+  return useBreakpointValue({
+    base: false,
+    lg: true,
+  }) || false
+}
+
+// Hook pour les breakpoints personnalisés
+export function useBreakpoint() {
+  return useBreakpointValue({
+    base: 'mobile',
+    sm: 'small',
+    md: 'tablet',
+    lg: 'desktop',
+    xl: 'wide',
+  }) || 'mobile'
 }
