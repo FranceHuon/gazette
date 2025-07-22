@@ -77,3 +77,42 @@ jobs:
           NODE_ENV: production
           CI: true
         run: pnpm -r build
+
+  lighthouse:
+    name: Lighthouse Accessibility Audit
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+
+      - name: Install pnpm and dependencies
+        run: |
+          npm install -g pnpm@10.11.0
+          pnpm install
+
+      - name: Start app in background
+        run: |
+          pnpm dev & # ou pnpm start selon ton script
+          npx wait-on http://localhost:3000
+
+      - name: Run Lighthouse audit
+        run: |
+          npx lighthouse http://localhost:3000 \
+            --only-categories=accessibility \
+            --quiet \
+            --chrome-flags="--headless" \
+            --output html \
+            --output-path ./lighthouse-report.html
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./lighthouse-report.html
