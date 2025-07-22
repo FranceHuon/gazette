@@ -2,7 +2,6 @@
 import { Flex, Heading } from '@chakra-ui/react'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
-import { useAuth } from '@/hooks/useAuth'
 import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
