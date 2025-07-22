@@ -27,11 +27,11 @@ function ExplorePageContent() {
 
   return (
     <ResponsiveLayout>
-      <VStack spacing={8} align="stretch">
+      <Flex flexDirection="column" gap="40px" padding="40px" width="100%">
         <Title text={`Bienvenue ${user?.pseudo || user?.email || 'Utilisateur'}`} fontColor="color.chaletGreen" />
 
         <Heading>Vos articles</Heading>
-        <Flex gap="20px" flexWrap="wrap" justifyContent="space-between">
+        <Flex gap="40px" flexWrap="wrap" justifyContent="space-between" margin="40px">
           {likedContents.map(content => (
             <RssCard
               key={content.id}
@@ -43,7 +43,7 @@ function ExplorePageContent() {
           ))}
         </Flex>
         <Heading>Articles qui pourraient vous intéresser</Heading>
-        <Flex gap="20px" flexWrap="wrap" justifyContent="space-between">
+        <Flex gap="40px" flexWrap="wrap" justifyContent="space-between" margin="40px">
           {unlikedContents.map(content => (
             <RssCard
               key={content.id}
@@ -54,7 +54,7 @@ function ExplorePageContent() {
             />
           ))}
         </Flex>
-      </VStack>
+        </Flex>
     </ResponsiveLayout>
   )
 }
