@@ -106,9 +106,9 @@ jobs:
 
       - name: Start Docker services
         run: |
-          docker-compose up -d postgres
-          docker-compose up -d backend
-          docker-compose up -d frontend
+          docker compose up -d postgres
+          docker compose up -d backend
+          docker compose up -d frontend
 
       - name: Wait for services to be ready
         run: |
