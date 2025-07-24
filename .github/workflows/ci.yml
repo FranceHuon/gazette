@@ -117,9 +117,16 @@ jobs:
         run: |
           echo "Starting all services with docker compose..."
           docker compose up --build
+          echo "Installing missing binaries..."
+          docker compose exec backend pnpm install
+          docker compose exec frontend pnpm install
 
       - name: Run Lighthouse authentication script
-        run: node .github/scripts/lighthouse-auth.js
+        run: |
+          echo "Installing Lighthouse dependencies..."
+          pnpm add -w lighthouse puppeteer wait-on
+          echo "Running Lighthouse audit..."
+          node .github/scripts/lighthouse-auth.js
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v4
