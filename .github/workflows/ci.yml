@@ -136,13 +136,14 @@ jobs:
             --network gazette_gazette-network \
             -v $(pwd)/.github/scripts:/scripts \
             -v $(pwd):/workspace \
-            -w /workspace \
+            -w /scripts \
             node:20-alpine \
             sh -c "
               npm install -g pnpm@10.12.4
+              pnpm init -y
               pnpm add lighthouse puppeteer wait-on
               npx puppeteer browsers install chrome
-              node /scripts/lighthouse-auth.js
+              node lighthouse-auth.js
             "
 
       - name: Upload Lighthouse reports
