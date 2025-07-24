@@ -42,12 +42,12 @@ async function loginAndGetCookie(testUser) {
     const page = await browser.newPage()
     console.log(`🌐 Navigating to: ${FRONTEND_URL}/login`)
     await page.goto(`${FRONTEND_URL}/login`, { waitUntil: 'networkidle0' })
-    
+
     console.log('📝 Filling login form...')
     await page.type('input[name="email"]', testUser.email)
     await page.type('input[name="password"]', testUser.password)
     await page.click('button[type="submit"]')
-    
+
     console.log('⏳ Waiting for navigation...')
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
 
