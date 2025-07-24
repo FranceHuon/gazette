@@ -148,6 +148,10 @@ jobs:
 
       - name: Wait for services to be ready
         run: |
+          echo "Waiting 10 seconds for services to fully start..."
+          sleep 10
+          echo "Checking if backend is listening on port 3000..."
+          curl -f http://localhost:3000/auth/profile || echo "Backend not ready yet"
           echo "Waiting for backend on port 3000..."
           npx wait-on http://localhost:3000 --timeout 60000 # 1 minute
           echo "Backend is ready!"
