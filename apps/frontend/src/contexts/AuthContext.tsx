@@ -2,13 +2,14 @@
 
 import { UserDto } from '@gazette/shared'
 import { createContext, useEffect, useMemo, useState } from 'react'
-import { getUserProfile, loginUser, logoutUser } from '@/services/api/user'
+import { deleteUserAccount, getUserProfile, loginUser, logoutUser } from '@/services/api/user'
 
 interface AuthContextType {
   user: UserDto | null
   loading: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
+  deleteAccount: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -45,7 +46,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null)
   }
 
-  const value = useMemo(() => ({ user, loading, login, logout }), [user, loading])
+  const deleteAccount = async () => {
+    await deleteUserAccount()
+    setUser(null)
+  }
+
+  const value = useMemo(() => ({ user, loading, login, logout, deleteAccount }), [user, loading])
 
   return (
     <AuthContext.Provider value={value}>

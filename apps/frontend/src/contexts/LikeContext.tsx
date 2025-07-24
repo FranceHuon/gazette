@@ -19,22 +19,20 @@ export function LikeProvider({ children }: { children: React.ReactNode }) {
   const createMutation = useMutation({
     mutationFn: (dto: CreateLikeDto) => createLike(dto),
     onSuccess: () => {
-      console.warn('Like created successfully')
       queryClient.invalidateQueries({ queryKey: ['likes', userId] })
     },
     onError: (error) => {
-      console.warn('Error creating like:', error)
+      // Gestion silencieuse des erreurs
     },
   })
 
   const deleteMutation = useMutation({
     mutationFn: (likeId: string) => deleteLike(likeId),
     onSuccess: () => {
-      console.warn('Like deleted successfully')
       queryClient.invalidateQueries({ queryKey: ['likes', userId] })
     },
     onError: (error) => {
-      console.warn('Error deleting like:', error)
+      // Gestion silencieuse des erreurs
     },
   })
 
