@@ -120,46 +120,83 @@ jobs:
           fi
           echo "✅ All required secrets are set"
 
+      - name: Start Docker services
+        run: |
+          echo "=== Starting Docker services ==="
+          echo "Building and starting all services..."
+          docker compose up --build -d
+
+          echo "=== Waiting for services to start ==="
+          echo "Waiting 60 seconds for services to fully start..."
+          sleep 60
+
+          echo "=== Container Status Check ==="
+          echo "All containers status:"
+          docker compose ps -a
+
+          echo "=== Container Health Check ==="
+          echo "Checking if containers are running..."
+          if ! docker compose ps --status running | grep -q "frontend\|backend"; then
+            echo "❌ Some containers are not running!"
+            echo "Container logs:"
+            docker compose logs --tail=50
+            echo "❌ Exiting due to container startup failure"
+            exit 1
+          fi
+
+          echo "✅ All containers are running!"
+
+          echo "=== Network Configuration ==="
+          echo "Docker networks:"
+          docker network ls
+          echo "Gazette network details:"
+          docker network inspect gazette_gazette-network || echo "Network not found"
+
+          echo "=== Port Mappings ==="
+          echo "Frontend port mapping:"
+          docker compose port frontend ${{ secrets.FRONTEND_PORT }} || echo "❌ Frontend port mapping failed"
+          echo "Backend port mapping:"
+          docker compose port backend ${{ secrets.BACKEND_PORT }} || echo "❌ Backend port mapping failed"
+
+          echo "=== Service Accessibility ==="
+          echo "Testing backend accessibility..."
+          for i in {1..15}; do
+            echo "Attempt $i/15 to connect to backend on port ${{ secrets.BACKEND_PORT }}..."
+            if curl -f -s http://localhost:${{ secrets.BACKEND_PORT }}/ > /dev/null 2>&1; then
+              echo "✅ Backend is accessible!"
+              break
+            fi
+            if [ $i -eq 15 ]; then
+              echo "❌ Backend is not accessible after 15 attempts"
+              echo "Backend logs:"
+              docker compose logs backend --tail=30
+              exit 1
+            fi
+            sleep 5
+          done
+
+          echo "Testing frontend accessibility..."
+          for i in {1..15}; do
+            echo "Attempt $i/15 to connect to frontend on port ${{ secrets.FRONTEND_PORT }}..."
+            if curl -f -s http://localhost:${{ secrets.FRONTEND_PORT }}/ > /dev/null 2>&1; then
+              echo "✅ Frontend is accessible!"
+              break
+            fi
+            if [ $i -eq 15 ]; then
+              echo "❌ Frontend is not accessible after 15 attempts"
+              echo "Frontend logs:"
+              docker compose logs frontend --tail=30
+              exit 1
+            fi
+            sleep 5
+          done
+
+          echo "✅ All services are accessible!"
+
       - name: Run Lighthouse CI
         env:
           FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
         run: |
-          echo "Getting Docker host IP..."
-          DOCKER_HOST_IP=$(docker network inspect bridge | jq -r '.[0].IPAM.Config[0].Gateway')
-          echo "Docker host IP: $DOCKER_HOST_IP"
-
-          echo "=== Network Diagnostics ==="
-          echo "Docker network list:"
-          docker network ls
-          echo "Docker network inspect:"
-          docker network inspect gazette_gazette-network || echo "Network not found"
-
-          echo "=== Container Status ==="
-          docker compose ps
-
-          echo "=== Port Mappings ==="
-          docker compose port frontend ${{ secrets.FRONTEND_PORT }} || echo "Frontend port mapping failed"
-          docker compose port backend 3000 || echo "Backend port mapping failed"
-
-          echo "=== Connectivity Tests ==="
-          echo "Testing localhost connectivity..."
-          curl -v http://localhost:${{ secrets.FRONTEND_PORT }}/ || echo "localhost:Frontend not accessible"
-          curl -v http://localhost:3000/ || echo "localhost:Backend not accessible"
-
-          echo "Testing Docker host IP connectivity..."
-          curl -v http://$DOCKER_HOST_IP:${{ secrets.FRONTEND_PORT }}/ || echo "Docker IP:Frontend not accessible"
-          curl -v http://$DOCKER_HOST_IP:3000/ || echo "Docker IP:Backend not accessible"
-
-          echo "=== Container IPs ==="
-          FRONTEND_IP=$(docker inspect gazette-frontend-1 | jq -r '.[0].NetworkSettings.Networks.gazette_gazette-network.IPAddress')
-          echo "Frontend container IP: $FRONTEND_IP"
-
-          echo "=== Final Test ==="
-          if [ -n "$FRONTEND_IP" ]; then
-            echo "Testing direct container IP..."
-            curl -v http://$FRONTEND_IP:${{ secrets.FRONTEND_PORT }}/ || echo "Container IP:Frontend not accessible"
-          fi
-
           echo "Installing Lighthouse CLI..."
           npm install -g @lhci/cli@0.15.x
 
