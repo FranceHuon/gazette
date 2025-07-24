@@ -140,10 +140,12 @@ jobs:
             node:20-alpine \
             sh -c "
               npm install -g pnpm@10.12.4
-              pnpm init -y
+              echo '{\"type\": \"module\"}' > package.json
               pnpm add lighthouse puppeteer wait-on
               npx puppeteer browsers install chrome
-              node lighthouse-auth.js
+              HOST_IP=\$(ip route | grep default | awk '{print \$3}')
+              echo \"Using host IP: \$HOST_IP\"
+              BACKEND_URL=http://\$HOST_IP:3000 FRONTEND_URL=http://\$HOST_IP:3002 node lighthouse-auth.js
             "
 
       - name: Upload Lighthouse reports
