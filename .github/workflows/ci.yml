@@ -124,13 +124,16 @@ jobs:
         env:
           FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
         run: |
+          echo "Getting Docker host IP..."
+          DOCKER_HOST_IP=$(docker network inspect bridge | jq -r '.[0].IPAM.Config[0].Gateway')
+          echo "Docker host IP: $DOCKER_HOST_IP"
           echo "Checking if services are accessible..."
-          curl -v http://localhost:${{ secrets.FRONTEND_PORT }}/ || echo "Frontend not accessible"
-          curl -v http://localhost:3000/ || echo "Backend not accessible"
+          curl -v http://$DOCKER_HOST_IP:${{ secrets.FRONTEND_PORT }}/ || echo "Frontend not accessible"
+          curl -v http://$DOCKER_HOST_IP:3000/ || echo "Backend not accessible"
           echo "Docker containers status:"
           docker compose ps
           echo "Installing Lighthouse CLI..."
           npm install -g @lhci/cli@0.15.x
           echo "Running Lighthouse..."
-          lhci collect --url=http://localhost:${{ secrets.FRONTEND_PORT }}/
+          lhci collect --url=http://$DOCKER_HOST_IP:${{ secrets.FRONTEND_PORT }}/
           lhci upload --target=temporary-public-storage
