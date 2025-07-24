@@ -10,6 +10,10 @@ catch {
   execSync('pnpm add -w lighthouse puppeteer wait-on', { stdio: 'inherit' })
 }
 
+// Install Chrome for Puppeteer
+console.log('🌐 Installing Chrome for Puppeteer...')
+execSync('npx puppeteer browsers install chrome', { stdio: 'inherit' })
+
 const puppeteer = await import('puppeteer')
 
 // Configuration
@@ -118,12 +122,14 @@ async function createTestUser() {
   }
 
   try {
+    console.log(`🔗 Trying to connect to: ${BACKEND_URL}/users`)
     const response = await fetch(`${BACKEND_URL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(testUser),
     })
 
+    console.log(`📡 Response status: ${response.status}`)
     if (response.ok) {
       console.log('✅ Test user created')
       return testUser
@@ -135,6 +141,7 @@ async function createTestUser() {
   }
   catch (error) {
     console.log('⚠️ Could not create test user:', error.message)
+    console.log('🔍 Full error:', error)
     return testUser
   }
 }
