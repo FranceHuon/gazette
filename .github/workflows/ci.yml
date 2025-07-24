@@ -125,4 +125,5 @@ jobs:
           FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
         run: |
           npm install -g @lhci/cli@0.15.x
-          lhci autorun
+          lhci collect
+          lhci upload --target=temporary-public-storage
