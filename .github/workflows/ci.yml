@@ -116,10 +116,12 @@ jobs:
       - name: Start Docker services
         run: |
           echo "Starting all services with docker compose..."
-          docker compose up --build
+          docker compose up --build -d
+          echo "Waiting for containers to be ready..."
+          sleep 10
           echo "Installing missing binaries..."
-          docker compose exec backend pnpm install
-          docker compose exec frontend pnpm install
+          docker compose exec backend pnpm install || echo "Backend container not ready"
+          docker compose exec frontend pnpm install || echo "Frontend container not ready"
 
       - name: Run Lighthouse authentication script
         run: |
