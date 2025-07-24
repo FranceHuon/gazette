@@ -113,6 +113,7 @@ async function runLighthouseAudit(authCookie) {
     catch (error) {
       console.log(`❌ ${page} failed:`, error.message)
       console.log(`🔍 Full error:`, error)
+      throw error // Propager l'erreur pour faire échouer la CI
     }
   }
 
@@ -149,13 +150,13 @@ async function createTestUser() {
   catch (error) {
     console.log('⚠️ Could not create test user:', error.message)
     console.log('🔍 Full error:', error)
-    return testUser
+    throw error
   }
 }
 
 async function waitForService(url, serviceName) {
   console.log(`⏳ Waiting for ${serviceName} to be ready...`)
-  
+
   for (let i = 0; i < 30; i++) { // 30 tentatives = 30 secondes
     try {
       const response = await fetch(url)
@@ -163,13 +164,14 @@ async function waitForService(url, serviceName) {
         console.log(`✅ ${serviceName} is ready!`)
         return true
       }
-    } catch (error) {
+    }
+    catch {
       // Service pas encore prêt
     }
-    
+
     await new Promise(resolve => setTimeout(resolve, 1000)) // Attendre 1 seconde
   }
-  
+
   console.log(`❌ ${serviceName} is not ready after 30 seconds`)
   return false
 }
