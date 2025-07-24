@@ -80,11 +80,28 @@ async function runLighthouseAudit(authCookie) {
         `--extra-headers '{"Cookie": "token=${authCookie.value}"}'`,
       ].join(' ')
 
-      execSync(lighthouseCommand, { stdio: 'inherit' })
+      console.log(`🔍 Running: ${lighthouseCommand}`)
+      const result = execSync(lighthouseCommand, { encoding: 'utf8' })
       console.log(`✅ ${page} completed`)
+
+      // Vérifier si le fichier a été créé
+      const fs = await import('node:fs')
+      if (fs.existsSync(outputPath)) {
+        console.log(`📄 Report saved: ${outputPath}`)
+      }
+      else {
+        console.log(`⚠️ Report not found: ${outputPath}`)
+      }
+
+      // Extraire et afficher le score d'accessibilité
+      const accessibilityMatch = result.match(/Accessibility.*?(\d+)/)
+      if (accessibilityMatch) {
+        console.log(`📊 ${page} - Score accessibilité: ${accessibilityMatch[1]}/100`)
+      }
     }
     catch (error) {
       console.log(`❌ ${page} failed:`, error.message)
+      console.log(`🔍 Full error:`, error)
     }
   }
 
