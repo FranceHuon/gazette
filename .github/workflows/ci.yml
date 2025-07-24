@@ -118,17 +118,32 @@ jobs:
           echo "Starting all services with docker compose..."
           docker compose up --build -d
           echo "Waiting for containers to be ready..."
-          sleep 10
+          sleep 15
+          echo "Checking services status..."
+          docker compose ps
+          echo "Checking if backend is accessible..."
+          curl -f http://localhost:3000/ || echo "Backend not accessible"
+          echo "Checking if frontend is accessible..."
+          curl -f http://localhost:3002/ || echo "Frontend not accessible"
           echo "Installing missing binaries..."
           docker compose exec backend pnpm install || echo "Backend container not ready"
           docker compose exec frontend pnpm install || echo "Frontend container not ready"
 
       - name: Run Lighthouse authentication script
         run: |
-          echo "Installing Lighthouse dependencies..."
-          pnpm add -w lighthouse puppeteer wait-on
-          echo "Running Lighthouse audit..."
-          node .github/scripts/lighthouse-auth.js
+          echo "Running Lighthouse script in Docker container..."
+          docker run --rm \
+            --network gazette_gazette-network \
+            -v $(pwd)/.github/scripts:/scripts \
+            -v $(pwd):/workspace \
+            -w /workspace \
+            node:20-alpine \
+            sh -c "
+              npm install -g pnpm@10.12.4
+              pnpm add lighthouse puppeteer wait-on
+              npx puppeteer browsers install chrome
+              node /scripts/lighthouse-auth.js
+            "
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v4
