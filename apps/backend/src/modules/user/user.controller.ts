@@ -40,6 +40,13 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
+  @Delete('me')
+  async deleteCurrentUser(@Req() req: RequestWithUser) {
+    await this.usersService.delete(req.user.id)
+    return { message: 'User deleted successfully' }
+  }
+
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     await this.usersService.delete(id)
