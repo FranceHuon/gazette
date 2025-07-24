@@ -92,27 +92,33 @@ jobs:
         with:
           node-version: 22.15.0
 
-      - name: Install pnpm and dependencies
-        run: |
-          npm install -g pnpm@10.11.0
-          pnpm install
+      - name: Setup pnpm
+        run: npm install -g pnpm@10.11.0
 
-      - name: Start app in background
-        run: |
-          pnpm dev & # ou pnpm start selon ton script
-          npx wait-on http://localhost:3000
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Run Lighthouse audit
+      - name: Install Lighthouse and Puppeteer
         run: |
-          npx lighthouse http://localhost:3000 \
-            --only-categories=accessibility \
-            --quiet \
-            --chrome-flags="--headless" \
-            --output html \
-            --output-path ./lighthouse-report.html
+          npm install -g lighthouse
+          npm install puppeteer
 
-      - name: Upload Lighthouse report
+      - name: Start Docker services
+        run: |
+          docker-compose up -d postgres
+          docker-compose up -d backend
+          docker-compose up -d frontend
+
+      - name: Wait for services to be ready
+        run: |
+          npx wait-on http://localhost:3000 # Backend
+          npx wait-on http://localhost:3002 # Frontend
+
+      - name: Run Lighthouse authentication script
+        run: node .github/scripts/lighthouse-auth.js
+
+      - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v4
         with:
-          name: lighthouse-report
-          path: ./lighthouse-report.html
+          name: lighthouse-reports
+          path: ./lighthouse-report-*.html
