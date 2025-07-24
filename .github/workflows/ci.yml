@@ -139,6 +139,8 @@ jobs:
         run: |
           echo "=== Docker services status ==="
           docker compose ps
+          echo "=== Ports listening ==="
+          netstat -tlnp || ss -tlnp
           echo "=== Docker logs backend ==="
           docker compose logs backend --tail=20
           echo "=== Docker logs frontend ==="
