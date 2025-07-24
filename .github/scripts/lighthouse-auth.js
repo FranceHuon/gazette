@@ -1,16 +1,16 @@
-const { execSync } = require('node:child_process')
-const process = require('node:process')
+import { execSync } from 'node:child_process'
+import process from 'node:process'
 
 // Install dependencies if not present
 try {
-  require('puppeteer')
+  await import('puppeteer')
 }
 catch {
   console.log('📦 Installing dependencies...')
   execSync('pnpm add -w lighthouse puppeteer wait-on', { stdio: 'inherit' })
 }
 
-const puppeteer = require('puppeteer')
+const puppeteer = await import('puppeteer')
 
 // Configuration
 const BACKEND_URL = 'http://localhost:3000'
@@ -29,7 +29,7 @@ const PAGES_TO_AUDIT = [
 async function loginAndGetCookie(testUser) {
   console.log('🔐 Logging in...')
 
-  const browser = await puppeteer.launch({
+  const browser = await puppeteer.default.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
@@ -61,8 +61,6 @@ async function loginAndGetCookie(testUser) {
 
 async function runLighthouseAudit(authCookie) {
   console.log('🔍 Running Lighthouse audit...')
-
-  const { execSync } = require('node:child_process')
 
   for (const page of PAGES_TO_AUDIT) {
     console.log(`📊 Auditing ${page}`)
