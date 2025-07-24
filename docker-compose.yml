@@ -75,6 +75,16 @@ services:
     networks:
       - gazette-network
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - gazette-network
+    depends_on:
+      - postgres
+
 networks:
   gazette-network:
     driver: bridge
