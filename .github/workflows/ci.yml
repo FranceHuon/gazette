@@ -127,13 +127,42 @@ jobs:
           echo "Getting Docker host IP..."
           DOCKER_HOST_IP=$(docker network inspect bridge | jq -r '.[0].IPAM.Config[0].Gateway')
           echo "Docker host IP: $DOCKER_HOST_IP"
-          echo "Checking if services are accessible..."
-          curl -v http://$DOCKER_HOST_IP:${{ secrets.FRONTEND_PORT }}/ || echo "Frontend not accessible"
-          curl -v http://$DOCKER_HOST_IP:3000/ || echo "Backend not accessible"
-          echo "Docker containers status:"
+
+          echo "=== Network Diagnostics ==="
+          echo "Docker network list:"
+          docker network ls
+          echo "Docker network inspect:"
+          docker network inspect gazette_gazette-network || echo "Network not found"
+
+          echo "=== Container Status ==="
           docker compose ps
+
+          echo "=== Port Mappings ==="
+          docker compose port frontend ${{ secrets.FRONTEND_PORT }} || echo "Frontend port mapping failed"
+          docker compose port backend 3000 || echo "Backend port mapping failed"
+
+          echo "=== Connectivity Tests ==="
+          echo "Testing localhost connectivity..."
+          curl -v http://localhost:${{ secrets.FRONTEND_PORT }}/ || echo "localhost:Frontend not accessible"
+          curl -v http://localhost:3000/ || echo "localhost:Backend not accessible"
+
+          echo "Testing Docker host IP connectivity..."
+          curl -v http://$DOCKER_HOST_IP:${{ secrets.FRONTEND_PORT }}/ || echo "Docker IP:Frontend not accessible"
+          curl -v http://$DOCKER_HOST_IP:3000/ || echo "Docker IP:Backend not accessible"
+
+          echo "=== Container IPs ==="
+          FRONTEND_IP=$(docker inspect gazette-frontend-1 | jq -r '.[0].NetworkSettings.Networks.gazette_gazette-network.IPAddress')
+          echo "Frontend container IP: $FRONTEND_IP"
+
+          echo "=== Final Test ==="
+          if [ -n "$FRONTEND_IP" ]; then
+            echo "Testing direct container IP..."
+            curl -v http://$FRONTEND_IP:${{ secrets.FRONTEND_PORT }}/ || echo "Container IP:Frontend not accessible"
+          fi
+
           echo "Installing Lighthouse CLI..."
           npm install -g @lhci/cli@0.15.x
-          echo "Running Lighthouse..."
-          lhci collect --url=http://$DOCKER_HOST_IP:${{ secrets.FRONTEND_PORT }}/
+
+          echo "Running Lighthouse with localhost..."
+          lhci collect --url=http://localhost:${{ secrets.FRONTEND_PORT }}/
           lhci upload --target=temporary-public-storage
