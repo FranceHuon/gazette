@@ -102,7 +102,7 @@ jobs:
 
       - name: Install Lighthouse and Puppeteer
         run: |
-          pnpm add lighthouse puppeteer
+          pnpm add -w lighthouse puppeteer
 
       - name: Start Docker services
         run: |
