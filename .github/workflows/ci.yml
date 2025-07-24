@@ -97,6 +97,13 @@ jobs:
       - name: Setup pnpm
         run: npm install -g pnpm@10.11.0
 
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          pnpm install
+          echo "Building shared packages..."
+          pnpm --filter @gazette/shared build
+
       - name: Create .env file for CI
         run: |
           cat > .env << EOF
@@ -123,6 +130,13 @@ jobs:
       - name: Start Docker services
         run: |
           echo "=== Starting Docker services ==="
+          echo "Stopping any existing containers..."
+          docker compose down --volumes --remove-orphans
+
+          echo "Removing any existing images..."
+          docker compose rm -f
+          docker rmi gazette-frontend gazette-backend || echo "No images to remove"
+
           echo "Building and starting all services..."
           docker compose up --build -d
 
