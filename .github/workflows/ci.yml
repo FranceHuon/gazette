@@ -122,8 +122,13 @@ jobs:
 
       - name: Start Docker services
         run: |
+          echo "Starting postgres..."
           docker compose up -d postgres
+          sleep 10
+          echo "Starting backend..."
           docker compose up -d backend
+          sleep 5
+          echo "Starting frontend..."
           docker compose up -d frontend
 
       - name: Check Docker services status
