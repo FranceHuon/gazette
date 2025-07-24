@@ -38,21 +38,29 @@ function MediaCard({
       transition="all 0.2s ease-in-out"
     >
       <CardBody padding={{ base: '16px', md: '20px' }}>
-        <Flex flexDirection="column" gap={{ base: 4, md: 6 }} height="100%">
-          <Flex
-            mb={{ base: 3, md: 4 }}
-            width={{ base: '80px', md: '100px' }}
-            height={{ base: '80px', md: '100px' }}
-            justifyContent="center"
-          >
-            <Image
-              src={media.picture}
-              alt={media.name}
-              maxW="100%"
-              maxH={{ base: '80px', md: '120px' }}
-              objectFit="contain"
-              fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
-            />
+        <Flex flexDirection="column" gap={{ base: 4, md: 6 }} alignItems="flex-start" height="100%">
+          <Flex alignItems="center" justifyContent="flex-start" gap={3} padding={2} paddingRight={4} border="1px solid rgba(240,240,240,1)" borderRadius={32}>
+            <Flex
+              // mb={{ base: 3, md: 4 }}
+              width={{ base: '60px', md: '60px' }}
+              height={{ base: '60px', md: '60px' }}
+              justifyContent="center"
+              border="1px solid rgba(240,240,240,1)"
+              padding={2}
+              borderRadius={24}
+            >
+              <Image
+                src={media.picture}
+                alt={media.name}
+                maxW="100%"
+                maxH={{ base: '80px', md: '120px' }}
+                objectFit="contain"
+                fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
+              />
+            </Flex>
+            <Text fontSize="sm" fontWeight="bold">
+              {media.name}
+            </Text>
           </Flex>
 
           <Flex
