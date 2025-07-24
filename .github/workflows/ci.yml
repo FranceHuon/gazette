@@ -104,10 +104,6 @@ jobs:
         run: |
           pnpm add -w lighthouse puppeteer wait-on
 
-      - name: Build shared package
-        run: |
-          pnpm --filter @gazette/shared build
-
       - name: Create .env file for CI
         run: |
           cat > .env << EOF
@@ -127,7 +123,7 @@ jobs:
       - name: Start Docker services
         run: |
           echo "Starting all services with docker compose..."
-          docker compose up -d
+          docker compose up -d --build
 
       - name: Check Docker services status
         run: |
