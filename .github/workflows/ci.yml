@@ -104,19 +104,23 @@ jobs:
         run: |
           pnpm add -w lighthouse puppeteer
 
+      - name: Create .env file for CI
+        run: |
+          cat > .env << EOF
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          BACKEND_PORT=${{ secrets.BACKEND_PORT }}
+          NODE_ENV=test
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}
+          ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}
+          FRONTEND_PORT=${{ secrets.FRONTEND_PORT }}
+          NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+          EOF
+
       - name: Start Docker services
-        env:
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
-          NODE_ENV: test
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
-          ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
-          FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
           docker compose up -d postgres
           docker compose up -d backend
