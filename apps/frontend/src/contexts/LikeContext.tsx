@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react'
 import { CreateLikeDto, LikeDto } from '@gazette/shared'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useCallback, useContext, useMemo } from 'react'
@@ -9,6 +10,7 @@ export function LikeProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient()
   const context = useContext(AuthContext)
   const userId = context?.user?.id || ''
+  const toast = useToast()
 
   const { data: likes = [], isLoading, isError } = useQuery({
     queryKey: ['likes', userId],
@@ -20,9 +22,22 @@ export function LikeProvider({ children }: { children: React.ReactNode }) {
     mutationFn: (dto: CreateLikeDto) => createLike(dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['likes', userId] })
+      toast({
+        title: 'Contenu liké !',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
     },
     onError: (error) => {
-      // Gestion silencieuse des erreurs
+      console.error('Erreur lors du like:', error)
+      toast({
+        title: 'Erreur',
+        description: 'Impossible de liker ce contenu. Veuillez réessayer.',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      })
     },
   })
 
@@ -30,9 +45,22 @@ export function LikeProvider({ children }: { children: React.ReactNode }) {
     mutationFn: (likeId: string) => deleteLike(likeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['likes', userId] })
+      toast({
+        title: 'Like supprimé',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
     },
     onError: (error) => {
-      // Gestion silencieuse des erreurs
+      console.error('Erreur lors de la suppression du like:', error)
+      toast({
+        title: 'Erreur',
+        description: 'Impossible de supprimer le like. Veuillez réessayer.',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      })
     },
   })
 

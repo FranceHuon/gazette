@@ -1,8 +1,9 @@
 import { Box, Icon, Link, List, ListItem } from '@chakra-ui/react'
 import { FileBadge, HelpCircle, LogOut, Trash } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
-import { useAuth } from '@/hooks/useAuth'
 import { useToaster } from '@/components/ui/toaster'
+import { useAuth } from '@/hooks/useAuth'
 
 function SettingsMenu() {
   const { t } = useTranslation('common', {
@@ -11,10 +12,12 @@ function SettingsMenu() {
 
   const { logout, deleteAccount } = useAuth()
   const toaster = useToaster()
+  const router = useRouter()
 
   const handleLogout = async () => {
     try {
       await logout()
+      router.push('/')
     }
     catch (error) {
       console.error('Erreur lors de la déconnexion:', error)
@@ -23,15 +26,13 @@ function SettingsMenu() {
 
   const handleDeleteAccount = async () => {
     try {
-      const confirmed = window.confirm(t('confirmDelete'))
-      if (confirmed) {
-        await deleteAccount()
-        toaster.create({
-          description: t('accountDeleted'),
-          type: 'success',
-          duration: 5000,
-        })
-      }
+      await deleteAccount()
+      toaster.create({
+        description: t('accountDeleted'),
+        type: 'success',
+        duration: 5000,
+      })
+      router.push('/')
     }
     catch (error) {
       console.error('Erreur lors de la suppression du compte:', error)
@@ -84,7 +85,7 @@ function SettingsMenu() {
           </Link>
         </ListItem>
       </List>
-      
+
     </Box>
   )
 }
