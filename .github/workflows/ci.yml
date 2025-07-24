@@ -102,7 +102,7 @@ jobs:
 
       - name: Install Lighthouse and Puppeteer
         run: |
-          pnpm add -w lighthouse puppeteer
+          pnpm add -w lighthouse puppeteer wait-on
 
       - name: Create .env file for CI
         run: |
