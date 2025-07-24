@@ -1,13 +1,10 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common'
-import { MediaSeeder } from '../../scripts/seed-media'
-import { AuthGuard } from '../auth/auth.guard'
+import { Controller, Get } from '@nestjs/common'
 import { MediaService } from './media.service'
 
 @Controller('medias')
 export class MediaController {
   constructor(
     private readonly mediaService: MediaService,
-    private readonly mediaSeeder: MediaSeeder,
   ) {}
 
   @Get()
@@ -25,12 +22,5 @@ export class MediaController {
   @Get('mapping')
   async getMapping() {
     return this.mediaService.getMediaIdsBySource()
-  }
-
-  @Post('seed')
-  @UseGuards(AuthGuard)
-  async seed() {
-    await this.mediaSeeder.seed()
-    return { message: 'Médias créés avec succès' }
   }
 }
