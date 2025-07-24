@@ -102,8 +102,7 @@ jobs:
 
       - name: Install Lighthouse and Puppeteer
         run: |
-          npm install -g lighthouse
-          npm install puppeteer
+          pnpm add lighthouse puppeteer
 
       - name: Start Docker services
         run: |
