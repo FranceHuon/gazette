@@ -126,10 +126,23 @@ jobs:
           docker compose up -d backend
           docker compose up -d frontend
 
+      - name: Check Docker services status
+        run: |
+          echo "=== Docker services status ==="
+          docker compose ps
+          echo "=== Docker logs backend ==="
+          docker compose logs backend --tail=20
+          echo "=== Docker logs frontend ==="
+          docker compose logs frontend --tail=20
+
       - name: Wait for services to be ready
         run: |
-          npx wait-on http://localhost:3000 # Backend
-          npx wait-on http://localhost:3002 # Frontend
+          echo "Waiting for backend on port 3000..."
+          npx wait-on http://localhost:3000 --timeout 60000 # 1 minute
+          echo "Backend is ready!"
+          echo "Waiting for frontend on port 3002..."
+          npx wait-on http://localhost:3002 --timeout 60000 # 1 minute
+          echo "Frontend is ready!"
 
       - name: Run Lighthouse authentication script
         run: node .github/scripts/lighthouse-auth.js
