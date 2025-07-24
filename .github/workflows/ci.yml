@@ -97,13 +97,6 @@ jobs:
       - name: Setup pnpm
         run: npm install -g pnpm@10.11.0
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Install Lighthouse and Puppeteer
-        run: |
-          pnpm add -w lighthouse puppeteer wait-on
-
       - name: Create .env file for CI
         run: |
           cat > .env << EOF
@@ -123,33 +116,7 @@ jobs:
       - name: Start Docker services
         run: |
           echo "Starting all services with docker compose..."
-          docker compose up -d --build
-
-      - name: Check Docker services status
-        run: |
-          echo "=== Docker services status ==="
-          docker compose ps
-          echo "=== Ports listening ==="
-          netstat -tlnp || ss -tlnp
-          echo "=== Docker logs backend (all) ==="
-          docker compose logs backend
-          echo "=== Docker logs frontend ==="
-          docker compose logs frontend --tail=20
-
-      - name: Wait for services to be ready
-        run: |
-          echo "Waiting 15 seconds for services to fully start..."
-          sleep 15
-          echo "Checking if backend is listening on port 3000..."
-          curl -f http://localhost:3000/ || echo "Backend not ready yet"
-          echo "Waiting for backend on port 3000..."
-          npx wait-on tcp:localhost:3000 --timeout 120000 # 2 minutes
-          echo "Backend is ready!"
-          echo "Checking frontend logs..."
-          docker compose logs frontend --tail=10
-          echo "Waiting for frontend on port 3002..."
-          npx wait-on tcp:localhost:3002 --timeout 120000 # 2 minutes
-          echo "Frontend is ready!"
+          docker compose up --build
 
       - name: Run Lighthouse authentication script
         run: node .github/scripts/lighthouse-auth.js

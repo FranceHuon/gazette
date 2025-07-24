@@ -1,22 +1,33 @@
+const { execSync } = require('node:child_process')
 const process = require('node:process')
+
+// Install dependencies if not present
+try {
+  require('puppeteer')
+}
+catch {
+  console.log('📦 Installing dependencies...')
+  execSync('pnpm add -w lighthouse puppeteer wait-on', { stdio: 'inherit' })
+}
+
 const puppeteer = require('puppeteer')
 
 // Configuration
 const BACKEND_URL = 'http://localhost:3000'
 const FRONTEND_URL = 'http://localhost:3002'
 
-// Pages à auditer (ordre : publiques d'abord, puis protégées)
+// Pages à auditer
 const PAGES_TO_AUDIT = [
-  '/login', // Page publique
-  '/signin', // Page publique
-  '/explore', // Page protégée
-  '/library', // Page protégée
-  '/subscriptions', // Page protégée
-  '/settings', // Page protégée
+  '/login',
+  '/signin', // Pages publiques
+  '/explore',
+  '/library',
+  '/subscriptions',
+  '/settings', // Pages protégées
 ]
 
 async function loginAndGetCookie(testUser) {
-  console.log('🔐 Logging in and getting cookie...')
+  console.log('🔐 Logging in...')
 
   const browser = await puppeteer.launch({
     headless: true,
@@ -25,26 +36,17 @@ async function loginAndGetCookie(testUser) {
 
   try {
     const page = await browser.newPage()
-
-    // Aller sur la page de login
     await page.goto(`${FRONTEND_URL}/login`, { waitUntil: 'networkidle0' })
-
-    // Remplir le formulaire de connexion
     await page.type('input[name="email"]', testUser.email)
     await page.type('input[name="password"]', testUser.password)
-
-    // Cliquer sur le bouton de connexion
     await page.click('button[type="submit"]')
-
-    // Attendre la redirection
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
 
-    // Récupérer tous les cookies
     const cookies = await page.cookies()
     const authCookie = cookies.find(cookie => cookie.name === 'token')
 
     if (authCookie) {
-      console.log('✅ Authentication successful, cookie retrieved')
+      console.log('✅ Authentication successful')
       return authCookie
     }
     else {
@@ -63,13 +65,12 @@ async function runLighthouseAudit(authCookie) {
   const { execSync } = require('node:child_process')
 
   for (const page of PAGES_TO_AUDIT) {
-    console.log(`📊 Auditing page: ${page}`)
+    console.log(`📊 Auditing ${page}`)
 
     const url = `${FRONTEND_URL}${page}`
     const outputPath = `./lighthouse-report-${page.replace('/', '')}.html`
 
     try {
-      // Construire la commande Lighthouse avec le cookie d'authentification
       const lighthouseCommand = [
         'npx lighthouse',
         url,
@@ -82,14 +83,14 @@ async function runLighthouseAudit(authCookie) {
       ].join(' ')
 
       execSync(lighthouseCommand, { stdio: 'inherit' })
-      console.log(`✅ Audit completed for ${page}`)
+      console.log(`✅ ${page} completed`)
     }
     catch (error) {
-      console.log(`❌ Audit failed for ${page}:`, error.message)
+      console.log(`❌ ${page} failed:`, error.message)
     }
   }
 
-  console.log('🎉 All Lighthouse audits completed!')
+  console.log('🎉 All audits completed!')
 }
 
 async function createTestUser() {
@@ -104,43 +105,36 @@ async function createTestUser() {
   try {
     const response = await fetch(`${BACKEND_URL}/users`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(testUser),
     })
 
     if (response.ok) {
-      console.log('✅ Test user created successfully')
+      console.log('✅ Test user created')
       return testUser
     }
     else {
-      // Si l'utilisateur existe déjà, on continue
-      console.log('ℹ️ Test user already exists, continuing...')
+      console.log('ℹ️ Test user already exists')
       return testUser
     }
   }
   catch (error) {
-    console.log('⚠️ Could not create test user, continuing...', error.message)
+    console.log('⚠️ Could not create test user:', error.message)
     return testUser
   }
 }
 
 async function main() {
-  console.log('🚀 Starting Lighthouse authentication script...')
+  console.log('🚀 Starting Lighthouse audit...')
 
-  // Étape 2 - Créer l'utilisateur de test
   const testUser = await createTestUser()
-
-  // Étape 3 - Se connecter et récupérer le cookie
   const authCookie = await loginAndGetCookie(testUser)
 
-  // Étape 4 - Configurer Lighthouse avec l'auth
   if (authCookie) {
     await runLighthouseAudit(authCookie)
   }
   else {
-    console.log('❌ Cannot run Lighthouse audit without authentication')
+    console.log('❌ Cannot run audit without authentication')
     process.exit(1)
   }
 }
