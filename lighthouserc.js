@@ -1,3 +1,5 @@
+const process = require('node:process')
+
 module.exports = {
   ci: {
     collect: {
@@ -10,4 +12,4 @@ module.exports = {
       target: 'temporary-public-storage',
     },
   },
-}; 
+}
