@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { usePathname } from 'next/navigation'
 import Header from '@/components/layout/Header'
 import Navbar from '@/components/layout/Navbar'
