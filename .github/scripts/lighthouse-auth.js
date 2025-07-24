@@ -153,8 +153,38 @@ async function createTestUser() {
   }
 }
 
+async function waitForService(url, serviceName) {
+  console.log(`⏳ Waiting for ${serviceName} to be ready...`)
+  
+  for (let i = 0; i < 30; i++) { // 30 tentatives = 30 secondes
+    try {
+      const response = await fetch(url)
+      if (response.ok || response.status === 404) { // 404 est OK, ça signifie que le service répond
+        console.log(`✅ ${serviceName} is ready!`)
+        return true
+      }
+    } catch (error) {
+      // Service pas encore prêt
+    }
+    
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Attendre 1 seconde
+  }
+  
+  console.log(`❌ ${serviceName} is not ready after 30 seconds`)
+  return false
+}
+
 async function main() {
   console.log('🚀 Starting Lighthouse audit...')
+
+  // Attendre que les services soient prêts
+  const backendReady = await waitForService(`${BACKEND_URL}/users`, 'Backend')
+  const frontendReady = await waitForService(`${FRONTEND_URL}/login`, 'Frontend')
+
+  if (!backendReady || !frontendReady) {
+    console.log('❌ Services are not ready')
+    process.exit(1)
+  }
 
   const testUser = await createTestUser()
   const authCookie = await loginAndGetCookie(testUser)
