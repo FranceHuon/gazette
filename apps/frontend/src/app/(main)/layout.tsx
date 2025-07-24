@@ -26,15 +26,12 @@ export default function MainLayout({
   }
 
   return (
-    <Flex
-      direction="column"
+    <Box
       minHeight="100vh"
+      width="100%"
       position="relative"
     >
-      {/* Header - Desktop seulement */}
-      <Box display={{ base: 'none', lg: 'block' }}>
-        <Header pageTitle={getPageTitle()} />
-      </Box>
+      <Header pageTitle={getPageTitle()} />
 
       {/* Contenu principal */}
       <Box
@@ -57,8 +54,8 @@ export default function MainLayout({
         borderColor="gray.200"
         boxShadow="0 -2px 10px rgba(0, 0, 0, 0.1)"
       >
-        <Navbar />
+        <Navbar isScrolled={false} />
       </Box>
-    </Flex>
+    </Box>
   )
 }

@@ -20,35 +20,39 @@ function RssCard({
 
   return (
     <Card
-      width={{ base: '100%', sm: '350px', md: '450px', lg: '600px' }}
-      height={{ base: 'auto', sm: '400px', md: '500px', lg: '600px' }}
-      minHeight={{ base: '400px', sm: '400px', md: '500px', lg: '600px' }}
-      borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
+      width={{ base: '100%', sm: '250px', md: '300px', lg: '400px' }}
+      height={{ base: 'auto', sm: '250px', md: '300px', lg: '400px' }}
+      minHeight={{ base: '200px', sm: '250px', md: '300px', lg: '400px' }}
+      borderRadius={{ base: '20px', md: '30px', lg: '24px' }}
       padding={{ base: '16px', md: '20px' }}
-      boxShadow="lg"
+      boxShadow="rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
+      border="1px solid rgba(0, 0, 0, 0.1)"
     >
       <CardHeader padding={{ base: '12px', md: '16px' }}>
         <Heading
           textStyle="cardTitle"
           noOfLines={2}
+          fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
         >
           {content.media?.name}
         </Heading>
       </CardHeader>
 
-      <CardBody padding={{ base: '12px', md: '16px' }}>
+      <CardBody padding={{ base: '12px', md: '16px' }} border="none">
         <VStack spacing={{ base: 3, md: 4 }} align="stretch">
           <Heading
             textStyle="cardSubtitle"
             noOfLines={3}
+            fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
           >
             {content.title}
           </Heading>
           <Text
             textStyle="cardContent"
             noOfLines={{ base: 3, md: 4, lg: 5 }}
+            fontSize="0.9rem"
           >
             {content.description}
           </Text>
@@ -64,12 +68,12 @@ function RssCard({
         </VStack>
       </CardBody>
 
-      <CardFooter padding={{ base: '12px', md: '16px' }} justifyContent="flex-end">
+      <CardFooter padding={{ base: '18px', md: '24px' }} justifyContent="flex-end" position="absolute" bottom={0} right={0}>
         {!isLikeOnlyMode && isCurrentlyLiked
           ? (
               <Heart
                 stroke="#606c38"
-                size={40}
+                size={30}
                 strokeWidth={3}
                 fill="#606c38"
                 onClick={() => dislike!(content.id)}
@@ -79,7 +83,7 @@ function RssCard({
           : (
               <Heart
                 stroke="#606c38"
-                size={40}
+                size={30}
                 strokeWidth={3}
                 onClick={() => like(content.id)}
                 cursor="pointer"

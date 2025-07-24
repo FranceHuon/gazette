@@ -2,13 +2,15 @@ import { Box, Icon, Link, List, ListItem } from '@chakra-ui/react'
 import { FileBadge, HelpCircle, LogOut, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/hooks/useAuth'
+import { useToaster } from '@/components/ui/toaster'
 
 function SettingsMenu() {
   const { t } = useTranslation('common', {
     keyPrefix: 'accountManagement',
   })
 
-  const { logout } = useAuth()
+  const { logout, deleteAccount } = useAuth()
+  const toaster = useToaster()
 
   const handleLogout = async () => {
     try {
@@ -21,10 +23,23 @@ function SettingsMenu() {
 
   const handleDeleteAccount = async () => {
     try {
-      console.warn('Suppression de compte à implémenter')
+      const confirmed = window.confirm(t('confirmDelete'))
+      if (confirmed) {
+        await deleteAccount()
+        toaster.create({
+          description: t('accountDeleted'),
+          type: 'success',
+          duration: 5000,
+        })
+      }
     }
     catch (error) {
-      console.error(error)
+      console.error('Erreur lors de la suppression du compte:', error)
+      toaster.create({
+        description: t('errorDeletingAccount'),
+        type: 'error',
+        duration: 5000,
+      })
     }
   }
 
@@ -69,6 +84,7 @@ function SettingsMenu() {
           </Link>
         </ListItem>
       </List>
+      
     </Box>
   )
 }
