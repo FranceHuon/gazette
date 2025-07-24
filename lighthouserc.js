@@ -1,6 +1,6 @@
-const process = require('node:process')
+import process from 'node:process'
 
-module.exports = {
+export default {
   ci: {
     collect: {
       url: [`http://localhost:${process.env.FRONTEND_PORT || 3002}/`],
