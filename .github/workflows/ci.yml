@@ -112,50 +112,17 @@ jobs:
           FRONTEND_PORT=${{ secrets.FRONTEND_PORT }}
           NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
           EOF
+          echo "Created .env file (values hidden for security)"
+          echo "Checking if all required secrets are set..."
+          if [ -z "${{ secrets.DB_USER }}" ] || [ -z "${{ secrets.BACKEND_PORT }}" ] || [ -z "${{ secrets.FRONTEND_PORT }}" ]; then
+            echo "❌ Missing required secrets!"
+            exit 1
+          fi
+          echo "✅ All required secrets are set"
 
-      - name: Start Docker services
+      - name: Run Lighthouse CI
+        env:
+          FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
         run: |
-          echo "Starting all services with docker compose..."
-          docker compose up --build -d
-          echo "Waiting for containers to be ready..."
-          sleep 30
-          echo "Checking services status..."
-          docker compose ps
-          echo "Checking container logs..."
-          docker compose logs backend --tail=20
-          docker compose logs frontend --tail=20
-          echo "Checking if backend is accessible..."
-          for i in {1..10}; do
-            echo "Attempt $i to connect to backend..."
-            if curl -f http://localhost:3000/; then
-              echo "✅ Backend is accessible!"
-              break
-            fi
-            sleep 5
-          done
-          echo "Checking if frontend is accessible..."
-          for i in {1..10}; do
-            echo "Attempt $i to connect to frontend..."
-            if curl -f http://localhost:3002/; then
-              echo "✅ Frontend is accessible!"
-              break
-            fi
-            sleep 5
-          done
-
-      - name: Run Lighthouse authentication script
-        run: |
-          echo "Installing Lighthouse dependencies..."
-          pnpm add -w lighthouse puppeteer wait-on
-          echo "Installing Chrome for Puppeteer..."
-          npx puppeteer browsers install chrome
-          echo "Waiting for services to be ready..."
-          npx wait-on http://localhost:3000 http://localhost:3002 --timeout 60000
-          echo "Running Lighthouse audit..."
-          node .github/scripts/lighthouse-auth.js
-
-      - name: Upload Lighthouse reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-reports
-          path: ./lighthouse-report-*.html
+          npm install -g @lhci/cli@0.15.x
+          lhci autorun
