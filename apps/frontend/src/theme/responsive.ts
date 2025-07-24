@@ -36,14 +36,7 @@ export function useResponsiveTokens() {
       marginBottom: 5,
     },
     lg: {
-      top: 0,
-      bottom: 'auto',
-      right: 0,
-      left: 'auto',
-      transform: 'none',
-      width: '50%',
       flexDirection: 'row' as const,
-      justifyContent: 'space-around',
       color: 'color.chaletGreen',
     },
   })

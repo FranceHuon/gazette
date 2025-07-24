@@ -1,14 +1,11 @@
-import { Heading } from '@chakra-ui/react'
-import { useResponsiveTokens } from '../../theme/responsive'
+import { Heading, HeadingProps } from '@chakra-ui/react'
 
-export interface TitleProps {
+export interface TitleProps extends HeadingProps {
   fontColor: string
   text: string
 }
 
-function Title({ fontColor, text }: TitleProps) {
-  const { titleFontSize } = useResponsiveTokens()
-
+function Title({ fontColor, text, ...props }: TitleProps) {
   return (
     <Heading
       fontFamily={{
@@ -16,7 +13,9 @@ function Title({ fontColor, text }: TitleProps) {
         lg: 'Staatliches',
       }}
       color={fontColor}
-      fontSize={titleFontSize}
+      fontSize="6rem"
+      transition="all 0.3s ease"
+      {...props}
     >
       {text}
     </Heading>

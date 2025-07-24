@@ -27,6 +27,7 @@ export const theme = extendTheme({
       white: '#ffffff', // Pure white
       mineShaft: '#1F1F1F', // Dark gray, almost black
       black: '#000000', // Pure black
+      lightGray: '#F5F5F5', // Light gray
     },
   },
 })

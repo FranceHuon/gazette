@@ -12,7 +12,7 @@ interface ResponsiveLayoutProps {
 
 export function ResponsiveLayout({
   children,
-  maxWidth = '1400px',
+  maxWidth,
   padding,
   centered = true,
 }: ResponsiveLayoutProps) {
@@ -27,11 +27,12 @@ export function ResponsiveLayout({
       width="100%"
       height="100%"
       overflow="auto"
+      backgroundColor="color.lightGray"
     >
       <Box
         px={padding || defaultPadding}
         py={padding || defaultPadding}
-        maxWidth={maxWidth}
+        maxWidth={maxWidth || 'none'}
         margin={centered ? '0 auto' : '0'}
         width="100%"
       >
