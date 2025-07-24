@@ -104,6 +104,10 @@ jobs:
         run: |
           pnpm add -w lighthouse puppeteer wait-on
 
+      - name: Build shared package
+        run: |
+          pnpm --filter @gazette/shared build
+
       - name: Create .env file for CI
         run: |
           cat > .env << EOF
