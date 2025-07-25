@@ -41,6 +41,10 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/shared/node_modules ./packages/shared/node_modules
 COPY --from=builder /app/apps/backend/node_modules ./apps/backend/node_modules
 
+# Copier les binaires nécessaires
+COPY --from=builder /app/node_modules/.bin ./node_modules/.bin
+COPY --from=builder /app/apps/backend/node_modules/.bin ./apps/backend/node_modules/.bin
+
 WORKDIR /app/apps/backend
 
 # S'assurer que le fichier entrypoint.sh est exécutable
