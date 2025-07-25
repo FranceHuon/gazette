@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/core'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { User } from 'src/entities/user.entity'
+import { User } from '@/entities/user.entity'
 import { hashPassword, verifyPassword } from './user.utils'
 
 @Injectable()

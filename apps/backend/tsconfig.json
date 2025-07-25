@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "incremental": true,
+    "incremental": false,
     "target": "ES2021",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "baseUrl": "./",
     "module": "commonjs",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
     "strictBindCallApply": false,
     "strictNullChecks": false,
     "noFallthroughCasesInSwitch": false,

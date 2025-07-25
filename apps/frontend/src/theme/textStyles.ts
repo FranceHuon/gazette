@@ -89,7 +89,7 @@ export const textStyles = {
   welcomeTitle: {
     fontFamily: '\'Staatliches\', sans-serif',
     fontWeight: 'bold',
-    fontSize: { base: '6rem', lg: '20rem' },
+    fontSize: { base: '3rem', lg: '6rem' }, // Réduit encore plus pour améliorer LCP
     lineHeight: '1.2',
     textAlign: 'center',
   },
