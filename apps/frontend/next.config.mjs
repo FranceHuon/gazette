@@ -7,7 +7,6 @@ const nextConfig = {
   transpilePackages: ['@gazette/shared'],
 
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@chakra-ui/react', 'lucide-react'],
   },
 
