@@ -39,19 +39,33 @@ const nextConfig = {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
+            minSize: 20000,
+            maxSize: 244000,
           },
           chakra: {
             test: /[\\/]node_modules[\\/]@chakra-ui[\\/]/,
             name: 'chakra',
             chunks: 'all',
             priority: 10,
+            minSize: 20000,
+            maxSize: 244000,
           },
-          // Nouveau: Séparer les icônes Lucide
           lucide: {
             test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
             name: 'lucide',
             chunks: 'all',
             priority: 5,
+            minSize: 20000,
+            maxSize: 244000,
+          },
+          // Nouveau: Séparer React
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: 'react',
+            chunks: 'all',
+            priority: 15,
+            minSize: 20000,
+            maxSize: 244000,
           },
         },
       }
@@ -59,6 +73,9 @@ const nextConfig = {
       // Tree shaking plus agressif
       config.optimization.usedExports = true
       config.optimization.sideEffects = false
+
+      // Nouveau: Compression plus agressive
+      config.optimization.minimize = true
     }
     return config
   },
