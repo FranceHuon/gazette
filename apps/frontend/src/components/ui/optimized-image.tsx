@@ -9,13 +9,13 @@ interface OptimizedImageProps extends Omit<ImageProps, 'as'> {
   priority?: boolean
 }
 
-export function OptimizedImage({ 
-  src, 
-  alt, 
-  width = 400, 
-  height = 300, 
+export function OptimizedImage({
+  src,
+  alt,
+  width = 400,
+  height = 300,
   priority = false,
-  ...props 
+  ...props
 }: OptimizedImageProps) {
   return (
     <Image
@@ -31,4 +31,4 @@ export function OptimizedImage({
       {...props}
     />
   )
-} 
+}

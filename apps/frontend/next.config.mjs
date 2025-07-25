@@ -7,27 +7,23 @@ const nextConfig = {
   transpilePackages: ['@gazette/shared'],
 
   experimental: {
-    // Optimise les imports des packages UI
-    optimizePackageImports: [
-      '@chakra-ui/react',
-      '@emotion/react',
-      '@emotion/styled',
-      'framer-motion',
-    ],
+    optimizeCss: true,
+    optimizePackageImports: ['@chakra-ui/react', 'lucide-react'],
   },
 
   compiler: {
     emotion: true,
   },
 
-  // Optimisations pour les images et polices
+  // Optimisations d'images
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 31536000, // 1 an
   },
 
-  // Optimisations de performance
+  // Optimisations de compression
   compress: true,
 
   // Optimisations de build
@@ -51,8 +47,19 @@ const nextConfig = {
             chunks: 'all',
             priority: 10,
           },
+          // Nouveau: Séparer les icônes Lucide
+          lucide: {
+            test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+            name: 'lucide',
+            chunks: 'all',
+            priority: 5,
+          },
         },
       }
+
+      // Tree shaking plus agressif
+      config.optimization.usedExports = true
+      config.optimization.sideEffects = false
     }
     return config
   },
@@ -96,6 +103,11 @@ const nextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
+          },
+          // Nouveau: Headers de performance
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

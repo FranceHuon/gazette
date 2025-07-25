@@ -1,6 +1,6 @@
+import { Box, Spinner } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import { Box, Spinner } from '@chakra-ui/react'
 
 // Lazy loading des composants lourds
 export const LazyWelcomeDisplay = dynamic(
@@ -12,7 +12,7 @@ export const LazyWelcomeDisplay = dynamic(
       </Box>
     ),
     ssr: false,
-  }
+  },
 )
 
 export const LazyRssCard = dynamic(
@@ -23,7 +23,7 @@ export const LazyRssCard = dynamic(
         <Spinner color="color.chaletGreen" />
       </Box>
     ),
-  }
+  },
 )
 
 export const LazyModal = dynamic(
@@ -31,18 +31,19 @@ export const LazyModal = dynamic(
   {
     loading: () => null,
     ssr: false,
-  }
+  },
 )
 
 // Wrapper pour Suspense
 export function LazyWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <Suspense fallback={
+    <Suspense fallback={(
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <Spinner size="xl" color="color.chaletGreen" />
       </Box>
-    }>
+    )}
+    >
       {children}
     </Suspense>
   )
-} 
+}
