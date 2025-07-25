@@ -28,7 +28,7 @@ function WelcomeDisplay() {
         <Heading>Gazette, c'est quoi ?</Heading>
         <Heading
           width="100%"
-          textStyle="welcomeTitle"
+          fontSize="12rem"
         >
           {t('appTitle')}
         </Heading>
