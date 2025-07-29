@@ -17,7 +17,8 @@
     "docker:down": "docker-compose down",
     "docker:build": "docker-compose build",
     "docker:logs": "docker-compose logs -f",
-    "schema:fresh": "docker-compose exec backend pnpx mikro-orm schema:fresh --run"
+    "schema:fresh": "docker-compose exec backend pnpx mikro-orm schema:fresh --run",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.14.1",
@@ -25,6 +26,7 @@
     "eslint": "^9.28.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "husky": "^8.0.0",
     "typescript": "^5.4.5"
   }
 }
