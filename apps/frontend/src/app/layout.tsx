@@ -6,7 +6,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" style={{ height: '100%' }}>
       <head>
         <title>Gazette - Agrégateur de flux RSS</title>
         <meta name="description" content="Gazette est un agrégateur de flux RSS moderne qui vous permet de découvrir, organiser et partager vos sources d'information préférées." />
@@ -34,7 +34,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body>
+      <body style={{ height: '100%' }}>
         <ClientProviders>
           {children}
         </ClientProviders>

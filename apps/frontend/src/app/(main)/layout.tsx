@@ -20,6 +20,8 @@ export default function MainLayout({
         return 'Paramètres'
       case '/subscriptions':
         return 'Abonnements'
+      case '/library':
+        return 'Bibliothèque'
       default:
         return 'Gazette'
     }
@@ -30,12 +32,17 @@ export default function MainLayout({
       minHeight="100vh"
       width="100%"
       position="relative"
+      display="flex"
+      flexDirection="column"
     >
       <Header pageTitle={getPageTitle()} />
 
       {/* Contenu principal */}
       <Box
         flex="1"
+        flexGrow={1}
+        display="flex"
+        flexDirection="column"
         pb={{ base: '80px', lg: '0' }} // Espace pour navbar mobile
       >
         {children}

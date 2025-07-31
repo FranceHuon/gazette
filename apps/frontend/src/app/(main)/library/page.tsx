@@ -9,11 +9,7 @@ import { useLikes } from '@/hooks/useLikes'
 
 function LibraryPageContent() {
   const { contents } = useContents()
-  const { like, dislike, isLiked } = useLikes()
-
-  const handleLike = (contentId: string) => {
-    like(contentId)
-  }
+  const { dislike, isLiked } = useLikes()
 
   const handleDislike = (contentId: string) => {
     dislike(contentId)
@@ -23,10 +19,10 @@ function LibraryPageContent() {
 
   return (
     <ResponsiveLayout>
-      <Flex flexDirection="column" gap={1}>
-        {likedContents.map(content => (
+      <Flex flexDirection="column" gap={4} flexGrow={1} height="100%">
+        {likedContents.map((content, index) => (
           <Flex key={content.id} direction="column" gap={4}>
-            <LibraryCard content={content} like={handleLike} dislike={handleDislike} isLiked={isLiked} />
+            <LibraryCard content={content} dislike={handleDislike} isFirst={index === 0} isLast={index === likedContents.length - 1} />
           </Flex>
         ))}
       </Flex>
