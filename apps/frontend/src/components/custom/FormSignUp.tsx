@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, Input, Stack, Text, useToast, VStack } from '@chakra-ui/react'
+import { Flex, Input, List, ListItem, Stack, Text, useToast, VStack } from '@chakra-ui/react'
 import { SignUpFormSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -50,6 +50,7 @@ function FormSignUp() {
 
   const onSubmit = async (data: FormValuesSignUp) => {
     setIsLoading(true)
+    console.warn('data', data)
     try {
       await createUser({
         pseudo: data.pseudo,
@@ -88,20 +89,20 @@ function FormSignUp() {
     <Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack maxWidth="-webkit-fit-content" paddingTop={6}>
-          <Text color="fg.error" fontSize="sm" alignSelf="flex-end">
-            * Champs obligatoires
-          </Text>
-
-          <VStack gap="4">
+          <VStack gap="4" justifyContent="flex-start" alignItems="flex-start">
             <Field
               label={t('pseudo')}
               isInvalid={!!errors.pseudo}
               errorText={errors.pseudo?.message}
             >
               <Input
-                rounded="md"
-                shadow="md"
                 variant="flushed"
+                rounded="md"
+                shadow="none"
+                border="1px solid"
+                borderColor="color.lightGray"
+                padding="0.8rem"
+                height="auto"
                 {...register('pseudo', { required: t('requiredField') })}
               />
             </Field>
@@ -111,9 +112,13 @@ function FormSignUp() {
               errorText={errors.email?.message}
             >
               <Input
-                rounded="md"
-                shadow="md"
                 variant="flushed"
+                rounded="md"
+                shadow="none"
+                border="1px solid"
+                borderColor="color.lightGray"
+                padding="0.8rem"
+                height="auto"
                 {...register('email', { required: t('requiredField') })}
               />
             </Field>
@@ -126,7 +131,11 @@ function FormSignUp() {
               <PasswordInput
                 minW="md"
                 rounded="md"
-                shadow="md"
+                shadow="none"
+                border="1px solid"
+                borderColor="color.lightGray"
+                padding="0.8rem"
+                height="auto"
                 variant="flushed"
                 {...register('password', { required: t('requiredField') })}
               />
@@ -140,7 +149,11 @@ function FormSignUp() {
               <PasswordInput
                 minW="md"
                 rounded="md"
-                shadow="md"
+                shadow="none"
+                border="1px solid"
+                borderColor="color.lightGray"
+                padding="0.8rem"
+                height="auto"
                 variant="flushed"
                 {...register('confirmPassword', {
                   required: t('requiredField'),
@@ -148,25 +161,30 @@ function FormSignUp() {
               />
             </Field>
 
-            <ul color="red.500">
+            <Text fontSize="0.7rem">
               Votre mot de passe doit inclure :
-              <li>au moins 8 caractères</li>
-              <li>une majuscule</li>
-              <li>une minuscule</li>
-              <li>un chiffre</li>
-              <li>un caractère spécial ( - [ ] ( ) * ~ _ # : ?)</li>
-            </ul>
+              <List>
+                <ListItem listStyleType="disc" ml="1rem">au moins 8 caractères</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">une majuscule</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">une minuscule</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">un chiffre</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">un caractère spécial (- [ ] ( ) * ~ _ # : ?)</ListItem>
+              </List>
+            </Text>
 
             <Button
               type="submit"
-              width="22rem"
               textStyle="button"
               fontColor="color.white"
               backgroundColor="color.chaletGreen"
               text={t('signIn')}
               disabled={isLoading}
+              py="1.5rem"
+              mt="1rem"
+              width="100%"
+              rounded="md"
             />
-            <Text>
+            <Text width="100%" align="center">
               {`${t('alreadyCreated')} `}
               <Link href="/login">
                 <b>{t('login')}</b>

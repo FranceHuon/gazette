@@ -5,27 +5,25 @@ import { useTranslation } from 'react-i18next'
 
 function GazetteIllu() {
   const { t } = useTranslation()
+  const myArray = Array.from({ length: 3 })
   return (
     <Box
       width="50%"
-      height="100vh"
+      height="100%"
       bgColor="color.chaletGreen"
       display="flex"
+      flexDirection="column"
       color="color.white"
-      justifyContent="center"
+      justifyContent="space-between"
       alignItems="center"
+      py="8rem"
     >
-      <Flex flexDirection="column">
-        <Text textStyle="appTitle">
+      {myArray.map((_, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Text key={index} fontSize="10rem" lineHeight="10rem" fontFamily="Staatliches">
           {t('navigateApp.appTitle')}
         </Text>
-        <Text textStyle="appTitle">
-          {t('navigateApp.appTitle')}
-        </Text>
-        <Text textStyle="appTitle">
-          {t('navigateApp.appTitle')}
-        </Text>
-      </Flex>
+      ))}
     </Box>
   )
 }

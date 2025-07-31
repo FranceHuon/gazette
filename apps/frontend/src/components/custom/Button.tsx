@@ -23,8 +23,8 @@ function Button({
       color={fontColor}
       bgColor={backgroundColor}
       shadow="sm"
-      borderRadius="20px"
-      margin="3"
+      borderRadius="18px"
+      px={6}
       {...props} // all the other props of chakra ui are transmetted here
     >
       <Text textTransform={capitalizeText ? 'capitalize' : 'uppercase'}>

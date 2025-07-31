@@ -8,7 +8,7 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <Flex className="auth-layout" width="100vw" height="100vh">
+    <Flex className="auth-layout" height="100%">
       <GazetteIllu />
       <Box flex="1" display="flex" alignItems="center" justifyContent="center">
         {children}

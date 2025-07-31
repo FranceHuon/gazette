@@ -59,11 +59,7 @@ function FormLogin() {
   return (
     <Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack maxWidth="-webkit-fit-content" paddingTop={6}>
-          <Text color="fg.error" fontSize="sm" alignSelf="flex-end">
-            * Champs obligatoires
-          </Text>
-
+        <Stack maxWidth="-webkit-fit-content" paddingTop={6} gap="1.5rem">
           <Field
             label={t('mail')}
             isInvalid={!!errors.email}
@@ -71,8 +67,13 @@ function FormLogin() {
           >
             <Input
               rounded="md"
-              shadow="md"
+              shadow="none"
+              border="1px solid"
+              borderColor="color.lightGray"
+              padding="0.8rem"
+              height="auto"
               variant="flushed"
+              placeholder={t('mail')}
               {...register('email', { required: t('requiredField') })}
             />
           </Field>
@@ -87,32 +88,27 @@ function FormLogin() {
               rounded="md"
               shadow="md"
               variant="flushed"
+              placeholder="****************"
               {...register('password', { required: t('requiredField') })}
             />
           </Field>
 
-          <ul color="red.500">
-            Votre mot de passe doit inclure :
-            <li>au moins 8 caractères</li>
-            <li>une majuscule</li>
-            <li>une minuscule</li>
-            <li>un chiffre</li>
-            <li>un caractère spécial (- [ ] ( ) * ~ _ # : ?)</li>
-          </ul>
-
           <Button
             type="submit"
-            width="22rem"
+            width="100%"
+            rounded="md"
             textStyle="button"
             fontColor="color.white"
             backgroundColor="color.chaletGreen"
             text={t('login')}
             disabled={isLoading}
+            py="1.5rem"
+            mt="1rem"
           />
-          <Text>
-            {`${t('alreadyConnected')} `}
-            <Link href="/login">
-              <b>{t('login')}</b>
+          <Text align="center">
+            {`${t('noAccount')} `}
+            <Link href="/signin">
+              <b>{t('create')}</b>
             </Link>
           </Text>
         </Stack>
