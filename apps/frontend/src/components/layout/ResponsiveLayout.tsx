@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
 
 interface ResponsiveLayoutProps {
@@ -23,10 +23,10 @@ export function ResponsiveLayout({
   }
 
   return (
-    <Box
+    <Flex
       width="100%"
-      height="100%"
-      overflow="auto"
+      minHeight="100%"
+      flexGrow={1}
       backgroundColor="color.lightGray"
     >
       <Box
@@ -38,6 +38,6 @@ export function ResponsiveLayout({
       >
         {children}
       </Box>
-    </Box>
+    </Flex>
   )
 }

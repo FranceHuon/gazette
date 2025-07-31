@@ -70,8 +70,19 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
           {...rest}
           ref={ref}
           type={visible ? 'text' : 'password'}
+          border="1px solid"
+          borderColor="color.lightGray"
+          boxShadow="none"
+          padding="0.8rem"
+          height="auto"
+          rounded="md"
         />
-        <InputRightElement>
+        <InputRightElement
+          height="100%"
+          display="flex"
+          alignItems="center"
+          px="1.5rem"
+        >
           <VisibilityTrigger
             isDisabled={rest.isDisabled}
             onClick={() => {

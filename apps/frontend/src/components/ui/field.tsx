@@ -20,7 +20,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
         ref={ref}
         {...rest}
       >
-        {label && <FormLabel>{label}</FormLabel>}
+        {label && <FormLabel fontSize="0.8rem" textTransform="uppercase" fontWeight="bold">{label}</FormLabel>}
         {children}
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
         {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
