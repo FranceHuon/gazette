@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
 function GazetteIllu() {

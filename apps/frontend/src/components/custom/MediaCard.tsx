@@ -39,28 +39,23 @@ function MediaCard({
     >
       <CardBody padding={{ base: '16px', md: '20px' }}>
         <Flex flexDirection="column" gap={{ base: 4, md: 6 }} alignItems="flex-start" height="100%">
-          <Flex alignItems="center" justifyContent="flex-start" gap={3} padding={2} paddingRight={4} border="1px solid rgba(240,240,240,1)" borderRadius={32}>
-            <Flex
-              // mb={{ base: 3, md: 4 }}
-              width={{ base: '60px', md: '60px' }}
-              height={{ base: '60px', md: '60px' }}
-              justifyContent="center"
-              border="1px solid rgba(240,240,240,1)"
-              padding={2}
-              borderRadius={24}
-            >
-              <Image
-                src={media.picture}
-                alt={media.name}
-                maxW="100%"
-                maxH={{ base: '80px', md: '120px' }}
-                objectFit="contain"
-                fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
-              />
-            </Flex>
-            <Text fontSize="sm" fontWeight="bold">
-              {media.name}
-            </Text>
+          <Flex
+            // mb={{ base: 3, md: 4 }}
+            width={{ base: '60px', md: '100px' }}
+            height={{ base: '60px', md: '100px' }}
+            justifyContent="center"
+            border="1px solid rgba(240,240,240,1)"
+            padding={4}
+            borderRadius={24}
+          >
+            <Image
+              src={media.picture}
+              alt={media.name}
+              maxW="100%"
+              maxH={{ base: '80px', md: '120px' }}
+              objectFit="contain"
+              fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
+            />
           </Flex>
 
           <Flex
@@ -77,7 +72,7 @@ function MediaCard({
               {media.name}
             </Heading>
             <Text
-              fontSize={{ base: 'md', md: 'xl' }}
+              fontSize={{ base: 'md', md: 'lg' }}
               textAlign="left"
               lineHeight="1.4"
               noOfLines={{ base: 3, md: 4 }}
@@ -94,7 +89,6 @@ function MediaCard({
                     backgroundColor="red.500"
                     text={t('unsubscribe')}
                     height="50px"
-                    width="150px"
                     onClick={() => onUnsubscribe!(media.id)}
                   />
                 )
@@ -104,7 +98,6 @@ function MediaCard({
                     backgroundColor="color.chaletGreen"
                     text={t('subscribe')}
                     height="50px"
-                    width="150px"
                     onClick={() => onSubscribe(media.id)}
                   />
                 )}

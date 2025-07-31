@@ -24,6 +24,8 @@ function ExplorePageContent() {
     <ResponsiveLayout>
       <Flex
         flexDirection="column"
+        flexGrow={1}
+        height="100%"
         gap={{ base: '24px', md: '32px', lg: '40px' }}
         width="100%"
       >

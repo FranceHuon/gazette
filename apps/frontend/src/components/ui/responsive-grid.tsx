@@ -61,7 +61,7 @@ export function CardGrid({
   return (
     <ResponsiveGrid
       gap={{ base: '16px', md: '24px', lg: '32px' }}
-      justify={{ base: 'center', md: 'space-between' }}
+      justify={{ base: 'center', md: 'flex-start' }}
       {...props}
     >
       {children}
