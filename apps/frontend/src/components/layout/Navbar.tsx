@@ -4,6 +4,7 @@ import { Box, Text } from '@chakra-ui/react'
 import { Compass, Library, Newspaper, User } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '@/hooks/useAuth'
 import { useResponsiveTokens } from '../../theme/responsive'
 
 interface NavItemProps {
@@ -45,24 +46,26 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
     keyPrefix: 'navigateApp',
   })
 
+  const { user } = useAuth()
+
   const { spacing, navbarStyles } = useResponsiveTokens()
 
   const menuItems = [
-    { href: '/library', icon: Newspaper, label: t('library') },
     {
       href: '/explore',
       icon: Compass,
       label: t('explore'),
     },
+    { href: '/library', icon: Library, label: t('library') },
     {
       href: '/subscriptions',
-      icon: Library,
+      icon: Newspaper,
       label: t('subscriptions'),
     },
     {
       href: '/settings',
       icon: User,
-      label: t('account'),
+      label: user.pseudo,
     },
   ]
 

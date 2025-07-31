@@ -5,7 +5,7 @@ import { createContext, useEffect, useMemo, useState } from 'react'
 import { deleteUserAccount, getUserProfile, loginUser, logoutUser } from '@/services/api/user'
 
 interface AuthContextType {
-  user: UserDto | null
+  user: UserDto
   loading: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
@@ -14,7 +14,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-async function loadUserProfile(setUser: (user: UserDto | null) => void) {
+async function loadUserProfile(setUser: (user: UserDto) => void) {
   try {
     const res = await getUserProfile()
     setUser({
@@ -24,7 +24,7 @@ async function loadUserProfile(setUser: (user: UserDto | null) => void) {
     })
   }
   catch {
-    setUser(null)
+    throw new Error('Failed to load user profile')
   }
 }
 
@@ -51,7 +51,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null)
   }
 
-  const value = useMemo(() => ({ user, loading, login, logout, deleteAccount }), [user, loading])
+  const value = useMemo(() => ({
+    user: user!,
+    loading,
+    login,
+    logout,
+    deleteAccount,
+  }), [user, loading])
 
   return (
     <AuthContext.Provider value={value}>
