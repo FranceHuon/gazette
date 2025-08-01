@@ -30,7 +30,7 @@ export default function I18nProvider({ children }: I18nProviderProps) {
   }, [])
 
   if (isLoading || !i18nInstance) {
-    return <div>Loading...</div> // Ou un spinner de chargement
+    return <div>Loading...</div>
   }
 
   return <I18nextProvider i18n={i18nInstance}>{children}</I18nextProvider>

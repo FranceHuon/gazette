@@ -13,7 +13,7 @@ function GazetteIllu() {
       bgColor="chaletGreen"
       display="flex"
       flexDirection="column"
-              color="white"
+      color="white"
       justifyContent="space-between"
       alignItems="center"
       py="8rem"
