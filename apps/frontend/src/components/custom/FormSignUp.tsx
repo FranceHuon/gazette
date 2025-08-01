@@ -4,8 +4,6 @@ import { Flex, Input, List, ListItem, Stack, Text, useToast, VStack } from '@cha
 import { SignUpFormSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { PasswordInput } from '@/components/ui/password-input'
@@ -13,7 +11,6 @@ import { useAuth } from '@/hooks/useAuth'
 import { createUser } from '@/services/api/user'
 import { Field } from '../ui/field'
 import Button from './Button'
-import { WelcomeModal } from './Modal'
 
 const SignUpSchema = SignUpFormSchema
 
@@ -21,11 +18,8 @@ function FormSignUp() {
   const { t } = useTranslation('common', {
     keyPrefix: 'accountManagement',
   })
-  const router = useRouter()
   const toast = useToast()
   const { login } = useAuth()
-  const [isLoading, setIsLoading] = useState(false)
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false)
 
   interface FormValuesSignUp {
     pseudo: string
@@ -49,8 +43,6 @@ function FormSignUp() {
   })
 
   const onSubmit = async (data: FormValuesSignUp) => {
-    setIsLoading(true)
-    console.warn('data', data)
     try {
       await createUser({
         pseudo: data.pseudo,
@@ -67,8 +59,6 @@ function FormSignUp() {
         duration: 3000,
         isClosable: true,
       })
-
-      setIsWelcomeModalOpen(true)
     }
     catch (error) {
       console.error(error)
@@ -79,9 +69,6 @@ function FormSignUp() {
         duration: 4000,
         isClosable: true,
       })
-    }
-    finally {
-      setIsLoading(false)
     }
   }
 
@@ -100,7 +87,7 @@ function FormSignUp() {
                 rounded="md"
                 shadow="none"
                 border="1px solid"
-                borderColor="color.lightGray"
+                borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
                 {...register('pseudo', { required: t('requiredField') })}
@@ -116,7 +103,7 @@ function FormSignUp() {
                 rounded="md"
                 shadow="none"
                 border="1px solid"
-                borderColor="color.lightGray"
+                borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
                 {...register('email', { required: t('requiredField') })}
@@ -133,7 +120,7 @@ function FormSignUp() {
                 rounded="md"
                 shadow="none"
                 border="1px solid"
-                borderColor="color.lightGray"
+                borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
                 variant="flushed"
@@ -151,7 +138,7 @@ function FormSignUp() {
                 rounded="md"
                 shadow="none"
                 border="1px solid"
-                borderColor="color.lightGray"
+                borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
                 variant="flushed"
@@ -175,10 +162,7 @@ function FormSignUp() {
             <Button
               type="submit"
               textStyle="button"
-              fontColor="color.white"
-              backgroundColor="color.chaletGreen"
               text={t('signIn')}
-              disabled={isLoading}
               py="1.5rem"
               mt="1rem"
               width="100%"
@@ -193,13 +177,6 @@ function FormSignUp() {
           </VStack>
         </Stack>
       </form>
-      <WelcomeModal
-        isOpen={isWelcomeModalOpen}
-        onClose={() => {
-          setIsWelcomeModalOpen(false)
-          router.push('/explore')
-        }}
-      />
     </Flex>
   )
 }

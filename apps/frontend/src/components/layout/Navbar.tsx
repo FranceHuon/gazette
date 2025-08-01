@@ -5,7 +5,6 @@ import { Compass, Library, Newspaper, User } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/hooks/useAuth'
-import { useResponsiveTokens } from '../../theme/responsive'
 
 interface NavItemProps {
   href: string
@@ -15,7 +14,7 @@ interface NavItemProps {
   spacing: string | number
 }
 
-function NavItem({ href, icon: Icon, label, isScrolled, spacing }: NavItemProps) {
+function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
   return (
     <Link href={href}>
       <Box
@@ -24,15 +23,16 @@ function NavItem({ href, icon: Icon, label, isScrolled, spacing }: NavItemProps)
         alignItems="center"
         justifyContent="center"
         transition="all 0.2s ease"
+        color="chaletGreen"
         _hover={{ transform: 'translateY(-2px)', color: '#283618' }}
-        gap={spacing}
       >
         <Icon size={isScrolled ? '1.5rem' : '2rem'} />
         <Text
-          textStyle="navbar"
+          fontFamily="heading"
           display={{ base: 'none', sm: 'block' }}
           fontSize={isScrolled ? '1.5rem' : '2rem'}
           transition="all 0.2s ease"
+          color="chaletGreen"
         >
           {label}
         </Text>
@@ -48,15 +48,14 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
 
   const { user } = useAuth()
 
-  const { spacing, navbarStyles } = useResponsiveTokens()
-
   const menuItems = [
     {
       href: '/explore',
       icon: Compass,
       label: t('explore'),
     },
-    { href: '/library', icon: Library, label: t('library') },
+    { href: '/library', icon: Library, label: t('library'),
+    },
     {
       href: '/subscriptions',
       icon: Newspaper,
@@ -65,7 +64,7 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
     {
       href: '/settings',
       icon: User,
-      label: user.pseudo,
+      label: user?.pseudo || t('settings'),
     },
   ]
 
@@ -74,7 +73,6 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
       display="flex"
       py={3}
       px={2}
-      {...navbarStyles}
       gap={isScrolled ? 8 : 12}
     >
       {menuItems.map(item => (
@@ -84,7 +82,7 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
           icon={item.icon}
           label={item.label}
           isScrolled={isScrolled}
-          spacing={spacing || '0.5rem'}
+          spacing={0.5}
         />
       ))}
     </Box>

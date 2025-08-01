@@ -1,6 +1,8 @@
+'use client'
+
 import { Card, Flex, Heading, Image, Link } from '@chakra-ui/react'
 import { ContentWithMediaDto } from '@gazette/shared'
-import { Heart } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 
 interface LibraryCardProps {
   content: ContentWithMediaDto
@@ -54,7 +56,7 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
             <Link
               href={content.link}
               isExternal
-              color="color.chaletGreen"
+              color="chaletGreen"
               textStyle="cardLink"
               _hover={{ textDecoration: 'underline' }}
             >
@@ -73,11 +75,10 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
           justifyContent="center"
           mr={4}
         >
-          <Heart
+          <Trash2
             stroke="#606c38"
             size={30}
             strokeWidth={3}
-            fill="#606c38"
           />
         </Flex>
       </Flex>

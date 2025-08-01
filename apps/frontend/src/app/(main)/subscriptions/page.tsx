@@ -1,4 +1,5 @@
 'use client'
+
 import { Flex, Heading, VStack } from '@chakra-ui/react'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
@@ -28,7 +29,7 @@ function SubscriptionsPageContent() {
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <Heading
             fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
-            color="color.chaletGreen"
+            color="chaletGreen"
           >
             Vos abonnements
           </Heading>
@@ -48,7 +49,7 @@ function SubscriptionsPageContent() {
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <Heading
             fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
-            color="color.chaletGreen"
+            color="chaletGreen"
           >
             Médias disponibles
           </Heading>
