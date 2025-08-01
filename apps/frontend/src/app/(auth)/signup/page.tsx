@@ -19,7 +19,7 @@ export default function SigninPage() {
       height="100%"
       padding={{ base: '16px', md: '24px', lg: '32px' }}
     >
-      <Title text={t('signIn')} fontColor="color.chaletGreen" />
+      <Title text={t('signIn')} fontColor="chaletGreen" />
       <FormSignUp />
     </VStack>
   )

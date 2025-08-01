@@ -1,10 +1,11 @@
+'use client'
+
 import type { LoginUserDto } from '@gazette/shared'
 import { Flex, Input, Stack, Text, useToast } from '@chakra-ui/react'
 import { LogUserSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/hooks/useAuth'
@@ -18,7 +19,6 @@ function FormLogin() {
   })
   const router = useRouter()
   const toast = useToast()
-  const [isLoading, setIsLoading] = useState(false)
   const { login } = useAuth()
 
   type FormValuesLog = Omit<LoginUserDto, 'role'>
@@ -36,7 +36,6 @@ function FormLogin() {
   })
 
   const onSubmit = async (data: FormValuesLog) => {
-    setIsLoading(true)
     try {
       await login(data.email, data.password)
       router.push('/explore')
@@ -45,14 +44,11 @@ function FormLogin() {
       console.error(error)
       toast({
         title: t('error'),
-        description: t('errorCreation'), // a renommer,
+        description: t('errorCreation'),
         status: 'error',
         duration: 4000,
         isClosable: true,
       })
-    }
-    finally {
-      setIsLoading(false)
     }
   }
 
@@ -69,7 +65,7 @@ function FormLogin() {
               rounded="md"
               shadow="none"
               border="1px solid"
-              borderColor="color.lightGray"
+              borderColor="lightGray"
               padding="0.8rem"
               height="auto"
               variant="flushed"
@@ -97,11 +93,7 @@ function FormLogin() {
             type="submit"
             width="100%"
             rounded="md"
-            textStyle="button"
-            fontColor="color.white"
-            backgroundColor="color.chaletGreen"
             text={t('login')}
-            disabled={isLoading}
             py="1.5rem"
             mt="1rem"
           />

@@ -1,5 +1,4 @@
-import { Box, Icon, Link, List, ListItem } from '@chakra-ui/react'
-import { FileBadge, HelpCircle, LogOut, Trash } from 'lucide-react'
+import { Box, Link, List, ListItem } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { useToaster } from '@/components/ui/toaster'
@@ -48,7 +47,14 @@ function SettingsMenu() {
     <Box textAlign="left">
       <List spacing={2} variant="plain">
         <ListItem>
-          <Icon as={LogOut} mr={2} />
+          <Link
+            cursor="pointer"
+            textStyle="nav"
+          >
+            {t('changePassword')}
+          </Link>
+        </ListItem>
+        <ListItem>
           <Link
             onClick={handleLogout}
             cursor="pointer"
@@ -58,7 +64,6 @@ function SettingsMenu() {
           </Link>
         </ListItem>
         <ListItem>
-          <Icon as={Trash} mr={2} />
           <Link
             onClick={handleDeleteAccount}
             cursor="pointer"
@@ -68,7 +73,6 @@ function SettingsMenu() {
           </Link>
         </ListItem>
         <ListItem>
-          <Icon as={HelpCircle} mr={2} />
           <Link
             href="/about"
             textStyle="nav"
@@ -77,7 +81,6 @@ function SettingsMenu() {
           </Link>
         </ListItem>
         <ListItem>
-          <Icon as={FileBadge} mr={2} />
           <Link
             textStyle="nav"
           >

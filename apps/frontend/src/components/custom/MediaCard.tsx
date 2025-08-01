@@ -85,8 +85,8 @@ function MediaCard({
             {!isSubscribeOnlyMode && isCurrentlySubscribed
               ? (
                   <Button
-                    fontColor="white"
-                    backgroundColor="red.500"
+                    color="white"
+                    bgColor="red.500"
                     text={t('unsubscribe')}
                     height="50px"
                     onClick={() => onUnsubscribe!(media.id)}
@@ -94,8 +94,8 @@ function MediaCard({
                 )
               : (
                   <Button
-                    fontColor="white"
-                    backgroundColor="color.chaletGreen"
+                    color="white"
+                    bgColor="chaletGreen"
                     text={t('subscribe')}
                     height="50px"
                     onClick={() => onSubscribe(media.id)}

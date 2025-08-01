@@ -20,7 +20,9 @@
     "policy": "Politique et confidentialité",
     "account": "Mon compte",
     "obligatoryField": "* champs obligatoires",
-    "requiredField": "Champ obligatoire"
+    "requiredField": "Champ obligatoire",
+    "changePassword": "Changer de mot de passe",
+    "presentation": "Gazette, c'est quoi ?"
   },
   "navigateApp": {
     "explore": "Explorer",

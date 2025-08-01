@@ -5,7 +5,7 @@ import { createContext, useEffect, useMemo, useState } from 'react'
 import { deleteUserAccount, getUserProfile, loginUser, logoutUser } from '@/services/api/user'
 
 interface AuthContextType {
-  user: UserDto
+  user: UserDto | null
   loading: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const value = useMemo(() => ({
-    user: user!,
+    user,
     loading,
     login,
     logout,

@@ -32,8 +32,8 @@ function Header({ pageTitle }: HeaderProps) {
       <Flex
         direction="column"
       >
-        <Title text="Gazette" fontColor="color.chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} />
-        <Title text={pageTitle} fontColor="color.chaletGreen" fontSize={isScrolled ? '1rem' : '2rem'} />
+        <Title text="Gazette" fontColor="chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} />
+        <Title text={pageTitle} fontColor="chaletGreen" fontSize={isScrolled ? '1rem' : '2rem'} />
       </Flex>
       <Navbar isScrolled={isScrolled} />
     </Box>

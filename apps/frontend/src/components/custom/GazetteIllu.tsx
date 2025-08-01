@@ -10,10 +10,10 @@ function GazetteIllu() {
     <Box
       width="50%"
       height="100%"
-      bgColor="color.chaletGreen"
+      bgColor="chaletGreen"
       display="flex"
       flexDirection="column"
-      color="color.white"
+      color="white"
       justifyContent="space-between"
       alignItems="center"
       py="8rem"

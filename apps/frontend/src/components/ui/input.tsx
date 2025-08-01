@@ -6,7 +6,7 @@ export function Input(props: InputProps) {
       rounded="md"
       shadow="none"
       border="1px solid"
-      borderColor="color.lightGray"
+      borderColor="lightGray"
       padding="0.8rem"
       height="auto"
       {...props}

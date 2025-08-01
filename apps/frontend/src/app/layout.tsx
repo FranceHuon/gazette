@@ -1,4 +1,8 @@
+'use client'
+
+import { ColorModeScript } from '@chakra-ui/react'
 import ClientProviders from '@/components/providers/ClientProviders'
+import { theme } from '@/theme/theme'
 
 export default function RootLayout({
   children,
@@ -25,9 +29,6 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        {/* Preload des icônes critiques */}
-        <link rel="preload" href="/favicon.ico" as="image" type="image/x-icon" />
-
         {/* Optimisations de performance */}
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -35,6 +36,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body style={{ height: '100%' }}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <ClientProviders>
           {children}
         </ClientProviders>

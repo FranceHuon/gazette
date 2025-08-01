@@ -27,7 +27,7 @@ export function ResponsiveLayout({
       width="100%"
       minHeight="100%"
       flexGrow={1}
-      backgroundColor="color.lightGray"
+      backgroundColor="lightGray"
     >
       <Box
         px={padding || defaultPadding}

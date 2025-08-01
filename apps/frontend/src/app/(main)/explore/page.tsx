@@ -33,7 +33,7 @@ function ExplorePageContent() {
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <Heading
             fontSize={{ base: 'xl', md: '2rem', lg: '3rem' }}
-            color="color.chaletGreen"
+            color="chaletGreen"
           >
             Articles qui pourraient vous intéresser
           </Heading>
