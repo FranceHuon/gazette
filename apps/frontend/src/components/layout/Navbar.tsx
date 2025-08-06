@@ -24,15 +24,20 @@ function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
         justifyContent="center"
         transition="all 0.2s ease"
         color="chaletGreen"
-        _hover={{ transform: 'translateY(-2px)', color: '#283618' }}
+        _hover={{
+          'transform': 'translateY(-2px)',
+          'color': '#283618',
+          '& svg': {
+            color: '#283618',
+          },
+        }}
       >
         <Icon size={isScrolled ? '1.5rem' : '2rem'} />
         <Text
           fontFamily="heading"
-          display={{ base: 'none', sm: 'block' }}
-          fontSize={isScrolled ? '1.5rem' : '2rem'}
+          fontSize={{ base: '1rem', md: isScrolled ? '1.5rem' : '2rem' }}
           transition="all 0.2s ease"
-          color="chaletGreen"
+          color="inherit"
         >
           {label}
         </Text>
@@ -72,8 +77,9 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
     <Box
       display="flex"
       py={3}
-      px={2}
-      gap={isScrolled ? 8 : 12}
+      px={{ base: 8, md: 2 }}
+      gap={{ base: 4, md: isScrolled ? 8 : 12 }}
+      justifyContent={{ base: 'space-between', md: 'end' }}
     >
       {menuItems.map(item => (
         <NavItem
