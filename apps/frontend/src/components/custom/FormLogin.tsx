@@ -53,9 +53,9 @@ function FormLogin() {
   }
 
   return (
-    <Flex>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack maxWidth="-webkit-fit-content" paddingTop={6} gap="1.5rem">
+    <Flex direction="column" alignItems="center" justifyContent="center" width={{ base: '100%', md: '60%' }}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+        <Stack maxWidth="-webkit-fit-content" paddingTop={6} gap="1.5rem" width="100%">
           <Field
             label={t('mail')}
             isInvalid={!!errors.email}
@@ -99,7 +99,7 @@ function FormLogin() {
           />
           <Text align="center">
             {`${t('noAccount')} `}
-            <Link href="/signin">
+            <Link href="/signup">
               <b>{t('create')}</b>
             </Link>
           </Text>

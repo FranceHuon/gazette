@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter, CardHeader, Heading, Link, Text, VStack } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, CardHeader, Heading, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { ContentWithMediaDto } from '@gazette/shared'
 import { Heart } from 'lucide-react'
 
@@ -23,14 +23,13 @@ function RssCard({
       width={{ base: '100%', sm: '250px', md: '300px', lg: '400px' }}
       height={{ base: 'auto', sm: '250px', md: '300px', lg: '400px' }}
       minHeight={{ base: '200px', sm: '250px', md: '300px', lg: '400px' }}
-      borderRadius={{ base: '20px', md: '30px', lg: '24px' }}
+      borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
       padding={{ base: '16px', md: '20px' }}
-      boxShadow="rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
+      boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
-      border="1px solid rgba(0, 0, 0, 0.1)"
     >
-      <CardHeader padding={{ base: '12px', md: '16px' }}>
+      <CardHeader padding={{ base: '12px', md: '16px' }} display="flex" alignItems="center" justifyContent="space-between">
         <Heading
           textStyle="cardTitle"
           noOfLines={2}
@@ -38,6 +37,15 @@ function RssCard({
         >
           {content.media?.name}
         </Heading>
+
+        <Image
+          src={content.media?.picture}
+          alt={content.media?.name}
+          maxW={{ base: '50px', md: '50px' }}
+          maxH={{ base: '50px', md: '50px' }}
+          objectFit="contain"
+          fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
+        />
       </CardHeader>
 
       <CardBody padding={{ base: '12px', md: '16px' }} border="none">
@@ -74,7 +82,7 @@ function RssCard({
               <Heart
                 stroke="#606c38"
                 size={30}
-                strokeWidth={3}
+                strokeWidth={2}
                 fill="#606c38"
                 onClick={() => dislike!(content.id)}
                 cursor="pointer"
@@ -84,7 +92,7 @@ function RssCard({
               <Heart
                 stroke="#606c38"
                 size={30}
-                strokeWidth={3}
+                strokeWidth={2}
                 onClick={() => like(content.id)}
                 cursor="pointer"
               />

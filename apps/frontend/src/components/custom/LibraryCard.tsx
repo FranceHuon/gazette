@@ -19,8 +19,8 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
       minHeight={{ base: '20px', sm: '25px', md: '30px', lg: '40px' }}
       borderRadius={{ base: '20px', md: '30px', lg: '24px' }}
       padding={{ base: '16px', md: '20px' }}
-      paddingBottom={{ base: '16px', md: isLast ? '20px' : '56px' }}
-      marginTop={isFirst ? '12px' : '-58px'}
+      paddingBottom={{ base: '16px', md: isLast ? '20px' : '64px' }}
+      marginTop={isFirst ? '12px' : '-66px'}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-10px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
@@ -78,7 +78,7 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
           <Trash2
             stroke="#606c38"
             size={30}
-            strokeWidth={3}
+            strokeWidth={2}
           />
         </Flex>
       </Flex>

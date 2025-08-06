@@ -65,7 +65,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     })
 
     return (
-      <ChakraInputGroup {...rootProps}>
+      <ChakraInputGroup {...rootProps} maxWidth="100%">
         <Input
           {...rest}
           ref={ref}
@@ -76,6 +76,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
           padding="0.8rem"
           height="auto"
           rounded="md"
+          minWidth={12}
         />
         <InputRightElement
           height="100%"
