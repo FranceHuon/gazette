@@ -76,7 +76,7 @@ function FormSignUp() {
     <Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack maxWidth="-webkit-fit-content" paddingTop={6}>
-          <VStack gap="4" justifyContent="flex-start" alignItems="flex-start">
+          <VStack gap="2" justifyContent="flex-start" alignItems="flex-start">
             <Field
               label={t('pseudo')}
               isInvalid={!!errors.pseudo}
@@ -170,7 +170,7 @@ function FormSignUp() {
             />
             <Text width="100%" align="center">
               {`${t('alreadyCreated')} `}
-              <Link href="/login">
+              <Link href="/">
                 <b>{t('login')}</b>
               </Link>
             </Text>
