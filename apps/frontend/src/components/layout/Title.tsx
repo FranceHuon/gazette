@@ -8,12 +8,9 @@ export interface TitleProps extends HeadingProps {
 function Title({ fontColor, text, ...props }: TitleProps) {
   return (
     <Heading
-      fontFamily={{
-        base: 'Poppins',
-        lg: 'Staatliches',
-      }}
+      fontFamily="Staatliches"
       color={fontColor}
-      fontSize="6rem"
+      fontSize={{ base: '3rem', md: '6rem' }}
       transition="all 0.3s ease"
       {...props}
     >

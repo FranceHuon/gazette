@@ -34,6 +34,7 @@ function MediaCard({
       minHeight={{ base: '400px', sm: '400px', md: height, lg: height }}
       borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
       overflow="hidden"
+      boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
     >
