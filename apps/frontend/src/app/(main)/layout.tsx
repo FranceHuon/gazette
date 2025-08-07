@@ -22,6 +22,8 @@ export default function MainLayout({
         return 'Abonnements'
       case '/library':
         return 'Bibliothèque'
+      case '/onboarding':
+        return 'Bienvenue'
       default:
         return 'Gazette'
     }

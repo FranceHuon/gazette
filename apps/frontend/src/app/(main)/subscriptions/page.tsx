@@ -26,7 +26,7 @@ function SubscriptionsPageContent() {
   return (
     <ResponsiveLayout>
       <Flex flexDirection="column" gap={{ base: '24px', md: '32px', lg: '40px' }} width="100%">
-        <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
+        <Flex direction="column" gap={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <CardGrid>
             {subscribedMedias.map(media => (
               <MediaCard
@@ -38,7 +38,7 @@ function SubscriptionsPageContent() {
               />
             ))}
           </CardGrid>
-        </VStack>
+        </Flex>
 
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <Heading
