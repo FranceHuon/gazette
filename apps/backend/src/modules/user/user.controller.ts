@@ -20,9 +20,17 @@ export class UsersController {
   async create(
     @Body() body: { pseudo: string, email: string, password: string },
   ) {
-    const user = body
-    const newUser = await this.usersService.create(user)
-    return newUser
+    const newUser = await this.usersService.create(body)
+    return {
+      user: {
+        id: newUser.id,
+        pseudo: newUser.pseudo,
+        email: newUser.email,
+        createdAt: newUser.createdAt,
+        hasOnboarded: newUser.hasOnboarded,
+      },
+      shouldRedirectToOnboarding: !newUser.hasOnboarded,
+    }
   }
 
   @Get()

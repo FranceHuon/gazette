@@ -12,7 +12,16 @@ export interface LoginDto {
   password: string
 }
 
-// CreateUserDto is now defined in schemas/index.ts using Zod
+export interface CreateUserResponse {
+  user: {
+    id: string
+    pseudo: string
+    email: string
+    createdAt: Date
+    hasOnboarded: boolean
+  }
+  shouldRedirectToOnboarding: boolean
+}
 
 export interface ApiUser {
   id: string

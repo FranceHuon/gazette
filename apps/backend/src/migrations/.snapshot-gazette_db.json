@@ -251,20 +251,14 @@
           "length": 6,
           "mappedType": "datetime"
         },
-        "role": {
-          "name": "role",
-          "type": "text",
+        "has_onboarded": {
+          "name": "has_onboarded",
+          "type": "boolean",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "default": "'user'",
-          "enumItems": [
-            "admin",
-            "user",
-            "moderator"
-          ],
-          "mappedType": "enum"
+          "mappedType": "boolean"
         }
       },
       "name": "user",

@@ -1,30 +1,46 @@
 'use client'
 
-import { Flex } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
+import { CardGrid } from '@/components/ui/responsive-grid'
 import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
 function OnboardingPageContent() {
   const { medias } = useMedias()
-  const { subscribe } = useSubscriptionsContext()
+  const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
 
   const handleSubscribe = (mediaId: string) => {
     subscribe(mediaId)
   }
+  const handleUnsubscribe = (mediaId: string) => {
+    unsubscribe(mediaId)
+  }
 
   return (
     <ResponsiveLayout>
-      <Flex flexDirection="column" gap={4} flexGrow={1} height="100%">
-        {medias.map(media => (
-          <MediaCard
-            key={media.id}
-            media={media}
-            onSubscribe={handleSubscribe}
-          />
-        ))}
+      <Flex flexDirection="column" gap={{ base: '24px', md: '32px', lg: '40px' }} width="100%">
+        <Flex direction="column" gap={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
+          <Heading
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
+            color="chaletGreen"
+          >
+            Voici les médias disponibles
+          </Heading>
+          <CardGrid>
+            {medias.map(media => (
+              <MediaCard
+                key={media.id}
+                media={media}
+                onSubscribe={handleSubscribe}
+                onUnsubscribe={handleUnsubscribe}
+                isSubscribed={isSubscribed}
+              />
+            ))}
+          </CardGrid>
+        </Flex>
       </Flex>
     </ResponsiveLayout>
   )
