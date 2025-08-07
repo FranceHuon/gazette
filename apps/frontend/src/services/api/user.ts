@@ -1,13 +1,13 @@
-import type { CreateUserDto, UserProfileDto } from '@gazette/shared'
+import type { CreateUserDto, CreateUserResponse, UserProfileDto } from '@gazette/shared'
 import { api } from '../../config'
 
-export async function createUser(user: CreateUserDto): Promise<CreateUserDto> {
+export async function createUser(user: CreateUserDto): Promise<CreateUserResponse> {
   console.warn('Données envoyées à l’API :', user)
   try {
     const response = await api.post('users', { json: user })
     const data = await response.json()
     console.warn('Réponse backend :', data)
-    return data as CreateUserDto
+    return data as CreateUserResponse
   }
   catch (error: unknown) {
     console.error('Erreur lors de la création utilisateur :', error)

@@ -4,6 +4,7 @@ import { Flex, Input, List, ListItem, Stack, Text, useToast, VStack } from '@cha
 import { SignUpFormSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { PasswordInput } from '@/components/ui/password-input'
@@ -18,6 +19,7 @@ function FormSignUp() {
   const { t } = useTranslation('common', {
     keyPrefix: 'accountManagement',
   })
+  const router = useRouter()
   const toast = useToast()
   const { login } = useAuth()
 
@@ -44,7 +46,7 @@ function FormSignUp() {
 
   const onSubmit = async (data: FormValuesSignUp) => {
     try {
-      await createUser({
+      const { shouldRedirectToOnboarding } = await createUser({
         pseudo: data.pseudo,
         email: data.email,
         password: data.password,
@@ -59,6 +61,13 @@ function FormSignUp() {
         duration: 3000,
         isClosable: true,
       })
+
+      if (shouldRedirectToOnboarding) {
+        router.push('/onboarding')
+      }
+      else {
+        router.push('/')
+      }
     }
     catch (error) {
       console.error(error)
