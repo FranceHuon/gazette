@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process'
 import process from 'node:process'
 
-// Install dependencies if not present
+// INSTALLATION DES DÉPENDANCES
 try {
   await import('puppeteer')
 }
@@ -10,24 +10,24 @@ catch {
   execSync('pnpm add -w lighthouse puppeteer wait-on', { stdio: 'inherit' })
 }
 
-// Install Chrome for Puppeteer
+// INSTALLATION DE CHROME POUR PUPPETEER
 console.log('🌐 Installing Chrome for Puppeteer...')
 execSync('npx puppeteer browsers install chrome', { stdio: 'inherit' })
 
 const puppeteer = await import('puppeteer')
 
-// Configuration
+// CONFIGURATION
 const BACKEND_URL = 'http://localhost:3000'
 const FRONTEND_URL = 'http://localhost:3002'
 
-// Pages à auditer
 const PAGES_TO_AUDIT = [
   '/login',
-  '/signin', // Pages publiques
+  '/signup',
   '/explore',
   '/library',
   '/subscriptions',
-  '/settings', // Pages protégées
+  '/settings',
+  '/onboarding',
 ]
 
 async function loginAndGetCookie(testUser) {
@@ -40,28 +40,23 @@ async function loginAndGetCookie(testUser) {
 
   try {
     const page = await browser.newPage()
-    console.log(`🌐 Navigating to: ${FRONTEND_URL}/login`)
     await page.goto(`${FRONTEND_URL}/login`, { waitUntil: 'networkidle0' })
 
-    console.log('📝 Filling login form...')
     await page.type('input[name="email"]', testUser.email)
     await page.type('input[name="password"]', testUser.password)
     await page.click('button[type="submit"]')
 
-    console.log('⏳ Waiting for navigation...')
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
 
     const cookies = await page.cookies()
-    console.log(`🍪 Found ${cookies.length} cookies`)
     const authCookie = cookies.find(cookie => cookie.name === 'token')
 
     if (authCookie) {
-      console.log('✅ Authentication successful')
+      console.log('✅ Authenticated')
       return authCookie
     }
     else {
       console.log('❌ No auth cookie found')
-      console.log('🍪 Available cookies:', cookies.map(c => c.name))
       return null
     }
   }
@@ -71,58 +66,45 @@ async function loginAndGetCookie(testUser) {
 }
 
 async function runLighthouseAudit(authCookie) {
-  console.log('🔍 Running Lighthouse audit...')
+  console.log('🔍 Starting Lighthouse audits...')
 
   for (const page of PAGES_TO_AUDIT) {
-    console.log(`📊 Auditing ${page}`)
-
     const url = `${FRONTEND_URL}${page}`
     const outputPath = `./lighthouse-report-${page.replace('/', '')}.html`
 
     try {
       const lighthouseCommand = [
         'npx lighthouse',
-        url,
+        `"${url}"`,
         '--only-categories=accessibility',
         '--quiet',
         '--chrome-flags="--headless --no-sandbox --disable-setuid-sandbox"',
-        '--output html',
-        `--output-path ${outputPath}`,
-        `--extra-headers '{"Cookie": "token=${authCookie.value}"}'`,
+        `--output=html`,
+        `--output-path="${outputPath}"`,
+        `--extra-headers='{"Cookie":"token=${authCookie?.value}"}'`,
       ].join(' ')
 
-      console.log(`🔍 Running: ${lighthouseCommand}`)
+      console.log(`🚀 Running: ${lighthouseCommand}`)
       const result = execSync(lighthouseCommand, { encoding: 'utf8' })
-      console.log(`✅ ${page} completed`)
 
-      // Vérifier si le fichier a été créé
+      const accessibilityMatch = result.match(/Accessibility.*?(\d+)/)
+      if (accessibilityMatch) {
+        console.log(`📊 ${page} - Accessibilité: ${accessibilityMatch[1]}/100`)
+      }
+
       const fs = await import('node:fs')
       if (fs.existsSync(outputPath)) {
         console.log(`📄 Report saved: ${outputPath}`)
       }
-      else {
-        console.log(`⚠️ Report not found: ${outputPath}`)
-      }
-
-      // Extraire et afficher le score d'accessibilité
-      const accessibilityMatch = result.match(/Accessibility.*?(\d+)/)
-      if (accessibilityMatch) {
-        console.log(`📊 ${page} - Score accessibilité: ${accessibilityMatch[1]}/100`)
-      }
     }
     catch (error) {
-      console.log(`❌ ${page} failed:`, error.message)
-      console.log(`🔍 Full error:`, error)
-      throw error // Propager l'erreur pour faire échouer la CI
+      console.error(`❌ Audit failed for ${page}:`, error.message)
+      process.exit(1)
     }
   }
-
-  console.log('🎉 All audits completed!')
 }
 
 async function createTestUser() {
-  console.log('👤 Creating test user...')
-
   const testUser = {
     pseudo: 'lighthouse-test',
     email: 'lighthouse-test@example.com',
@@ -130,61 +112,52 @@ async function createTestUser() {
   }
 
   try {
-    console.log(`🔗 Trying to connect to: ${BACKEND_URL}/users`)
     const response = await fetch(`${BACKEND_URL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(testUser),
     })
 
-    console.log(`📡 Response status: ${response.status}`)
-    if (response.ok) {
-      console.log('✅ Test user created')
+    if (response.ok || response.status === 409) {
+      // 409: conflit si l'utilisateur existe déjà
       return testUser
     }
     else {
-      console.log('ℹ️ Test user already exists')
-      return testUser
+      throw new Error('Failed to create test user')
     }
   }
   catch (error) {
-    console.log('⚠️ Could not create test user:', error.message)
-    console.log('🔍 Full error:', error)
+    console.error('⚠️ Error creating test user:', error.message)
     throw error
   }
 }
 
-async function waitForService(url, serviceName) {
-  console.log(`⏳ Waiting for ${serviceName} to be ready...`)
+async function waitForService(url, label) {
+  console.log(`⏳ Waiting for ${label}...`)
 
-  for (let i = 0; i < 30; i++) { // 30 tentatives = 30 secondes
+  for (let i = 0; i < 30; i++) {
     try {
-      const response = await fetch(url)
-      if (response.ok || response.status === 404) { // 404 est OK, ça signifie que le service répond
-        console.log(`✅ ${serviceName} is ready!`)
+      const res = await fetch(url)
+      if (res.ok || res.status === 404) {
+        console.log(`✅ ${label} is ready`)
         return true
       }
     }
-    catch {
-      // Service pas encore prêt
-    }
-
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Attendre 1 seconde
+    catch {}
+    await new Promise(res => setTimeout(res, 1000))
   }
 
-  console.log(`❌ ${serviceName} is not ready after 30 seconds`)
+  console.log(`❌ ${label} not ready after timeout`)
   return false
 }
 
 async function main() {
-  console.log('🚀 Starting Lighthouse audit...')
+  console.log('🚀 Starting audit script')
 
-  // Attendre que les services soient prêts
   const backendReady = await waitForService(`${BACKEND_URL}/users`, 'Backend')
   const frontendReady = await waitForService(`${FRONTEND_URL}/login`, 'Frontend')
 
   if (!backendReady || !frontendReady) {
-    console.log('❌ Services are not ready')
     process.exit(1)
   }
 
@@ -195,7 +168,7 @@ async function main() {
     await runLighthouseAudit(authCookie)
   }
   else {
-    console.log('❌ Cannot run audit without authentication')
+    console.error('❌ No auth cookie, aborting')
     process.exit(1)
   }
 }
