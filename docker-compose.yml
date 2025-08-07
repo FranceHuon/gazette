@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: apps/backend/Dockerfile
     env_file:
-      - .env # Charge le .env racine
+      - .env
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
@@ -36,7 +36,6 @@ services:
     ports:
       - '${BACKEND_PORT}:${BACKEND_PORT}'
     volumes:
-      # Synchroniser le code source pour le développement
       - ./apps/backend:/app/apps/backend
       - ./packages:/app/packages
       - ./package.json:/app/package.json
@@ -44,32 +43,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-      - gazette-network
-
-  frontend:
-    build:
-      context: .
-      dockerfile: apps/frontend/Dockerfile
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:${BACKEND_PORT}
-      NODE_ENV: development
-      PORT: ${FRONTEND_PORT:-3002}
-      NEXT_TELEMETRY_DISABLED: 1
-      WATCHPACK_POLLING: 1
-      # Variables pour optimiser Next.js
-      NODE_OPTIONS: --max-old-space-size=2048
-    ports:
-      - '${FRONTEND_PORT:-3002}:${FRONTEND_PORT:-3002}'
-    volumes:
-      # Synchroniser le code source pour le développement
-      - ./apps/frontend:/app/apps/frontend
-      - ./apps/frontend/src/i18n/locales:/app/apps/frontend/src/i18n/locales
-      - ./packages:/app/packages
-      - ./package.json:/app/package.json
-      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
-    depends_on:
-      - backend
     networks:
       - gazette-network
 
