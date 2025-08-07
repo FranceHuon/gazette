@@ -16,8 +16,15 @@ export class UsersService {
     user.pseudo = userData.pseudo
     user.email = userData.email
     user.password = hashedPassword
+    user.hasOnboarded = false
     await this.em.persistAndFlush(user)
     return user
+  }
+
+  async markAsOnboarded(id: string): Promise<void> {
+    const user = await this.em.findOneOrFail(User, { id })
+    user.hasOnboarded = true
+    await this.em.persistAndFlush(user)
   }
 
   async getAll(): Promise<User[]> {
@@ -30,6 +37,7 @@ export class UsersService {
       createdAt: user.createdAt,
       lastConnection: user.lastConnection,
       subscriptions: user.subscriptions,
+      hasOnboarded: user.hasOnboarded,
     }))
   }
 
