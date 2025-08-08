@@ -21,7 +21,7 @@ function GazetteIllu() {
       {myArray.map((_, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Text key={index} fontSize="10rem" lineHeight="10rem" fontFamily="Staatliches">
-          {t('navigateApp.appTitle')}
+          {t('common.appTitle')}
         </Text>
       ))}
     </Box>

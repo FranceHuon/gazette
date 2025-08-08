@@ -14,9 +14,7 @@ import { PasswordInput } from '../ui/password-input'
 import Button from './Button'
 
 function FormLogin() {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'accountManagement',
-  })
+  const { t } = useTranslation('common')
   const router = useRouter()
   const toast = useToast()
   const { login } = useAuth()
@@ -43,8 +41,8 @@ function FormLogin() {
     catch (error) {
       console.error(error)
       toast({
-        title: t('error'),
-        description: t('errorCreation'),
+        title: t('auth.loginError'),
+        description: t('auth.loginErrorMessage'),
         status: 'error',
         duration: 4000,
         isClosable: true,
@@ -57,7 +55,7 @@ function FormLogin() {
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
         <Stack maxWidth="-webkit-fit-content" paddingTop={6} gap="1.5rem" width="100%">
           <Field
-            label={t('mail')}
+            label={t('auth.email')}
             isInvalid={!!errors.email}
             errorText={errors.email?.message}
           >
@@ -69,13 +67,13 @@ function FormLogin() {
               padding="0.8rem"
               height="auto"
               variant="flushed"
-              placeholder={t('mail')}
-              {...register('email', { required: t('requiredField') })}
+              placeholder={t('auth.email')}
+              {...register('email', { required: t('forms.requiredField') })}
             />
           </Field>
 
           <Field
-            label={t('password')}
+            label={t('auth.password')}
             isInvalid={!!errors.password}
             errorText={errors.password?.message}
           >
@@ -85,7 +83,7 @@ function FormLogin() {
               shadow="md"
               variant="flushed"
               placeholder="****************"
-              {...register('password', { required: t('requiredField') })}
+              {...register('password', { required: t('forms.requiredField') })}
             />
           </Field>
 
@@ -93,14 +91,14 @@ function FormLogin() {
             type="submit"
             width="100%"
             rounded="md"
-            text={t('login')}
+            text={t('auth.login')}
             py="1.5rem"
             mt="1rem"
           />
           <Text align="center">
-            {`${t('noAccount')} `}
+            {`${t('auth.noAccountYet')} `}
             <Link href="/signup">
-              <b>{t('create')}</b>
+              <b>{t('auth.create')}</b>
             </Link>
           </Text>
         </Stack>

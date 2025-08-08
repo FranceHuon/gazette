@@ -1,6 +1,7 @@
 'use client'
 
 import { Flex, Heading, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -9,6 +10,7 @@ import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
 function SubscriptionsPageContent() {
+  const { t } = useTranslation()
   const { medias } = useMedias()
   const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
 
@@ -45,7 +47,7 @@ function SubscriptionsPageContent() {
             fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
             color="chaletGreen"
           >
-            Médias disponibles
+            {t('common.availableMedias')}
           </Heading>
           <CardGrid>
             {unsubscribedMedias.map(media => (

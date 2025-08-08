@@ -21,7 +21,7 @@ function MediaCard({
   height = '400px',
 }: MediaCardProps) {
   const { t } = useTranslation('common', {
-    keyPrefix: 'navigateApp',
+    keyPrefix: 'subscriptions',
   })
 
   const isSubscribeOnlyMode = !onUnsubscribe || !isSubscribed

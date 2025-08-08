@@ -1,6 +1,9 @@
+'use client'
+
 import { Card, CardBody, CardFooter, CardHeader, Heading, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { ContentWithMediaDto } from '@gazette/shared'
 import { Heart } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface RssCardProps {
   content: ContentWithMediaDto
@@ -15,6 +18,7 @@ function RssCard({
   dislike,
   isLiked,
 }: RssCardProps) {
+  const { t } = useTranslation()
   const isLikeOnlyMode = !dislike || !isLiked
   const isCurrentlyLiked = isLiked ? isLiked(content.id) : false
 
@@ -71,7 +75,7 @@ function RssCard({
             textStyle="cardLink"
             _hover={{ textDecoration: 'underline' }}
           >
-            Lire l'article →
+            {t('common.readArticle')}
           </Link>
         </VStack>
       </CardBody>

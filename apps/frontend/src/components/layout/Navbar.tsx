@@ -48,7 +48,7 @@ function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
 
 function Navbar({ isScrolled }: { isScrolled: boolean }) {
   const { t } = useTranslation('common', {
-    keyPrefix: 'navigateApp',
+    keyPrefix: 'navigation',
   })
 
   const { user } = useAuth()

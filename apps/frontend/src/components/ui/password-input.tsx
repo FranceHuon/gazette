@@ -12,6 +12,7 @@ import {
   useControllableState,
 } from '@chakra-ui/react'
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { LuEye, LuEyeOff } from 'react-icons/lu'
 
 const DEFAULT_VISIBILITY_ICON = {
@@ -32,6 +33,7 @@ export interface PasswordInputProps extends InputProps, PasswordVisibilityProps 
 
 const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
+    const { t } = useTranslation()
     return (
       <IconButton
         tabIndex={-1}
@@ -40,7 +42,7 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
         size="sm"
         variant="ghost"
         height="calc(100% - 8px)"
-        aria-label="Toggle password visibility"
+        aria-label={t('ui.togglePasswordVisibility')}
         {...props}
       />
     )

@@ -34,7 +34,7 @@ export function LikeProvider({ children }: LikeProviderProps) {
       })
     },
     onError: (error) => {
-      console.error('Erreur lors du like:', error)
+      console.error('Like error:', error)
       toast({
         title: 'Erreur',
         description: 'Impossible de liker ce contenu. Veuillez réessayer.',
@@ -57,7 +57,7 @@ export function LikeProvider({ children }: LikeProviderProps) {
       })
     },
     onError: (error) => {
-      console.error('Erreur lors de la suppression du like:', error)
+      console.error('Unlike error:', error)
       toast({
         title: 'Erreur',
         description: 'Impossible de supprimer le like. Veuillez réessayer.',

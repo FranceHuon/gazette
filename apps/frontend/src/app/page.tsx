@@ -1,6 +1,11 @@
+'use client'
+
 import { Flex, Heading } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 
 export default function LandingPage() {
+  const { t } = useTranslation()
+
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh" width="100vw" bgColor="chaletGreen">
       <Heading
@@ -11,7 +16,7 @@ export default function LandingPage() {
         textAlign="center"
         fontFamily="Staatliches"
       >
-        Bienvenue sur Gazette, cette application vous permet de vous abonner à des médias et de consulter des articles
+        {t('common.appDescription')}
       </Heading>
     </Flex>
   )

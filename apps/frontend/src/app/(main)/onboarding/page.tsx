@@ -1,6 +1,7 @@
 'use client'
 
 import { Flex, Heading } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -9,6 +10,7 @@ import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
 function OnboardingPageContent() {
+  const { t } = useTranslation()
   const { medias } = useMedias()
   const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
 
@@ -27,7 +29,7 @@ function OnboardingPageContent() {
             fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
             color="chaletGreen"
           >
-            Voici les médias disponibles
+            {t('subscriptions.availableMediasTitle')}
           </Heading>
           <CardGrid>
             {medias.map(media => (
