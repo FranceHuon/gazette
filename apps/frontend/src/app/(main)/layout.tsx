@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation'
 import Header from '@/components/layout/Header'
 import Navbar from '@/components/layout/Navbar'
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface MainLayoutProps {
+  children: React.JSX.Element | React.JSX.Element[]
+}
+
+export default function MainLayout({ children }: MainLayoutProps) {
   const pathname = usePathname()
 
   const getPageTitle = () => {
@@ -39,18 +39,16 @@ export default function MainLayout({
     >
       <Header pageTitle={getPageTitle()} />
 
-      {/* Contenu principal */}
       <Box
         flex="1"
         flexGrow={1}
         display="flex"
         flexDirection="column"
-        pb={{ base: '80px', lg: '0' }} // Espace pour navbar mobile
+        pb={{ base: '80px', lg: '0' }}
       >
         {children}
       </Box>
 
-      {/* Navigation mobile - Bottom */}
       <Box
         display={{ base: 'block', lg: 'none' }}
         position="fixed"
