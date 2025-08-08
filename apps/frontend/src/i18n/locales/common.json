@@ -76,5 +76,11 @@
       "medium": "Moyen",
       "high": "Fort"
     }
+  },
+  "favorites": {
+    "added": "Contenu ajouté aux favoris !",
+    "removed": "Favori supprimé",
+    "addError": "Impossible d'ajouter ce contenu aux favoris. Veuillez réessayer.",
+    "removeError": "Impossible de supprimer le favori. Veuillez réessayer."
   }
 }
