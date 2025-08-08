@@ -2,19 +2,19 @@ import type { CreateUserDto, CreateUserResponse, UserProfileDto } from '@gazette
 import { api } from '../../config'
 
 export async function createUser(user: CreateUserDto): Promise<CreateUserResponse> {
-  console.warn('Données envoyées à l’API :', user)
+  console.warn('Data sent to API:', user)
   try {
     const response = await api.post('users', { json: user })
     const data = await response.json()
-    console.warn('Réponse backend :', data)
+    console.warn('Backend response:', data)
     return data as CreateUserResponse
   }
   catch (error: unknown) {
-    console.error('Erreur lors de la création utilisateur :', error)
+    console.error('User creation error:', error)
     if (error && typeof error === 'object' && 'response' in error) {
       const errorResponse = error as { response: { json: () => Promise<unknown> } }
       const errorData = await errorResponse.response.json()
-      console.error('Détail erreur backend :', errorData)
+      console.error('Backend error details:', errorData)
     }
     throw error
   }
