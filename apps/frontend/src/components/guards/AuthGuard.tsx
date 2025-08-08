@@ -9,30 +9,29 @@ interface AuthGuardProps {
 }
 
 export function AuthGuard({ children }: AuthGuardProps) {
-  const { user, loading, checkAuth } = use(AuthContext) ?? {}
+  const authContext = use(AuthContext)
   const router = useRouter()
 
-  useEffect(() => {
-    // Check auth when the guard mounts, but only if not already loading or authenticated
-    if (checkAuth && !user && !loading) {
-      checkAuth()
-    }
-  }, [checkAuth, user, loading])
+  if (!authContext) {
+    throw new Error('AuthGuard must be used within an AuthProvider')
+  }
+
+  const { user, loading, isAuthenticated } = authContext
 
   useEffect(() => {
-    // Only redirect if we're sure the user is not authenticated (not loading and no user)
-    if (!loading && !user) {
+    // Only redirect if we're sure the user is not authenticated (not loading and not authenticated)
+    if (!loading && !isAuthenticated) {
       router.push('/login')
     }
-  }, [user, loading, router])
+  }, [isAuthenticated, loading, router])
 
-  // Show loading state
+  // Show loading state while checking authentication
   if (loading) {
     return <div>Chargement...</div>
   }
 
-  // If no user after loading, the redirect should have happened
-  if (!user) {
+  // If not authenticated after loading, redirect should happen
+  if (!isAuthenticated || !user) {
     return null // Don't render anything while redirecting
   }
 

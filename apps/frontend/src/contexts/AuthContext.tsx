@@ -40,26 +40,43 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserDto | null>(null)
-  const [loading, setLoading] = useState(false) // Start with false, only load when needed
+  const [loading, setLoading] = useState(true) // Start with true since we'll check auth on mount
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [hasCheckedAuth, setHasCheckedAuth] = useState(false)
 
   const checkAuth = useCallback(async () => {
+    if (hasCheckedAuth)
+      return // Avoid multiple simultaneous checks
+
     setLoading(true)
     const authenticated = await loadUserProfile(setUser)
     setIsAuthenticated(authenticated)
+    setHasCheckedAuth(true)
     setLoading(false)
-  }, [])
+  }, [hasCheckedAuth])
 
-  // Only check auth on mount if we're not on the landing page
+  // Check auth on mount, but exclude auth pages and landing page
   useEffect(() => {
-    // Don't auto-check on the landing page to avoid unnecessary API calls
-    if (typeof window !== 'undefined' && window.location.pathname !== '/') {
-      checkAuth()
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname
+      const isAuthPage = pathname === '/login' || pathname === '/signup'
+      const isLandingPage = pathname === '/'
+
+      // Only auto-check if not on auth pages or landing page
+      if (!isAuthPage && !isLandingPage && !hasCheckedAuth) {
+        checkAuth()
+      }
+      else if (isAuthPage || isLandingPage) {
+        // Don't auto-check, but stop loading state
+        setLoading(false)
+      }
     }
-  }, [checkAuth])
+  }, [checkAuth, hasCheckedAuth])
 
   const login = useCallback(async (email: string, password: string) => {
     await loginUser(email, password)
+    // Reset hasCheckedAuth to allow fresh check after login
+    setHasCheckedAuth(false)
     await checkAuth()
   }, [checkAuth])
 
@@ -67,12 +84,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await logoutUser()
     setUser(null)
     setIsAuthenticated(false)
+    setHasCheckedAuth(false) // Reset check state on logout
   }, [])
 
   const deleteAccount = useCallback(async () => {
     await deleteUserAccount()
     setUser(null)
     setIsAuthenticated(false)
+    setHasCheckedAuth(false) // Reset check state on account deletion
   }, [])
 
   const value = useMemo(() => ({
