@@ -35,7 +35,7 @@ function MediaCard({
       transition="all 0.2s ease-in-out"
     >
       <CardBody padding={{ base: '16px', md: '20px' }}>
-        <Flex flexDirection="column" gap={{ base: 4, md: 6 }} alignItems="flex-start" height="100%">
+        <Flex flexDirection="column" alignItems="flex-start" height="100%">
           <Flex
             width={{ base: '60px', md: '100px' }}
             height={{ base: '60px', md: '100px' }}
