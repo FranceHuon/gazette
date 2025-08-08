@@ -4,15 +4,17 @@ A modern, full-stack RSS news aggregator built with TypeScript, featuring user a
 
 ## 🚀 Features
 
-- **📱 Modern UI**: Responsive design with Chakra UI and Next.js
+- **📱 Modern UI**: Responsive design with Chakra UI and Next.js 15
 - **🔐 Authentication**: JWT-based user authentication with secure cookie handling
 - **📰 RSS Aggregation**: Automatic fetching and parsing of RSS feeds from multiple sources
 - **⭐ Content Curation**: Like/unlike articles and manage personal library
 - **📋 Subscription Management**: Subscribe/unsubscribe to media sources
 - **🌍 Internationalization**: Multi-language support with i18next
-- **🐳 Docker Ready**: Complete containerization for easy deployment
+- **🐳 Backend Containerization**: Docker support for backend services
 - **📊 Lighthouse CI**: Automated accessibility and performance audits
-- **🔄 Real-time Sync**: Automatic RSS feed synchronization
+- **🔄 Real-time Sync**: Automatic RSS feed synchronization (daily cron job)
+- **🛡️ Type Safety**: Full TypeScript coverage with shared DTOs
+- **🎨 Code Quality**: ESLint with @antfu/eslint-config and Husky pre-commit hooks
 
 ## 🏗️ Architecture
 
@@ -20,41 +22,48 @@ This is a **monorepo** built with modern TypeScript technologies:
 
 ### Backend (`apps/backend/`)
 
-- **Framework**: NestJS with TypeScript
-- **Database**: PostgreSQL with MikroORM
-- **Authentication**: JWT with cookie-based sessions
-- **RSS Processing**: Custom RSS parser with XML parsing
-- **Scheduling**: Automated RSS feed synchronization
+- **Framework**: NestJS 11 with TypeScript
+- **Database**: PostgreSQL 15 with MikroORM 6
+- **Authentication**: JWT with cookie-based sessions and bcryptjs
+- **RSS Processing**: Custom RSS parser with fast-xml-parser
+- **Scheduling**: Automated RSS feed synchronization with @nestjs/schedule (daily cron)
+- **Logging**: Structured logging with Pino and nestjs-pino
+- **API Documentation**: Swagger/OpenAPI integration
+- **Validation**: Class-validator and class-transformer
 
 ### Frontend (`apps/frontend/`)
 
-- **Framework**: Next.js 14 with App Router
-- **UI Library**: Chakra UI with custom theme
-- **State Management**: React Query for server state
+- **Framework**: Next.js 15 with App Router
+- **UI Library**: Chakra UI v2 with custom theme and Emotion
+- **State Management**: TanStack React Query v5 for server state
 - **Forms**: React Hook Form with Zod validation
-- **Icons**: Lucide React
+- **HTTP Client**: Ky for API requests
+- **Icons**: Lucide React and React Icons
+- **Development**: Next.js with Turbopack support
 
 ### Shared (`packages/shared/`)
 
-- **DTOs**: Type-safe data transfer objects
+- **DTOs**: Type-safe data transfer objects with class-validator
 - **Interfaces**: Shared TypeScript interfaces
 - **Enums**: Common enumerations
+- **Build**: tsup for dual CJS/ESM output
 
 ## 🛠️ Tech Stack
 
 - **Runtime**: Node.js 20+
-- **Package Manager**: pnpm (workspace)
-- **Database**: PostgreSQL 15
-- **Containerization**: Docker & Docker Compose
+- **Package Manager**: pnpm 10.12.4+ (workspace with lockfile)
+- **Database**: PostgreSQL 15 with Alpine Linux
+- **Containerization**: Docker with multi-stage builds (backend only)
 - **CI/CD**: GitHub Actions with Lighthouse CI
-- **Code Quality**: ESLint, TypeScript
+- **Code Quality**: ESLint with @antfu/eslint-config, TypeScript 5.4+, Husky pre-commit hooks
+- **Testing**: Jest for backend, built-in Next.js testing for frontend
 
 ## 📋 Prerequisites
 
 - [Node.js 20+](https://nodejs.org/)
-- [pnpm](https://pnpm.io/) (recommended package manager)
-- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
-- [PostgreSQL](https://www.postgresql.org/) (if running locally)
+- [pnpm 10.12.4+](https://pnpm.io/) (package manager)
+- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/) (for backend services)
+- [PostgreSQL](https://www.postgresql.org/) (if running locally without Docker)
 
 ## 🚀 Quick Start
 
@@ -101,14 +110,17 @@ NODE_ENV=development
 JWT_SECRET=your-super-secret-jwt-key
 JWT_EXPIRATION=7d
 
-# CORS
+# CORS Configuration
 ALLOWED_ORIGINS=http://localhost:3002,http://frontend:3002
+
+# Frontend API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 
-### 5. Start with Docker (Recommended)
+### 5. Start Backend Services with Docker
 
 ```bash
-# Start all services
+# Start backend and database services
 docker compose up --build -d
 
 # Check services status
@@ -125,10 +137,19 @@ docker compose logs -f
 docker compose exec backend pnpm migration:up
 ```
 
-### 7. Access the application
+### 7. Start Frontend (Native)
+
+```bash
+# In a new terminal, start the frontend
+cd apps/frontend
+pnpm dev
+```
+
+### 8. Access the application
 
 - **Frontend**: http://localhost:3002
 - **Backend API**: http://localhost:3000
+- **API Documentation**: http://localhost:3000/api (Swagger)
 - **Database Admin**: http://localhost:8080 (Adminer)
 
 ## 🏃‍♂️ Development
@@ -137,26 +158,34 @@ docker compose exec backend pnpm migration:up
 
 ```bash
 # Root level
-pnpm dev                    # Start all services in development mode
-pnpm docker:up             # Start Docker services
+pnpm dev                    # Start backend and frontend in parallel (use with Docker backend)
+pnpm docker:up             # Start Docker services (backend + database)
 pnpm docker:down           # Stop Docker services
 pnpm docker:build          # Build Docker images
 pnpm docker:logs           # View Docker logs
-pnpm lint                  # Run ESLint
+pnpm lint                  # Run ESLint across all packages
 pnpm lint:fix              # Fix ESLint issues
+pnpm schema:fresh          # Reset database schema (via Docker)
 
 # Backend (from apps/backend/)
 pnpm dev                   # Start in watch mode
 pnpm build                 # Build for production
+pnpm start:prod            # Start production server
 pnpm migration:create      # Create new migration
 pnpm migration:up          # Apply migrations
 pnpm migration:down        # Rollback migrations
 pnpm schema:fresh          # Reset database schema
+pnpm test                  # Run Jest tests
 
 # Frontend (from apps/frontend/)
-pnpm dev                   # Start development server
+pnpm dev                   # Start development server (port 3002)
 pnpm build                 # Build for production
 pnpm start                 # Start production server
+pnpm lint                  # Run Next.js linting
+
+# Shared package (from packages/shared/)
+pnpm build                 # Build DTOs and types (required first)
+pnpm dev                   # Build in watch mode
 ```
 
 ### Database Management
@@ -177,13 +206,17 @@ docker compose exec backend pnpm schema:fresh
 
 ### RSS Feed Sources
 
-The application currently supports these RSS sources:
+The application currently supports these RSS sources (configured in `apps/backend/src/config/rss-sources.ts`):
 
-- **Bondy Blog**: News and investigation blog
-- **Arrêt sur Images**: Media analysis
-- **Blast**: Investigation media
+- **Bondy Blog**: News and investigation blog (`https://www.bondyblog.fr/feed/`)
+- **Arrêt sur Images**: Media analysis (`https://api.arretsurimages.net/api/public/rss/all-content`)
+- **Blast**: Investigation media (`https://api.blast-info.fr/rss.xml`)
 
-To add new sources, modify `apps/backend/src/config/rss-sources.ts`.
+**RSS Synchronization**:
+
+- Automatic daily sync at midnight via cron job (`@Cron('0 0 * * *')`)
+- Manual sync available via API endpoint `/rss`
+- Generic RSS feed parser supports standard RSS/XML formats
 
 ## 🏗️ Project Structure
 
@@ -222,43 +255,54 @@ gazette/
 
 ### Environment Variables
 
-| Variable          | Description          | Default                 |
-| ----------------- | -------------------- | ----------------------- |
-| `DB_USER`         | PostgreSQL username  | `postgres`              |
-| `DB_PASSWORD`     | PostgreSQL password  | `postgres`              |
-| `DB_NAME`         | Database name        | `gazette_db`            |
-| `DB_PORT`         | Database port        | `5432`                  |
-| `FRONTEND_PORT`   | Frontend port        | `3002`                  |
-| `BACKEND_PORT`    | Backend port         | `3000`                  |
-| `JWT_SECRET`      | JWT signing secret   | Required                |
-| `JWT_EXPIRATION`  | JWT expiration time  | `7d`                    |
-| `ALLOWED_ORIGINS` | CORS allowed origins | `http://localhost:3002` |
+| Variable              | Description           | Default                 |
+| --------------------- | --------------------- | ----------------------- |
+| `DB_USER`             | PostgreSQL username   | `postgres`              |
+| `DB_PASSWORD`         | PostgreSQL password   | `postgres`              |
+| `DB_NAME`             | Database name         | `gazette_db`            |
+| `DB_PORT`             | Database port         | `5432`                  |
+| `FRONTEND_PORT`       | Frontend port         | `3002`                  |
+| `BACKEND_PORT`        | Backend port          | `3000`                  |
+| `NODE_ENV`            | Environment mode      | `development`           |
+| `JWT_SECRET`          | JWT signing secret    | **Required**            |
+| `JWT_EXPIRATION`      | JWT expiration time   | `7d`                    |
+| `ALLOWED_ORIGINS`     | CORS allowed origins  | `http://localhost:3002` |
+| `NEXT_PUBLIC_API_URL` | Frontend API base URL | `http://localhost:3000` |
 
 ### Docker Configuration
 
-The application uses multi-stage Docker builds for optimized production images:
+The backend uses multi-stage Docker builds for optimized production images:
 
-- **Builder stage**: Installs dependencies and builds applications
-- **Runtime stage**: Minimal image with only necessary files
+- **Builder stage**: Installs dependencies and builds applications with pnpm
+- **Runtime stage**: Minimal Alpine image with only necessary files and PostgreSQL client
+- **Development**: Volume mounts for hot reloading (backend only)
+- **Frontend**: Runs natively for better development experience with Hot Module Replacement
 
 ## 🧪 Testing
 
 ```bash
-# Run backend tests
+# Run backend tests (Jest)
 docker compose exec backend pnpm test
 
-# Run frontend tests
+# Run frontend tests (Next.js built-in)
 cd apps/frontend && pnpm test
+
+# Run linting across all packages
+pnpm lint
+
+# Fix linting issues
+pnpm lint:fix
 ```
 
 ## 📊 CI/CD
 
 The project includes GitHub Actions workflows for:
 
-- **Automated Testing**: Run tests on every push
-- **Lighthouse CI**: Performance and accessibility audits
-- **Docker Builds**: Automated container builds
-- **Database Migrations**: Automated schema updates
+- **Automated Testing**: Run tests on every push and pull request
+- **Lighthouse CI**: Performance and accessibility audits with temporary public storage
+- **Code Quality**: ESLint checks with @antfu/eslint-config
+- **Build Verification**: Automated builds for all packages
+- **Environment Validation**: Checks for required environment variables
 
 ## 🚀 Deployment
 
@@ -297,11 +341,13 @@ The project includes GitHub Actions workflows for:
 
 ### Development Guidelines
 
-- Follow TypeScript best practices
-- Use conventional commit messages
-- Ensure all tests pass
+- Follow TypeScript best practices with strict type checking
+- Use conventional commit messages (enforced by Husky pre-commit hooks)
+- Ensure all tests pass (Jest for backend, Next.js for frontend)
 - Update documentation as needed
-- Follow the existing code style
+- Follow @antfu/eslint-config code style (auto-fixed with `pnpm lint:fix`)
+- Build shared packages first (`packages/shared`) before developing apps
+- Use Docker for backend development, native Node.js for frontend
 
 ## 📝 License
 
@@ -317,11 +363,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Latest Updates
 
-- ✅ Lighthouse CI integration for accessibility audits
-- ✅ Improved error handling with toast notifications
-- ✅ Enhanced Docker multi-stage builds
-- ✅ Automated RSS feed synchronization
-- ✅ User authentication and subscription management
+- ✅ Next.js 15 with App Router and Turbopack support
+- ✅ Chakra UI v2 with Emotion integration
+- ✅ TanStack React Query v5 for state management
+- ✅ NestJS 11 with MikroORM 6 and PostgreSQL 15
+- ✅ Automated RSS feed synchronization with daily cron jobs
+- ✅ JWT authentication with secure cookie handling
+- ✅ ESLint with @antfu/eslint-config and Husky pre-commit hooks
+- ✅ Docker multi-stage builds for backend services
+- ✅ Lighthouse CI integration for performance monitoring
+- ✅ Swagger/OpenAPI documentation
+- ✅ Full TypeScript coverage with shared DTOs
 
 ---
 
