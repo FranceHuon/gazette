@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Flex, Heading, Image, Link } from '@chakra-ui/react'
+import { Box, Card, Flex, Heading, Image, Link } from '@chakra-ui/react'
 import { ContentWithMediaDto } from '@gazette/shared'
 import { Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -30,7 +30,7 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
       border="1px solid rgba(0, 0, 0, 0.1)"
     >
       <Flex flexDirection="row" justifyContent="space-between" gap={4}>
-        <Flex gap={4}>
+        <Flex gap={6}>
           <Flex
             width={{ base: '60px', md: '60px' }}
             height={{ base: '60px', md: '60px' }}
@@ -61,18 +61,18 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
               isExternal
               color="chaletGreen"
               textStyle="cardLink"
-              _hover={{ textDecoration: 'underline' }}
+              _hover={{ color: 'darkGreen' }}
             >
               {t('common.readArticle')}
             </Link>
           </Flex>
         </Flex>
-        <Flex
+        <Box
           as="button"
           type="button"
           onClick={() => dislike!(content.id)}
           cursor="pointer"
-          _hover={{ transform: 'translateY(-2px)', color: '#283618' }}
+          _hover={{ transform: 'translateY(-2px)' }}
           transition="transform 0.2s ease-in-out"
           alignItems="center"
           justifyContent="center"
@@ -82,8 +82,17 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
             stroke="#606c38"
             size={30}
             strokeWidth={2}
+            style={{
+              transition: 'stroke 0.2s ease-in-out',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.stroke = '#283618'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.stroke = '#606c38'
+            }}
           />
-        </Flex>
+        </Box>
       </Flex>
     </Card>
   )
