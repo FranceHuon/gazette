@@ -47,7 +47,7 @@ function VisibilityTrigger({ ref, ...props }: ButtonProps & { ref?: React.RefObj
   )
 }
 
-export function PasswordInput({ ref, ...props }: PasswordInputProps & { ref?: React.RefObject<HTMLInputElement | null> }) {
+export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>((props, ref) => {
   const {
     rootProps,
     defaultVisible,
@@ -96,7 +96,7 @@ export function PasswordInput({ ref, ...props }: PasswordInputProps & { ref?: Re
       </InputRightElement>
     </ChakraInputGroup>
   )
-}
+})
 
 interface PasswordStrengthMeterProps extends BoxProps {
   max?: number
