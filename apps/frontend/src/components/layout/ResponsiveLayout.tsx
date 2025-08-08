@@ -4,7 +4,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
 
 interface ResponsiveLayoutProps {
-  children: React.ReactNode
+  children: React.JSX.Element | React.JSX.Element[]
   maxWidth?: string
   padding?: object
   centered?: boolean

@@ -1,37 +1,69 @@
+import process from 'node:process'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
 
-  // Transpile le package shared car il contient des types/DTOs utilisés côté client
+  // Configuration de développement - CORRIGÉE
+  devIndicators: {
+    position: 'bottom-right',
+  },
+
+  // Transpile le package shared
   transpilePackages: ['@gazette/shared'],
 
+  // Optimisations de packages
   experimental: {
-    optimizePackageImports: ['@chakra-ui/react', 'lucide-react'],
+    optimizePackageImports: [
+      '@chakra-ui/react',
+      '@chakra-ui/icons',
+      'lucide-react',
+      'react-icons',
+      '@tanstack/react-query',
+    ],
   },
 
+  // Configuration Turbopack (CORRIGÉE - plus experimental)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+
+  // Configuration optimisée du compilateur
   compiler: {
     emotion: true,
+    removeConsole: process.env.NODE_ENV === 'production'
+      ? {
+          exclude: ['error', 'warn'],
+        }
+      : false,
   },
 
-  // Optimisations d'images
+  // Configuration d'images
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000, // 1 an
+    minimumCacheTTL: 31536000,
   },
 
-  // Optimisations de compression
+  // Optimisations de performance
   compress: true,
+  poweredByHeader: false,
 
-  // Optimisations de build
-  swcMinify: true,
+  // Configuration webpack simplifiée
+  webpack: (config, { dev }) => {
+    if (dev) {
+      // Configuration simple pour le développement
+      return config
+    }
 
-  // Optimisations de bundle
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      // Optimisations de production
+    // Optimisations légères pour la production
+    if (config.optimization) {
       config.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {
@@ -39,95 +71,12 @@ const nextConfig = {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
-            minSize: 20000,
-            maxSize: 244000,
-          },
-          chakra: {
-            test: /[\\/]node_modules[\\/]@chakra-ui[\\/]/,
-            name: 'chakra',
-            chunks: 'all',
-            priority: 10,
-            minSize: 20000,
-            maxSize: 244000,
-          },
-          lucide: {
-            test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
-            name: 'lucide',
-            chunks: 'all',
-            priority: 5,
-            minSize: 20000,
-            maxSize: 244000,
-          },
-          // Nouveau: Séparer React
-          react: {
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            name: 'react',
-            chunks: 'all',
-            priority: 15,
-            minSize: 20000,
-            maxSize: 244000,
           },
         },
       }
-
-      // Tree shaking plus agressif
-      config.optimization.usedExports = true
-      config.optimization.sideEffects = false
-
-      // Nouveau: Compression plus agressive
-      config.optimization.minimize = true
     }
+
     return config
-  },
-
-  // Optimisations de cache
-  generateEtags: true,
-
-  // Optimisations de compression
-  poweredByHeader: false,
-
-  // Headers de sécurité
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              'default-src \'self\'',
-              'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\'',
-              'style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com',
-              'font-src \'self\' https://fonts.gstatic.com',
-              'img-src \'self\' data: https:',
-              'connect-src \'self\' http://localhost:3000',
-              'frame-ancestors \'none\'',
-            ].join('; '),
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-          // Nouveau: Headers de performance
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ]
   },
 }
 

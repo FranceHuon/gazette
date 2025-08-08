@@ -3,9 +3,9 @@ import { InputGroup as ChakraInputGroup, InputLeftElement, InputRightElement } f
 import * as React from 'react'
 
 export interface InputGroupProps extends BoxProps {
-  startElement?: React.ReactNode
-  endElement?: React.ReactNode
-  children: React.ReactElement
+  startElement?: React.JSX.Element
+  endElement?: React.JSX.Element
+  children: React.JSX.Element
 }
 
 export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(

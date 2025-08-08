@@ -28,7 +28,11 @@ async function loadUserProfile(setUser: (user: UserDto) => void) {
   }
 }
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+interface AuthProviderProps {
+  children: React.JSX.Element | React.JSX.Element[]
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserDto | null>(null)
   const [loading, setLoading] = useState(true)
 

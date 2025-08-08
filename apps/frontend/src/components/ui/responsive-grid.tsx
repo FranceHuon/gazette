@@ -4,7 +4,7 @@ import { Flex, FlexProps } from '@chakra-ui/react'
 import React from 'react'
 
 interface ResponsiveGridProps extends FlexProps {
-  children: React.ReactNode
+  children: React.JSX.Element | React.JSX.Element[]
   gap?: {
     base?: string | number
     sm?: string | number

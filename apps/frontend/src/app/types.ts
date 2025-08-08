@@ -1,5 +1,5 @@
 export interface LayoutProps {
-  children: React.ReactNode
+  children: React.JSX.Element | React.JSX.Element[]
 }
 
 export interface PageProps {

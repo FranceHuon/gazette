@@ -6,7 +6,11 @@ import { createLike, deleteLike, getUserLikes } from '@/services/api/likes'
 import { AuthContext } from './AuthContext'
 import { LikeContext } from './LikeContext.types'
 
-export function LikeProvider({ children }: { children: React.ReactNode }) {
+interface LikeProviderProps {
+  children: React.JSX.Element | React.JSX.Element[]
+}
+
+export function LikeProvider({ children }: LikeProviderProps) {
   const queryClient = useQueryClient()
   const context = useContext(AuthContext)
   const userId = context?.user?.id || ''
