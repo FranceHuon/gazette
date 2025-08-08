@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth'
 
 function SettingsMenu() {
   const { t } = useTranslation('common', {
-    keyPrefix: 'accountManagement',
+    keyPrefix: 'auth',
   })
 
   const { logout, deleteAccount } = useAuth()
@@ -19,7 +19,7 @@ function SettingsMenu() {
       router.push('/')
     }
     catch (error) {
-      console.error('Erreur lors de la déconnexion:', error)
+      console.error('Logout error:', error)
     }
   }
 
@@ -27,16 +27,16 @@ function SettingsMenu() {
     try {
       await deleteAccount()
       toaster.create({
-        description: t('accountDeleted'),
+        description: t('auth.accountDeleted'),
         type: 'success',
         duration: 5000,
       })
       router.push('/')
     }
     catch (error) {
-      console.error('Erreur lors de la suppression du compte:', error)
+      console.error('Account deletion error:', error)
       toaster.create({
-        description: t('errorDeletingAccount'),
+        description: t('auth.errorDeletingAccount'),
         type: 'error',
         duration: 5000,
       })
@@ -69,7 +69,7 @@ function SettingsMenu() {
             cursor="pointer"
             textStyle="nav"
           >
-            {t('delete')}
+            {t('deleteAccount')}
           </Link>
         </ListItem>
         <ListItem>
@@ -77,14 +77,14 @@ function SettingsMenu() {
             href="/about"
             textStyle="nav"
           >
-            {t('about')}
+            {t('navigation.about')}
           </Link>
         </ListItem>
         <ListItem>
           <Link
             textStyle="nav"
           >
-            {t('policy')}
+            {t('navigation.policy')}
           </Link>
         </ListItem>
       </List>
