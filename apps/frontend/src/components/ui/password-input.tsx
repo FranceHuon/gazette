@@ -23,7 +23,7 @@ export interface PasswordVisibilityProps {
   defaultVisible?: boolean
   visible?: boolean
   onVisibleChange?: (visible: boolean) => void
-  visibilityIcon?: { on: React.ReactNode, off: React.ReactNode }
+  visibilityIcon?: { on: React.JSX.Element, off: React.JSX.Element }
 }
 
 export interface PasswordInputProps extends InputProps, PasswordVisibilityProps {

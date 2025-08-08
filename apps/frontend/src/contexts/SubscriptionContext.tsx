@@ -5,7 +5,11 @@ import { createSubscription, deleteSubscription, getUserSubscriptions } from '@/
 import { AuthContext } from './AuthContext'
 import { SubscriptionContext } from './SubscriptionContext.types'
 
-export function SubscriptionProvider({ children }: { children: React.ReactNode }) {
+interface SubscriptionProviderProps {
+  children: React.JSX.Element | React.JSX.Element[]
+}
+
+export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
   const queryClient = useQueryClient()
   const context = useContext(AuthContext)
   const userId = context?.user?.id || ''

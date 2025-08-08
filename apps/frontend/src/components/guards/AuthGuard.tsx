@@ -5,7 +5,7 @@ import { useContext, useEffect } from 'react'
 import { AuthContext } from '@/contexts/AuthContext'
 
 interface AuthGuardProps {
-  children: React.ReactNode
+  children: React.JSX.Element | React.JSX.Element[]
 }
 
 export function AuthGuard({ children }: AuthGuardProps) {

@@ -2,12 +2,12 @@ import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from '@chakr
 import * as React from 'react'
 
 export interface FieldProps {
-  label?: React.ReactNode
-  helperText?: React.ReactNode
-  errorText?: React.ReactNode
+  label?: string | React.JSX.Element
+  helperText?: string | React.JSX.Element
+  errorText?: string | React.JSX.Element
   isRequired?: boolean
   isInvalid?: boolean
-  children?: React.ReactNode
+  children?: React.JSX.Element | React.JSX.Element[]
 }
 
 export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
