@@ -1,20 +1,22 @@
 'use client'
 
 import { UserDto } from '@gazette/shared'
-import { createContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { deleteUserAccount, getUserProfile, loginUser, logoutUser } from '@/services/api/user'
 
 interface AuthContextType {
   user: UserDto | null
   loading: boolean
+  isAuthenticated: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   deleteAccount: () => Promise<void>
+  checkAuth: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-async function loadUserProfile(setUser: (user: UserDto) => void) {
+async function loadUserProfile(setUser: (user: UserDto | null) => void): Promise<boolean> {
   try {
     const res = await getUserProfile()
     setUser({
@@ -22,9 +24,13 @@ async function loadUserProfile(setUser: (user: UserDto) => void) {
       email: res.user.email,
       pseudo: res.user.pseudo,
     })
+    return true
   }
-  catch {
-    throw new Error('Failed to load user profile')
+  catch (error) {
+    // User not authenticated or network error
+    console.warn('User not authenticated:', error)
+    setUser(null)
+    return false
   }
 }
 
@@ -34,39 +40,55 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserDto | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false) // Start with false, only load when needed
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  useEffect(() => {
-    loadUserProfile(setUser).finally(() => setLoading(false))
+  const checkAuth = useCallback(async () => {
+    setLoading(true)
+    const authenticated = await loadUserProfile(setUser)
+    setIsAuthenticated(authenticated)
+    setLoading(false)
   }, [])
 
-  const login = async (email: string, password: string) => {
-    await loginUser(email, password)
-    await loadUserProfile(setUser)
-  }
+  // Only check auth on mount if we're not on the landing page
+  useEffect(() => {
+    // Don't auto-check on the landing page to avoid unnecessary API calls
+    if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+      checkAuth()
+    }
+  }, [checkAuth])
 
-  const logout = async () => {
+  const login = useCallback(async (email: string, password: string) => {
+    await loginUser(email, password)
+    await checkAuth()
+  }, [checkAuth])
+
+  const logout = useCallback(async () => {
     await logoutUser()
     setUser(null)
-  }
+    setIsAuthenticated(false)
+  }, [])
 
-  const deleteAccount = async () => {
+  const deleteAccount = useCallback(async () => {
     await deleteUserAccount()
     setUser(null)
-  }
+    setIsAuthenticated(false)
+  }, [])
 
   const value = useMemo(() => ({
     user,
     loading,
+    isAuthenticated,
     login,
     logout,
     deleteAccount,
-  }), [user, loading])
+    checkAuth,
+  }), [user, loading, isAuthenticated, login, logout, deleteAccount, checkAuth])
 
   return (
-    <AuthContext value={value}>
+    <AuthContext.Provider value={value}>
       {children}
-    </AuthContext>
+    </AuthContext.Provider>
   )
 }
 
