@@ -3,6 +3,7 @@
 import { Card, Flex, Heading, Image, Link } from '@chakra-ui/react'
 import { ContentWithMediaDto } from '@gazette/shared'
 import { Trash2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface LibraryCardProps {
   content: ContentWithMediaDto
@@ -12,6 +13,8 @@ interface LibraryCardProps {
 }
 
 function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
+  const { t } = useTranslation()
+
   return (
     <Card
       width="100%"
@@ -60,7 +63,7 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
               textStyle="cardLink"
               _hover={{ textDecoration: 'underline' }}
             >
-              Lire l'article →
+              {t('common.readArticle')}
             </Link>
           </Flex>
         </Flex>

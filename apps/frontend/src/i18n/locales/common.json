@@ -1,48 +1,57 @@
 {
-  "accountManagement": {
+  "common": {
     "appTitle": "Gazette",
-    "create": "Créer un compte",
+    "appDescription": "Bienvenue sur Gazette, cette application vous permet de vous abonner à des médias et de consulter des articles",
+    "readArticle": "Lire l'article →",
+    "availableMedias": "Médias disponibles",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Sauvegarder",
+    "delete": "Supprimer",
+    "edit": "Modifier"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "explore": "Explorer",
+    "library": "Bibliothèque",
+    "subscriptions": "Abonnements",
+    "settings": "Paramètres",
+    "menu": "Menu",
+    "account": "Mon compte",
+    "about": "À propos",
+    "policy": "Politique et confidentialité"
+  },
+  "auth": {
     "login": "Se connecter",
+    "signup": "S'inscrire",
+    "logout": "Se déconnecter",
+    "createAccount": "Créer un compte",
+    "alreadyHaveAccount": "Vous avez un compte ?",
+    "noAccountYet": "Pas encore de compte ?",
+    "create": "Créer",
+    "signIn": "Inscription",
     "pseudo": "Pseudo",
-    "mail": "Adresse mail",
+    "email": "Adresse mail",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
-    "signIn": "S'inscrire",
-    "alreadyCreated": "Vous avez un compte ?",
-    "noAccount": "Pas encore de compte ?",
-    "logout": "Se déconnecter",
-    "delete": "Supprimer mon compte",
+    "changePassword": "Changer de mot de passe",
+    "deleteAccount": "Supprimer mon compte",
     "accountDeleted": "Votre compte a été supprimé avec succès",
     "errorDeletingAccount": "Une erreur est survenue lors de la suppression de votre compte",
     "confirmDelete": "Votre compte a bien été supprimé",
     "confirmCreation": "Votre compte a bien été créé",
-    "about": "À propos",
-    "policy": "Politique et confidentialité",
-    "account": "Mon compte",
-    "obligatoryField": "* champs obligatoires",
+    "loginError": "Erreur de connexion",
+    "loginErrorMessage": "Une erreur est survenue lors de la connexion",
+    "signupError": "Erreur d'inscription",
+    "signupErrorMessage": "Une erreur est survenue lors de la création du compte",
+    "signupSuccess": "Compte créé avec succès"
+  },
+  "forms": {
     "requiredField": "Champ obligatoire",
-    "changePassword": "Changer de mot de passe",
-    "presentation": "Gazette, c'est quoi ?"
-  },
-  "navigateApp": {
-    "explore": "Explorer",
-    "subscribe": "S'abonner",
-    "unsubscribe": "Se désabonner",
-    "subscriber": "Abonné·e",
-    "home": "Accueil",
-    "menu": "Menu",
-    "appTitle": "Gazette",
-    "account": "Mon compte",
-    "subscriptions": "Abonnements",
-    "library": "Bibliothèque"
-  },
-  "form": {
-    "passwordInstructions": "Votre mot de passe doit inclure : <ul><li>au moins 8 caractères</li> <li>une majuscule</li> <li>une minuscule</li> <li>un chiffre</li> <li>un caractère spécial (+ - [ ] * ~ _ # : ?)</li></ul>"
-  },
-  "login": {
-    "error": "Erreur de connexion",
-    "errorCreation": "Une erreur est survenue lors de la connexion",
-    "success": "Succès",
+    "obligatoryFields": "* champs obligatoires",
     "passwordRequirements": "Votre mot de passe doit inclure :",
     "passwordRequirementsList": {
       "minLength": "au moins 8 caractères",
@@ -50,12 +59,22 @@
       "lowercase": "une minuscule",
       "number": "un chiffre",
       "specialChar": "un caractère spécial (- [ ] ( ) * ~ _ # : ?)"
-    }
+    },
+    "passwordInstructions": "Votre mot de passe doit inclure : <ul><li>au moins 8 caractères</li> <li>une majuscule</li> <li>une minuscule</li> <li>un chiffre</li> <li>un caractère spécial (+ - [ ] * ~ _ # : ?)</li></ul>"
   },
-  "signup": {
-    "error": "Erreur d'inscription",
-    "errorCreation": "Une erreur est survenue lors de la création du compte",
-    "success": "Compte créé avec succès",
-    "confirmCreation": "Votre compte a bien été créé"
+  "subscriptions": {
+    "subscribe": "S'abonner",
+    "unsubscribe": "Se désabonner",
+    "subscriber": "Abonné·e",
+    "availableMediasTitle": "Voici les médias disponibles",
+    "yourSubscriptions": "Vos abonnements"
+  },
+  "ui": {
+    "togglePasswordVisibility": "Afficher/masquer le mot de passe",
+    "passwordStrength": {
+      "low": "Faible",
+      "medium": "Moyen",
+      "high": "Fort"
+    }
   }
 }
