@@ -23,7 +23,6 @@ const colors = {
   darkGreen: '#283618',
 }
 
-// Export des couleurs pour utilisation dans les composants
 export { colors }
 
 const fonts = {
