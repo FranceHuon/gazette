@@ -20,7 +20,11 @@ const colors = {
   mineShaft: '#1F1F1F',
   black: '#000000',
   lightGray: '#F5F5F5',
+  darkGreen: '#283618',
 }
+
+// Export des couleurs pour utilisation dans les composants
+export { colors }
 
 const fonts = {
   heading: `'Staatliches', sans-serif`,
