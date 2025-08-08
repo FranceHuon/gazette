@@ -1,25 +1,18 @@
-'use client'
+import { Flex, Heading } from '@chakra-ui/react'
 
-import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
-import FormLogin from '@/components/custom/FormLogin'
-import GazetteIllu from '@/components/custom/GazetteIllu'
-import Title from '@/components/layout/Title'
-
-export default function LoginPage() {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'accountManagement',
-  })
-
-  const isMobile = useBreakpointValue({ base: true, md: false })
-
+export default function LandingPage() {
   return (
-    <Flex alignItems="center" height="100vh" width="100vw" direction={{ base: 'column', md: 'row' }}>
-      {isMobile ? <Box bgColor="chaletGreen" width="100%" height="40%" display="flex" alignItems="center" justifyContent="center" color="white" textAlign="center" fontSize="6rem" fontFamily="Staatliches">Gazette</Box> : <GazetteIllu />}
-      <Flex direction="column" alignItems="center" justifyContent="center" width={{ base: '100%', md: '50%' }} px={{ base: 6, md: 0 }} flexGrow={1} gap={8}>
-        <Title text={t('login')} fontColor="chaletGreen" />
-        <FormLogin />
-      </Flex>
+    <Flex justifyContent="center" alignItems="center" height="100vh" width="100vw" bgColor="chaletGreen">
+      <Heading
+        size={{ base: 'lg', md: 'xl' }}
+        fontSize={{ base: 'lg', md: 'xl' }}
+        lineHeight="1.2"
+        color="white"
+        textAlign="center"
+        fontFamily="Staatliches"
+      >
+        Bienvenue sur Gazette, cette application vous permet de vous abonner à des médias et de consulter des articles
+      </Heading>
     </Flex>
   )
 }
