@@ -16,9 +16,7 @@ import Button from './Button'
 const SignUpSchema = SignUpFormSchema
 
 function FormSignUp() {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'accountManagement',
-  })
+  const { t } = useTranslation()
   const router = useRouter()
   const toast = useToast()
   const { login } = useAuth()
@@ -55,8 +53,8 @@ function FormSignUp() {
       await login(data.email, data.password)
 
       toast({
-        title: t('success'),
-        description: t('confirmCreation'),
+        title: t('common.success'),
+        description: t('auth.confirmCreation'),
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -72,8 +70,8 @@ function FormSignUp() {
     catch (error) {
       console.error(error)
       toast({
-        title: t('error'),
-        description: t('errorCreation'),
+        title: t('auth.signupError'),
+        description: t('auth.signupErrorMessage'),
         status: 'error',
         duration: 4000,
         isClosable: true,
@@ -87,7 +85,7 @@ function FormSignUp() {
         <Stack maxWidth="-webkit-fit-content" paddingTop={6}>
           <VStack gap="2" justifyContent="flex-start" alignItems="flex-start">
             <Field
-              label={t('pseudo')}
+              label={t('auth.pseudo')}
               isInvalid={!!errors.pseudo}
               errorText={errors.pseudo?.message}
             >
@@ -99,11 +97,11 @@ function FormSignUp() {
                 borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
-                {...register('pseudo', { required: t('requiredField') })}
+                {...register('pseudo', { required: t('forms.requiredField') })}
               />
             </Field>
             <Field
-              label={t('mail')}
+              label={t('auth.email')}
               isInvalid={!!errors.email}
               errorText={errors.email?.message}
             >
@@ -115,12 +113,12 @@ function FormSignUp() {
                 borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
-                {...register('email', { required: t('requiredField') })}
+                {...register('email', { required: t('forms.requiredField') })}
               />
             </Field>
 
             <Field
-              label={t('password')}
+              label={t('auth.password')}
               isInvalid={!!errors.password}
               errorText={errors.password?.message}
             >
@@ -133,12 +131,12 @@ function FormSignUp() {
                 padding="0.8rem"
                 height="auto"
                 variant="flushed"
-                {...register('password', { required: t('requiredField') })}
+                {...register('password', { required: t('forms.requiredField') })}
               />
             </Field>
 
             <Field
-              label={t('confirmPassword')}
+              label={t('auth.confirmPassword')}
               isInvalid={!!errors.confirmPassword}
               errorText={errors.confirmPassword?.message}
             >
@@ -152,35 +150,35 @@ function FormSignUp() {
                 height="auto"
                 variant="flushed"
                 {...register('confirmPassword', {
-                  required: t('requiredField'),
+                  required: t('forms.requiredField'),
                 })}
               />
             </Field>
 
             <Text fontSize="0.7rem">
-              Votre mot de passe doit inclure :
+              {t('forms.passwordRequirements')}
               <List>
-                <ListItem listStyleType="disc" ml="1rem">au moins 8 caractères</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">une majuscule</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">une minuscule</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">un chiffre</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">un caractère spécial (- [ ] ( ) * ~ _ # : ?)</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.minLength')}</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.uppercase')}</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.lowercase')}</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.number')}</ListItem>
+                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.specialChar')}</ListItem>
               </List>
             </Text>
 
             <Button
               type="submit"
               textStyle="button"
-              text={t('signIn')}
+              text={t('auth.signup')}
               py="1.5rem"
               mt="1rem"
               width="100%"
               rounded="md"
             />
             <Text width="100%" align="center">
-              {`${t('alreadyCreated')} `}
+              {`${t('auth.alreadyHaveAccount')} `}
               <Link href="/">
-                <b>{t('login')}</b>
+                <b>{t('auth.login')}</b>
               </Link>
             </Text>
           </VStack>
