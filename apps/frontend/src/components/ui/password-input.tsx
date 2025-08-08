@@ -31,114 +31,108 @@ export interface PasswordInputProps extends InputProps, PasswordVisibilityProps 
   rootProps?: BoxProps
 }
 
-const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
-    const { t } = useTranslation()
-    return (
-      <IconButton
-        tabIndex={-1}
+function VisibilityTrigger({ ref, ...props }: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }) {
+  const { t } = useTranslation()
+  return (
+    <IconButton
+      tabIndex={-1}
+      ref={ref}
+      mr="-2"
+      size="sm"
+      variant="ghost"
+      height="calc(100% - 8px)"
+      aria-label={t('ui.togglePasswordVisibility')}
+      {...props}
+    />
+  )
+}
+
+export function PasswordInput({ ref, ...props }: PasswordInputProps & { ref?: React.RefObject<HTMLInputElement | null> }) {
+  const {
+    rootProps,
+    defaultVisible,
+    visible: visibleProp,
+    onVisibleChange,
+    visibilityIcon = DEFAULT_VISIBILITY_ICON,
+    ...rest
+  } = props
+
+  const [visible, setVisible] = useControllableState({
+    value: visibleProp,
+    defaultValue: defaultVisible || false,
+    onChange: onVisibleChange,
+  })
+
+  return (
+    <ChakraInputGroup {...rootProps} maxWidth="100%">
+      <Input
+        {...rest}
         ref={ref}
-        mr="-2"
-        size="sm"
-        variant="ghost"
-        height="calc(100% - 8px)"
-        aria-label={t('ui.togglePasswordVisibility')}
-        {...props}
+        type={visible ? 'text' : 'password'}
+        border="1px solid"
+        borderColor="lightGray"
+        boxShadow="none"
+        padding="0.8rem"
+        height="auto"
+        rounded="md"
+        minWidth={12}
       />
-    )
-  },
-)
-
-export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  (props, ref) => {
-    const {
-      rootProps,
-      defaultVisible,
-      visible: visibleProp,
-      onVisibleChange,
-      visibilityIcon = DEFAULT_VISIBILITY_ICON,
-      ...rest
-    } = props
-
-    const [visible, setVisible] = useControllableState({
-      value: visibleProp,
-      defaultValue: defaultVisible || false,
-      onChange: onVisibleChange,
-    })
-
-    return (
-      <ChakraInputGroup {...rootProps} maxWidth="100%">
-        <Input
-          {...rest}
-          ref={ref}
-          type={visible ? 'text' : 'password'}
-          border="1px solid"
-          borderColor="lightGray"
-          boxShadow="none"
-          padding="0.8rem"
-          height="auto"
-          rounded="md"
-          minWidth={12}
-        />
-        <InputRightElement
-          height="100%"
-          display="flex"
-          alignItems="center"
-          px="1.5rem"
+      <InputRightElement
+        height="100%"
+        display="flex"
+        alignItems="center"
+        px="1.5rem"
+      >
+        <VisibilityTrigger
+          isDisabled={rest.isDisabled}
+          onClick={() => {
+            if (rest.isDisabled)
+              return
+            setVisible(!visible)
+          }}
         >
-          <VisibilityTrigger
-            isDisabled={rest.isDisabled}
-            onClick={() => {
-              if (rest.isDisabled)
-                return
-              setVisible(!visible)
-            }}
-          >
-            {visible ? visibilityIcon.off : visibilityIcon.on}
-          </VisibilityTrigger>
-        </InputRightElement>
-      </ChakraInputGroup>
-    )
-  },
-)
+          {visible ? visibilityIcon.off : visibilityIcon.on}
+        </VisibilityTrigger>
+      </InputRightElement>
+    </ChakraInputGroup>
+  )
+}
 
 interface PasswordStrengthMeterProps extends BoxProps {
   max?: number
   value: number
 }
 
-export const PasswordStrengthMeter = React.forwardRef<HTMLDivElement, PasswordStrengthMeterProps>(
-  (props, ref) => {
-    const { max = 4, value, ...rest } = props
+export function PasswordStrengthMeter({ ref, ...props }: PasswordStrengthMeterProps & { ref?: React.RefObject<HTMLDivElement | null> }) {
+  const { max = 4, value, ...rest } = props
 
-    const percent = (value / max) * 100
-    const { label, color } = getColor(percent)
+  const percent = (value / max) * 100
+  const { label, color } = getColor(percent)
 
-    const strengthBars = React.useMemo(() => {
-      return Array.from({ length: max }).map((_, i) => ({
-        id: `strength-bar-${i + 1}`,
-        isActive: i < value,
-      }))
-    }, [max, value])
+  const strengthBars = React.useMemo(() => {
+    return Array.from({ length: max }).map((_, i) => ({
+      id: `strength-bar-${i + 1}`,
+      isActive: i < value,
+    }))
+  }, [max, value])
 
-    return (
-      <Stack align="flex-end" spacing="1" ref={ref} {...rest}>
-        <HStack width="full">
-          {strengthBars.map(({ id, isActive }) => (
-            <Box
-              key={id}
-              height="1"
-              flex="1"
-              rounded="sm"
-              bg={isActive ? color : 'gray.200'}
-            />
-          ))}
-        </HStack>
-        {label && <HStack fontSize="xs">{label}</HStack>}
-      </Stack>
-    )
-  },
-)
+  return (
+    <Stack align="flex-end" spacing="1" ref={ref} {...rest}>
+      <HStack width="full">
+        {strengthBars.map(({ id, isActive }) => (
+          <Box
+            key={id}
+            height="1"
+            flex="1"
+            rounded="sm"
+            bg={isActive ? color : 'gray.200'}
+          />
+        ))}
+      </HStack>
+      {label && <HStack fontSize="xs">{label}</HStack>}
+    </Stack>
+  )
+}
 
 function getColor(percent: number) {
   switch (true) {
