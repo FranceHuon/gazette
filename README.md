@@ -19,6 +19,7 @@ A modern, full-stack RSS news aggregator built with TypeScript, featuring user a
 This is a **monorepo** built with modern TypeScript technologies:
 
 ### Backend (`apps/backend/`)
+
 - **Framework**: NestJS with TypeScript
 - **Database**: PostgreSQL with MikroORM
 - **Authentication**: JWT with cookie-based sessions
@@ -26,6 +27,7 @@ This is a **monorepo** built with modern TypeScript technologies:
 - **Scheduling**: Automated RSS feed synchronization
 
 ### Frontend (`apps/frontend/`)
+
 - **Framework**: Next.js 14 with App Router
 - **UI Library**: Chakra UI with custom theme
 - **State Management**: React Query for server state
@@ -33,6 +35,7 @@ This is a **monorepo** built with modern TypeScript technologies:
 - **Icons**: Lucide React
 
 ### Shared (`packages/shared/`)
+
 - **DTOs**: Type-safe data transfer objects
 - **Interfaces**: Shared TypeScript interfaces
 - **Enums**: Common enumerations
@@ -175,6 +178,7 @@ docker compose exec backend pnpm schema:fresh
 ### RSS Feed Sources
 
 The application currently supports these RSS sources:
+
 - **Bondy Blog**: News and investigation blog
 - **Arrêt sur Images**: Media analysis
 - **Blast**: Investigation media
@@ -218,16 +222,16 @@ gazette/
 
 ### Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `DB_USER` | PostgreSQL username | `postgres` |
-| `DB_PASSWORD` | PostgreSQL password | `postgres` |
-| `DB_NAME` | Database name | `gazette_db` |
-| `DB_PORT` | Database port | `5432` |
-| `FRONTEND_PORT` | Frontend port | `3002` |
-| `BACKEND_PORT` | Backend port | `3000` |
-| `JWT_SECRET` | JWT signing secret | Required |
-| `JWT_EXPIRATION` | JWT expiration time | `7d` |
+| Variable          | Description          | Default                 |
+| ----------------- | -------------------- | ----------------------- |
+| `DB_USER`         | PostgreSQL username  | `postgres`              |
+| `DB_PASSWORD`     | PostgreSQL password  | `postgres`              |
+| `DB_NAME`         | Database name        | `gazette_db`            |
+| `DB_PORT`         | Database port        | `5432`                  |
+| `FRONTEND_PORT`   | Frontend port        | `3002`                  |
+| `BACKEND_PORT`    | Backend port         | `3000`                  |
+| `JWT_SECRET`      | JWT signing secret   | Required                |
+| `JWT_EXPIRATION`  | JWT expiration time  | `7d`                    |
 | `ALLOWED_ORIGINS` | CORS allowed origins | `http://localhost:3002` |
 
 ### Docker Configuration
@@ -261,11 +265,13 @@ The project includes GitHub Actions workflows for:
 ### Production Deployment
 
 1. **Build production images**:
+
    ```bash
    docker compose -f docker-compose.prod.yml build
    ```
 
 2. **Set production environment variables**:
+
    ```bash
    export NODE_ENV=production
    export JWT_SECRET=your-production-secret
@@ -310,6 +316,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🔄 Changelog
 
 ### Latest Updates
+
 - ✅ Lighthouse CI integration for accessibility audits
 - ✅ Improved error handling with toast notifications
 - ✅ Enhanced Docker multi-stage builds
