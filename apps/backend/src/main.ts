@@ -15,14 +15,6 @@ async function bootstrap() {
       exposedHeaders: 'Set-Cookie',
     },
   })
-  const config = new DocumentBuilder()
-    .setTitle('Gazette API')
-    .setDescription('API pour l\'application Gazette')
-    .setVersion('1.0')
-    .addTag('gazette')
-    .build()
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api-docs', app, document)
 
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
