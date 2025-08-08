@@ -15,9 +15,12 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuEye, LuEyeOff } from 'react-icons/lu'
 
+const EyeIcon = () => React.createElement(LuEye as React.ComponentType)
+const EyeOffIcon = () => React.createElement(LuEyeOff as React.ComponentType)
+
 const DEFAULT_VISIBILITY_ICON = {
-  on: <LuEye />,
-  off: <LuEyeOff />,
+  on: <EyeIcon />,
+  off: <EyeOffIcon />,
 }
 
 export interface PasswordVisibilityProps {
@@ -47,7 +50,7 @@ function VisibilityTrigger({ ref, ...props }: ButtonProps & { ref?: React.RefObj
   )
 }
 
-export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>((props, ref) => {
+export function PasswordInput({ ref, ...props }: PasswordInputProps & { ref?: React.Ref<HTMLInputElement> }) {
   const {
     rootProps,
     defaultVisible,
@@ -96,7 +99,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       </InputRightElement>
     </ChakraInputGroup>
   )
-})
+}
 
 interface PasswordStrengthMeterProps extends BoxProps {
   max?: number
