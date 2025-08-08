@@ -127,53 +127,39 @@ jobs:
           fi
           echo "✅ All required secrets are set"
 
-      - name: Start Docker services
+      - name: Start services
         run: |
-          echo "=== Starting Docker services ==="
+          echo "=== Starting Backend via Docker ==="
           echo "Stopping any existing containers..."
           docker compose down --volumes --remove-orphans
 
           echo "Removing any existing images..."
           docker compose rm -f
-          docker rmi gazette-frontend gazette-backend || echo "No images to remove"
+          docker rmi gazette-backend || echo "No backend image to remove"
 
-          echo "Building and starting all services..."
-          docker compose up --build -d
+          echo "Building and starting backend services..."
+          docker compose up --build -d postgres backend
 
-          echo "=== Waiting for services to start ==="
-          echo "Waiting 60 seconds for services to fully start..."
-          sleep 60
+          echo "=== Waiting for backend to start ==="
+          echo "Waiting 30 seconds for backend to fully start..."
+          sleep 30
 
-          echo "=== Container Status Check ==="
-          echo "All containers status:"
-          docker compose ps -a
+          echo "=== Backend Health Check ==="
+          echo "Backend container status:"
+          docker compose ps postgres backend
 
-          echo "=== Container Health Check ==="
-          echo "Checking if containers are running..."
-          if ! docker compose ps --status running | grep -q "frontend\|backend"; then
-            echo "❌ Some containers are not running!"
-            echo "Container logs:"
-            docker compose logs --tail=50
-            echo "❌ Exiting due to container startup failure"
+          echo "Checking if backend container is running..."
+          if ! docker compose ps --status running | grep -q "backend"; then
+            echo "❌ Backend container is not running!"
+            echo "Backend logs:"
+            docker compose logs backend --tail=50
+            echo "❌ Exiting due to backend startup failure"
             exit 1
           fi
 
-          echo "✅ All containers are running!"
+          echo "✅ Backend container is running!"
 
-          echo "=== Network Configuration ==="
-          echo "Docker networks:"
-          docker network ls
-          echo "Gazette network details:"
-          docker network inspect gazette_gazette-network || echo "Network not found"
-
-          echo "=== Port Mappings ==="
-          echo "Frontend port mapping:"
-          docker compose port frontend ${{ secrets.FRONTEND_PORT }} || echo "❌ Frontend port mapping failed"
-          echo "Backend port mapping:"
-          docker compose port backend ${{ secrets.BACKEND_PORT }} || echo "❌ Backend port mapping failed"
-
-          echo "=== Service Accessibility ==="
-          echo "Testing backend accessibility..."
+          echo "=== Testing Backend Accessibility ==="
           for i in {1..15}; do
             echo "Attempt $i/15 to connect to backend on port ${{ secrets.BACKEND_PORT }}..."
             if curl -s http://localhost:${{ secrets.BACKEND_PORT }}/contents > /dev/null 2>&1; then
@@ -189,7 +175,21 @@ jobs:
             sleep 5
           done
 
-          echo "Testing frontend accessibility..."
+          echo "=== Starting Frontend Natively ==="
+          echo "Building frontend..."
+          cd apps/frontend
+          pnpm build
+
+          echo "Starting frontend in background..."
+          pnpm start -p ${{ secrets.FRONTEND_PORT }} &
+          FRONTEND_PID=$!
+          echo "Frontend started with PID: $FRONTEND_PID"
+          echo "FRONTEND_PID=$FRONTEND_PID" >> $GITHUB_ENV
+
+          echo "Waiting for frontend to start..."
+          sleep 10
+
+          echo "=== Testing Frontend Accessibility ==="
           for i in {1..15}; do
             echo "Attempt $i/15 to connect to frontend on port ${{ secrets.FRONTEND_PORT }}..."
             if curl -s http://localhost:${{ secrets.FRONTEND_PORT }}/ > /dev/null 2>&1; then
@@ -198,8 +198,8 @@ jobs:
             fi
             if [ $i -eq 15 ]; then
               echo "❌ Frontend is not accessible after 15 attempts"
-              echo "Frontend logs:"
-              docker compose logs frontend --tail=30
+              echo "Checking frontend process..."
+              ps aux | grep "next start" || echo "Frontend process not found"
               exit 1
             fi
             sleep 5
@@ -217,3 +217,17 @@ jobs:
           echo "Running Lighthouse with localhost..."
           lhci collect --url=http://localhost:${{ secrets.FRONTEND_PORT }}/
           lhci upload --target=temporary-public-storage
+
+      - name: Cleanup services
+        if: always()
+        run: |
+          echo "=== Cleaning up services ==="
+          if [ ! -z "$FRONTEND_PID" ]; then
+            echo "Stopping frontend process (PID: $FRONTEND_PID)..."
+            kill $FRONTEND_PID || echo "Frontend process already stopped"
+          fi
+
+          echo "Stopping Docker containers..."
+          docker compose down --volumes --remove-orphans || echo "Docker containers already stopped"
+
+          echo "✅ Cleanup completed"
