@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, Input, List, ListItem, Stack, Text, useToast, VStack } from '@chakra-ui/react'
+import { Box, Flex, Input, List, ListItem, Stack, Text, useToast, VStack } from '@chakra-ui/react'
 import { SignUpFormSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -155,8 +155,10 @@ function FormSignUp() {
               />
             </Field>
 
-            <Text fontSize="0.7rem">
-              {t('forms.passwordRequirements')}
+            <Box fontSize="0.7rem">
+              <Text fontSize="0.7rem" mb="0.5rem">
+                {t('forms.passwordRequirements')}
+              </Text>
               <List>
                 <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.minLength')}</ListItem>
                 <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.uppercase')}</ListItem>
@@ -164,7 +166,7 @@ function FormSignUp() {
                 <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.number')}</ListItem>
                 <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.specialChar')}</ListItem>
               </List>
-            </Text>
+            </Box>
 
             <Button
               type="submit"
