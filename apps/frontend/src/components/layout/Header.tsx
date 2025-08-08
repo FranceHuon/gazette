@@ -1,6 +1,7 @@
 'use client'
 
 import { Box, Flex } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 import { useScroll } from '@/hooks/useScroll'
 import Navbar from './Navbar'
 import Title from './Title'
@@ -10,6 +11,7 @@ interface HeaderProps {
 }
 
 function Header({ pageTitle }: HeaderProps) {
+  const { t } = useTranslation()
   const { isScrolled } = useScroll({ threshold: 50 })
 
   return (
@@ -32,7 +34,7 @@ function Header({ pageTitle }: HeaderProps) {
       <Flex
         direction="column"
       >
-        <Title text="Gazette" fontColor="chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} />
+        <Title text={t('common.appTitle')} fontColor="chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} />
         <Title text={pageTitle} fontColor="chaletGreen" fontSize={isScrolled ? '1rem' : '2rem'} />
       </Flex>
       <Navbar isScrolled={isScrolled} />
