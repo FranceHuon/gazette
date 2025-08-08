@@ -42,7 +42,8 @@ export class SubscriptionsService {
     const subscription = await this.em.findOne(Subscription, { id })
 
     if (!subscription) {
-      throw new NotFoundException('Subscription not found')
+      // Idempotent: si la subscription n'existe pas, on considère que c'est un succès
+      return
     }
 
     await this.em.removeAndFlush(subscription)
