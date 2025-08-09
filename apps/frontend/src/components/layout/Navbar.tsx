@@ -18,18 +18,35 @@ function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
   return (
     <Link href={href}>
       <Box
+        as="a"
+        role="button"
+        tabIndex={0}
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
         transition="all 0.2s ease"
         color="chaletGreen"
+        borderRadius="md"
+        p={2}
         _hover={{
           'transform': 'translateY(-2px)',
           'color': '#283618',
+          'backgroundColor': 'rgba(40, 54, 24, 0.1)',
           '& svg': {
             color: '#283618',
           },
+        }}
+        _focusVisible={{
+          transform: 'translateY(-2px) scale(1.05)',
+          backgroundColor: 'rgba(96, 108, 56, 0.1)',
+          boxShadow: '0 4px 12px rgba(96, 108, 56, 0.3)',
+        }}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            window.location.href = href
+          }
         }}
       >
         <Icon size={isScrolled ? '1.5rem' : '2rem'} />
@@ -80,6 +97,8 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
       px={{ base: 8, md: 2 }}
       gap={{ base: 4, md: isScrolled ? 8 : 12 }}
       justifyContent={{ base: 'space-between', md: 'end' }}
+      role="navigation"
+      aria-label="Menu de navigation principal"
     >
       {menuItems.map(item => (
         <NavItem

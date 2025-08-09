@@ -21,6 +21,10 @@ function Button({
       shadow="sm"
       borderRadius="18px"
       px={6}
+      _focusVisible={{
+        transform: 'translateY(-2px) scale(1.02)',
+        boxShadow: '0 6px 16px rgba(96, 108, 56, 0.4)',
+      }}
       {...props}
     >
       <Text textTransform={capitalizeText ? 'capitalize' : 'uppercase'}>
