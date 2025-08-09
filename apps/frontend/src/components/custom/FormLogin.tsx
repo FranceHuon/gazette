@@ -52,7 +52,13 @@ function FormLogin() {
 
   return (
     <Flex direction="column" alignItems="center" justifyContent="center" width={{ base: '100%', md: '60%' }}>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ width: '100%' }}
+        role="form"
+        aria-label={t('auth.loginForm')}
+        noValidate
+      >
         <Stack maxWidth="-webkit-fit-content" paddingTop={6} gap="1.5rem" width="100%">
           <Field
             label={t('auth.email')}
@@ -68,6 +74,9 @@ function FormLogin() {
               height="auto"
               variant="flushed"
               placeholder={t('auth.email')}
+              type="email"
+              autoComplete="email"
+              aria-describedby={errors.email ? 'email-error' : undefined}
               {...register('email', { required: t('forms.requiredField') })}
             />
           </Field>
@@ -83,6 +92,8 @@ function FormLogin() {
               shadow="md"
               variant="flushed"
               placeholder="****************"
+              autoComplete="current-password"
+              aria-describedby={errors.password ? 'password-error' : undefined}
               {...register('password', { required: t('forms.requiredField') })}
             />
           </Field>
@@ -97,8 +108,15 @@ function FormLogin() {
           />
           <Text align="center">
             {`${t('auth.noAccountYet')} `}
-            <Link href="/signup">
-              <b>{t('auth.create')}</b>
+            <Link
+              href="/signup"
+              style={{
+                textDecoration: 'underline',
+                fontWeight: 'bold',
+              }}
+              aria-label={`${t('auth.noAccountYet')} ${t('auth.create')}`}
+            >
+              {t('auth.create')}
             </Link>
           </Text>
         </Stack>
