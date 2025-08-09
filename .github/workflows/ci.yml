@@ -6,13 +6,11 @@ on:
       - main
       - staging
       - dev
-      - branche-de-france
   pull_request:
     branches:
       - main
       - staging
       - dev
-      - branche-de-france
 
 jobs:
   lint:
