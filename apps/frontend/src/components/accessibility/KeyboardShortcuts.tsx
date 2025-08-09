@@ -144,8 +144,8 @@ function KeyboardShortcuts() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {shortcuts.map((shortcut, index) => (
-                    <Tr key={index}>
+                  {shortcuts.map(shortcut => (
+                    <Tr key={shortcut.keys}>
                       <Td>
                         <Box
                           as="kbd"
