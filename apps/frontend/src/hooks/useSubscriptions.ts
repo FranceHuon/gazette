@@ -1,8 +1,8 @@
-import { useContext } from 'react'
+import { use } from 'react'
 import { SubscriptionContext } from '@/contexts/SubscriptionContext.types'
 
 export function useSubscriptionsContext() {
-  const context = useContext(SubscriptionContext)
+  const context = use(SubscriptionContext)
   if (context === undefined) {
     throw new Error('useSubscriptionsContext must be used within a SubscriptionProvider')
   }

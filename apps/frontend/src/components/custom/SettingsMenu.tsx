@@ -27,7 +27,7 @@ function SettingsMenu() {
     try {
       await deleteAccount()
       toaster.create({
-        description: t('auth.accountDeleted'),
+        description: t('accountDeleted'),
         type: 'success',
         duration: 5000,
       })
@@ -36,7 +36,7 @@ function SettingsMenu() {
     catch (error) {
       console.error('Account deletion error:', error)
       toaster.create({
-        description: t('auth.errorDeletingAccount'),
+        description: t('errorDeletingAccount'),
         type: 'error',
         duration: 5000,
       })
@@ -77,14 +77,14 @@ function SettingsMenu() {
             href="/about"
             textStyle="nav"
           >
-            {t('navigation.about')}
+            {t('navigation.about', { ns: 'common' })}
           </Link>
         </ListItem>
         <ListItem>
           <Link
             textStyle="nav"
           >
-            {t('navigation.policy')}
+            {t('navigation.policy', { ns: 'common' })}
           </Link>
         </ListItem>
       </List>

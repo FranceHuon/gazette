@@ -1,6 +1,6 @@
 import { CreateSubscriptionDto, SubscriptionDto } from '@gazette/shared'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useCallback, useContext, useMemo } from 'react'
+import { use, useCallback, useMemo } from 'react'
 import { createSubscription, deleteSubscription, getUserSubscriptions } from '@/services/api/subscriptions'
 import { AuthContext } from './AuthContext'
 import { SubscriptionContext } from './SubscriptionContext.types'
@@ -11,7 +11,7 @@ interface SubscriptionProviderProps {
 
 export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
   const queryClient = useQueryClient()
-  const context = useContext(AuthContext)
+  const context = use(AuthContext)
   const userId = context?.user?.id || ''
 
   const { data: subscriptions = [], isLoading, isError } = useQuery({
@@ -64,8 +64,8 @@ export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
   const value = useMemo(() => ({ subscriptions, isLoading, isError, subscribe, unsubscribe, isSubscribed }), [subscriptions, isLoading, isError, subscribe, unsubscribe, isSubscribed])
 
   return (
-    <SubscriptionContext.Provider value={value}>
+    <SubscriptionContext value={value}>
       {children}
-    </SubscriptionContext.Provider>
+    </SubscriptionContext>
   )
 }

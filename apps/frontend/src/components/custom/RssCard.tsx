@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardBody, CardFooter, CardHeader, Heading, Image, Link, Text, VStack } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, CardHeader, Flex, Heading, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { ContentWithMediaDto } from '@gazette/shared'
 import { Heart } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +31,16 @@ function RssCard({
       padding={{ base: '16px', md: '20px' }}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
+      _focusWithin={{
+        transform: 'translateY(-2px)',
+        boxShadow: 'xl',
+        outline: '2px solid',
+        outlineColor: 'chaletGreen',
+        outlineOffset: '2px',
+      }}
       transition="all 0.2s ease-in-out"
+      role="article"
+      aria-label={`Article: ${content.title}`}
     >
       <CardHeader padding={{ base: '12px', md: '16px' }} display="flex" alignItems="center" justifyContent="space-between">
         <Heading
@@ -48,7 +57,7 @@ function RssCard({
           maxW={{ base: '50px', md: '50px' }}
           maxH={{ base: '50px', md: '50px' }}
           objectFit="contain"
-          fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
+          // fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
         />
       </CardHeader>
 
@@ -71,9 +80,9 @@ function RssCard({
           <Link
             href={content.link}
             isExternal
-            color="blue.500"
+            color="chaletGreen"
             textStyle="cardLink"
-            _hover={{ textDecoration: 'underline' }}
+            _hover={{ color: 'darkGreen' }}
           >
             {t('common.readArticle')}
           </Link>
@@ -83,23 +92,86 @@ function RssCard({
       <CardFooter padding={{ base: '18px', md: '24px' }} justifyContent="flex-end" position="absolute" bottom={0} right={0}>
         {!isLikeOnlyMode && isCurrentlyLiked
           ? (
-              <Heart
-                stroke="#606c38"
-                size={30}
-                strokeWidth={2}
-                fill="#606c38"
-                onClick={() => dislike!(content.id)}
+              <Flex
+                as="button"
+                type="button"
                 cursor="pointer"
-              />
+                transition="transform 0.2s ease-in-out"
+                borderRadius="md"
+                p={1}
+                _hover={{ transform: 'translateY(-2px)' }}
+                _focusVisible={{
+                  transform: 'translateY(-2px) scale(1.05)',
+                  boxShadow: '0 4px 12px rgba(96, 108, 56, 0.3)',
+                }}
+                onClick={() => dislike!(content.id)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    dislike!(content.id)
+                  }
+                }}
+                aria-label={`Retirer l'article "${content.title}" des favoris`}
+                tabIndex={0}
+              >
+                <Heart
+                  stroke="#606c38"
+                  size={30}
+                  strokeWidth={2}
+                  fill="#606c38"
+                  style={{
+                    transition: 'stroke 0.2s ease-in-out, fill 0.2s ease-in-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.stroke = '#283618'
+                    e.currentTarget.style.fill = '#283618'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.stroke = '#606c38'
+                    e.currentTarget.style.fill = '#606c38'
+                  }}
+                />
+              </Flex>
             )
           : (
-              <Heart
-                stroke="#606c38"
-                size={30}
-                strokeWidth={2}
-                onClick={() => like(content.id)}
+              <Flex
+                as="button"
+                type="button"
                 cursor="pointer"
-              />
+                transition="transform 0.2s ease-in-out"
+                borderRadius="md"
+                p={1}
+                _hover={{ transform: 'translateY(-2px)' }}
+                _focusVisible={{
+                  transform: 'translateY(-2px) scale(1.05)',
+                  boxShadow: '0 4px 12px rgba(96, 108, 56, 0.3)',
+                }}
+                onClick={() => like(content.id)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    like(content.id)
+                  }
+                }}
+                aria-label={`Ajouter l'article "${content.title}" aux favoris`}
+                tabIndex={0}
+              >
+                <Heart
+                  stroke="#606c38"
+                  fill="none"
+                  size={30}
+                  strokeWidth={2}
+                  style={{
+                    transition: 'stroke 0.2s ease-in-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.stroke = '#283618'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.stroke = '#606c38'
+                  }}
+                />
+              </Flex>
             )}
       </CardFooter>
     </Card>

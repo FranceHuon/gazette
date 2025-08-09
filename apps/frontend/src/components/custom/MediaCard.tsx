@@ -8,8 +8,6 @@ interface MediaCardProps {
   onSubscribe: (mediaId: string) => void
   onUnsubscribe?: (mediaId: string) => void
   isSubscribed?: (mediaId: string) => boolean
-  width?: string
-  height?: string
 }
 
 function MediaCard({
@@ -17,8 +15,6 @@ function MediaCard({
   onSubscribe,
   onUnsubscribe,
   isSubscribed,
-  width = '400px',
-  height = '400px',
 }: MediaCardProps) {
   const { t } = useTranslation('common', {
     keyPrefix: 'subscriptions',
@@ -29,19 +25,27 @@ function MediaCard({
 
   return (
     <Card
-      width={{ base: '100%', sm: '350px', md: width, lg: width }}
-      height={{ base: 'auto', sm: '400px', md: height, lg: height }}
-      minHeight={{ base: '400px', sm: '400px', md: height, lg: height }}
+      width={{ base: '100%', sm: '250px', md: '300px', lg: '400px' }}
+      height={{ base: 'auto', sm: '250px', md: '300px', lg: '400px' }}
+      minHeight={{ base: '200px', sm: '250px', md: '300px', lg: '400px' }}
       borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
-      overflow="hidden"
+      padding={{ base: '16px', md: '20px' }}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
+      _focusWithin={{
+        transform: 'translateY(-2px)',
+        boxShadow: 'xl',
+        outline: '2px solid',
+        outlineColor: 'chaletGreen',
+        outlineOffset: '2px',
+      }}
       transition="all 0.2s ease-in-out"
+      role="article"
+      aria-label={`Média ${media.name}`}
     >
       <CardBody padding={{ base: '16px', md: '20px' }}>
-        <Flex flexDirection="column" gap={{ base: 4, md: 6 }} alignItems="flex-start" height="100%">
+        <Flex flexDirection="column" alignItems="flex-start" height="100%">
           <Flex
-            // mb={{ base: 3, md: 4 }}
             width={{ base: '60px', md: '100px' }}
             height={{ base: '60px', md: '100px' }}
             justifyContent="center"
@@ -67,7 +71,7 @@ function MediaCard({
           >
             <Heading
               size={{ base: 'lg', md: 'xl' }}
-              fontSize={{ base: 'lg', md: 'xl' }}
+              fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
               lineHeight="1.2"
             >
               {media.name}
@@ -82,12 +86,12 @@ function MediaCard({
             </Text>
           </Flex>
 
-          <Flex justifyContent="flex-end" mt="auto">
+          <Flex padding={{ base: '18px', md: '24px' }} justifyContent="flex-end" bottom={0} right={0} position="absolute">
             {!isSubscribeOnlyMode && isCurrentlySubscribed
               ? (
                   <Button
                     color="white"
-                    bgColor="red.500"
+                    bgColor="darkGreen"
                     text={t('unsubscribe')}
                     height="50px"
                     onClick={() => onUnsubscribe!(media.id)}

@@ -30,6 +30,8 @@ function Header({ pageTitle }: HeaderProps) {
       py={4}
       boxShadow={isScrolled ? 'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.01) 0px 4px 6px -2px' : 'none'}
       transition="box-shadow 0.2s ease-in-out"
+      role="banner"
+      aria-label="En-tête principal"
     >
       <Flex
         direction="column"

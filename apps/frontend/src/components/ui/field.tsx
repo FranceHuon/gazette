@@ -10,21 +10,19 @@ export interface FieldProps {
   children?: React.JSX.Element | React.JSX.Element[]
 }
 
-export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
-  (props, ref) => {
-    const { label, children, helperText, errorText, isRequired, isInvalid, ...rest } = props
-    return (
-      <FormControl
-        isRequired={isRequired}
-        isInvalid={isInvalid ? true : undefined}
-        ref={ref}
-        {...rest}
-      >
-        {label && <FormLabel fontSize="0.8rem" textTransform="uppercase" fontWeight="bold">{label}</FormLabel>}
-        {children}
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
-        {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
-      </FormControl>
-    )
-  },
-)
+export function Field({ ref, ...props }: FieldProps & { ref?: React.RefObject<HTMLDivElement | null> }) {
+  const { label, children, helperText, errorText, isRequired, isInvalid, ...rest } = props
+  return (
+    <FormControl
+      isRequired={isRequired}
+      isInvalid={isInvalid ? true : undefined}
+      ref={ref}
+      {...rest}
+    >
+      {label && <FormLabel fontSize="0.8rem" textTransform="uppercase" fontWeight="bold">{label}</FormLabel>}
+      {children}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
+    </FormControl>
+  )
+}
