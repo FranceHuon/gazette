@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 interface UseKeyboardNavigationOptions {
   enableArrowKeys?: boolean
@@ -48,7 +48,7 @@ export function useKeyboardNavigation(options: UseKeyboardNavigationOptions = {}
     ) as HTMLElement[]
   }
 
-  const handleKeyDown = (event: KeyboardEvent) => {
+  const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (!containerRef.current)
       return
 
@@ -112,7 +112,7 @@ export function useKeyboardNavigation(options: UseKeyboardNavigationOptions = {}
         }
       }
     }
-  }
+  }, [enableArrowKeys, enableEscapeKey, trapFocus, onEscape])
 
   useEffect(() => {
     if (!containerRef.current)
@@ -123,15 +123,15 @@ export function useKeyboardNavigation(options: UseKeyboardNavigationOptions = {}
 
     // Auto-focus sur le premier élément focusable lors du montage
     const focusableElements = getFocusableElements(container)
-    if (focusableElements.length > 0 && !document.activeElement
-      || !container.contains(document.activeElement as Node)) {
+    if (focusableElements.length > 0 && (!document.activeElement
+      || !container.contains(document.activeElement as Node))) {
       focusableElements[0]?.focus()
     }
 
     return () => {
       container.removeEventListener('keydown', handleKeyDown)
     }
-  }, [enableArrowKeys, enableEscapeKey, trapFocus, onEscape])
+  }, [handleKeyDown])
 
   return {
     containerRef,
