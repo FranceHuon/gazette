@@ -1,24 +1,42 @@
 import type { Options } from '@mikro-orm/core'
+import type { ConfigService } from '@nestjs/config'
 import * as path from 'node:path'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
-import { ConfigService } from '@nestjs/config'
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 
-// dotenv.config();
+/**
+ * Configuration MikroORM unifiée pour CLI et application NestJS
+ * Détecte automatiquement le contexte et utilise la source de config appropriée
+ */
 
-function config(configService: ConfigService): Options<PostgreSqlDriver> {
+function createConfig(configSource: 'env' | ConfigService): Options<PostgreSqlDriver> {
+  // Fonction pour récupérer une valeur selon le contexte
+  const getValue = (key: string, defaultValue?: string): string => {
+    if (configSource === 'env') {
+      return process.env[key] || defaultValue || ''
+    }
+    return (configSource as ConfigService).get<string>(key, defaultValue) || ''
+  }
+
+  const isCliContext = configSource === 'env'
+
   return {
     driver: PostgreSqlDriver,
-    host: configService.get('DB_HOST'),
-    port: Number.parseInt(configService.get('DB_PORT') || '5432'),
-    user: configService.get('DB_USER') || 'postgres',
-    password: configService.get('DB_PASSWORD'),
-    dbName: configService.get('DB_NAME') || 'gazette_db',
-    debug: configService.get('NODE_ENV') === 'development',
+    host: getValue('DB_HOST', 'localhost'),
+    port: Number.parseInt(getValue('DB_PORT', '5432')),
+    user: getValue('DB_USER', 'postgres'),
+    password: getValue('DB_PASSWORD', ''),
+    dbName: getValue('DB_NAME', 'gazette_db'),
+    debug: getValue('NODE_ENV') === 'development',
     metadataProvider: TsMorphMetadataProvider,
-    entities: [path.join(__dirname, 'entities', '*.entity.js')],
-    entitiesTs: [path.join(__dirname, 'entities', '*.entity.ts')],
+    // Différents patterns d'entités selon le contexte
+    entities: isCliContext
+      ? ['dist/**/*.entity.js']
+      : [path.join(__dirname, 'entities', '*.entity.js')],
+    entitiesTs: isCliContext
+      ? ['src/**/*.entity.ts']
+      : [path.join(__dirname, 'entities', '*.entity.ts')],
     migrations: {
       path: './dist/migrations',
       pathTs: './src/migrations',
@@ -29,7 +47,17 @@ function config(configService: ConfigService): Options<PostgreSqlDriver> {
       safe: true,
       emit: 'ts',
     },
+    // Option spécifique à NestJS
+    ...(isCliContext ? {} : { validateRequired: true }),
   }
 }
 
-export default config
+// Export pour le CLI (charge dotenv automatiquement)
+dotenv.config()
+const cliConfig = createConfig('env')
+
+// Export par défaut pour le CLI
+export default cliConfig
+
+// Export de la fonction pour NestJS
+export const createMikroOrmConfig = (configService: ConfigService) => createConfig(configService)
