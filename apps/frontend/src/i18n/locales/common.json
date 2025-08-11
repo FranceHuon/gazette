@@ -21,9 +21,8 @@
     "subscriptions": "Abonnements",
     "settings": "Paramètres",
     "menu": "Menu",
-    "account": "Mon compte",
-    "about": "À propos",
-    "policy": "Politique et confidentialité"
+    "account": "Mon compte"
+
   },
   "auth": {
     "login": "Se connecter",
@@ -49,7 +48,9 @@
     "loginErrorMessage": "Une erreur est survenue lors de la connexion",
     "signupError": "Erreur d'inscription",
     "signupErrorMessage": "Une erreur est survenue lors de la création du compte",
-    "signupSuccess": "Compte créé avec succès"
+    "signupSuccess": "Compte créé avec succès",
+    "policy": "Politique et confidentialité",
+    "about": "À propos"
   },
   "forms": {
     "requiredField": "Champ obligatoire",
