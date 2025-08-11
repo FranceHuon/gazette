@@ -1,15 +1,14 @@
 'use client'
 
-import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
+import { Flex, useBreakpointValue } from '@chakra-ui/react'
 import GazetteIllu from '@/components/custom/GazetteIllu'
+import GazetteMobile from '@/components/custom/GazetteMobile'
 
 interface AuthLayoutProps {
   children: React.ReactNode
 }
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-  const { t } = useTranslation('common')
   const isMobile = useBreakpointValue({ base: true, md: false })
 
   return (
@@ -19,37 +18,24 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       width="100vw"
       direction={{ base: 'column', md: 'row' }}
     >
-      {/* Section gauche - Logo/Illustration */}
       {isMobile
         ? (
-            <Box
-              bgColor="chaletGreen"
-              width="100%"
-              height="40%"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              color="white"
-              textAlign="center"
-              fontSize="6rem"
-              fontFamily="Staatliches"
-            >
-              {t('common.appTitle')}
-            </Box>
+            <Flex width="100%" justifyContent="flex-start" alignItems="flex-start" padding={{ base: '16px', md: '20px' }}>
+              <GazetteMobile />
+            </Flex>
           )
         : (
             <GazetteIllu />
           )}
 
-      {/* Section droite - Contenu des formulaires */}
       <Flex
         direction="column"
         alignItems="center"
-        justifyContent="center"
         width={{ base: '100%', md: '50%' }}
         px={{ base: 6, md: 0 }}
         flexGrow={1}
         gap={{ base: 6, md: 8 }}
+        paddingTop={{ base: '16px', md: '20px' }}
       >
         {children}
       </Flex>
