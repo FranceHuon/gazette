@@ -1,6 +1,6 @@
 'use client'
 
-import { VStack } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import SettingsMenu from '@/components/custom/SettingsMenu'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -8,15 +8,15 @@ import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
 function SettingsPageContent() {
   return (
     <ResponsiveLayout>
-      <VStack
-        spacing={{ base: '24px', md: '32px', lg: '40px' }}
+      <Flex
+        gap={{ base: '24px', md: '32px', lg: '40px' }}
         alignItems="center"
         justifyContent="center"
         width="100%"
         minHeight="60vh"
       >
         <SettingsMenu />
-      </VStack>
+      </Flex>
     </ResponsiveLayout>
   )
 }

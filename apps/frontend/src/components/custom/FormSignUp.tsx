@@ -97,6 +97,7 @@ function FormSignUp() {
                 borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
+                placeholder="Gazette"
                 {...register('pseudo', { required: t('forms.requiredField') })}
               />
             </Field>
@@ -113,6 +114,7 @@ function FormSignUp() {
                 borderColor="lightGray"
                 padding="0.8rem"
                 height="auto"
+                placeholder={t('auth.placeholderEmail')}
                 {...register('email', { required: t('forms.requiredField') })}
               />
             </Field>
@@ -131,6 +133,7 @@ function FormSignUp() {
                 padding="0.8rem"
                 height="auto"
                 variant="flushed"
+                placeholder="***********"
                 {...register('password', { required: t('forms.requiredField') })}
               />
             </Field>
@@ -149,6 +152,7 @@ function FormSignUp() {
                 padding="0.8rem"
                 height="auto"
                 variant="flushed"
+                placeholder="***********"
                 {...register('confirmPassword', {
                   required: t('forms.requiredField'),
                 })}

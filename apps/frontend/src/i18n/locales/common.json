@@ -1,6 +1,7 @@
 {
   "common": {
     "appTitle": "Gazette",
+    "appTitleMobile": "G",
     "appDescription": "Bienvenue sur Gazette, cette application vous permet de vous abonner à des médias et de consulter des articles",
     "readArticle": "Lire l'article →",
     "availableMedias": "Médias disponibles",
@@ -20,9 +21,8 @@
     "subscriptions": "Abonnements",
     "settings": "Paramètres",
     "menu": "Menu",
-    "account": "Mon compte",
-    "about": "À propos",
-    "policy": "Politique et confidentialité"
+    "account": "Mon compte"
+
   },
   "auth": {
     "login": "Se connecter",
@@ -35,6 +35,7 @@
     "signIn": "Inscription",
     "pseudo": "Pseudo",
     "email": "Adresse mail",
+    "placeholderEmail": "example@gmail.com",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "changePassword": "Changer de mot de passe",
@@ -47,7 +48,9 @@
     "loginErrorMessage": "Une erreur est survenue lors de la connexion",
     "signupError": "Erreur d'inscription",
     "signupErrorMessage": "Une erreur est survenue lors de la création du compte",
-    "signupSuccess": "Compte créé avec succès"
+    "signupSuccess": "Compte créé avec succès",
+    "policy": "Politique et confidentialité",
+    "about": "À propos"
   },
   "forms": {
     "requiredField": "Champ obligatoire",

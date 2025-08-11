@@ -19,15 +19,17 @@ function Button({
       color="white"
       bgColor="chaletGreen"
       shadow="sm"
-      borderRadius="18px"
-      px={6}
-      _focusVisible={{
+      borderRadius={{ base: '10px', md: '18px' }}
+      height={{ base: '40px', md: '50px' }}
+      width={{ base: '100px', md: '150px' }}
+      px={{ base: 2, md: 6 }}
+      _disabled={{
         transform: 'translateY(-2px) scale(1.02)',
         boxShadow: '0 6px 16px rgba(96, 108, 56, 0.4)',
       }}
       {...props}
     >
-      <Text textTransform={capitalizeText ? 'capitalize' : 'uppercase'}>
+      <Text textTransform={capitalizeText ? 'capitalize' : 'uppercase'} fontSize={{ base: '11px', md: '16px' }}>
         {text}
       </Text>
     </ChakraButton>
