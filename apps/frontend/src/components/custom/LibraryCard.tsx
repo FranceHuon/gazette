@@ -68,6 +68,7 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
               justifyContent={{ base: 'space-between', md: 'flex-start' }}
               width="100%"
               mt={{ base: 2, md: 0 }}
+              mb={{ base: 2, md: 0 }}
             >
               <Link
                 href={content.link}
