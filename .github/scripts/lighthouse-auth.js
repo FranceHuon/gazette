@@ -16,9 +16,15 @@ execSync('npx puppeteer browsers install chrome', { stdio: 'inherit' })
 
 const puppeteer = await import('puppeteer')
 
-// CONFIGURATION
-const BACKEND_URL = 'http://localhost:3000'
-const FRONTEND_URL = 'http://localhost:3002'
+// CONFIGURATION - Utilise les variables d'environnement ou des valeurs par défaut
+const BACKEND_PORT = process.env.BACKEND_PORT || '3000'
+const FRONTEND_PORT = process.env.FRONTEND_PORT || '3002'
+const BACKEND_URL = `http://localhost:${BACKEND_PORT}`
+const FRONTEND_URL = `http://localhost:${FRONTEND_PORT}`
+
+console.log(`🔧 Configuration:`)
+console.log(`   Backend URL: ${BACKEND_URL}`)
+console.log(`   Frontend URL: ${FRONTEND_URL}`)
 
 const PAGES_TO_AUDIT = [
   '/login',
