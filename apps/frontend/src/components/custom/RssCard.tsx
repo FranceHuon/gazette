@@ -39,7 +39,6 @@ function RssCard({
         outlineOffset: '2px',
       }}
       transition="all 0.2s ease-in-out"
-      role="article"
       aria-label={`Article: ${content.title}`}
     >
       <CardHeader padding={{ base: '12px', md: '16px' }} display="flex" alignItems="center" justifyContent="space-between">
@@ -57,7 +56,6 @@ function RssCard({
           maxW={{ base: '50px', md: '50px' }}
           maxH={{ base: '50px', md: '50px' }}
           objectFit="contain"
-          // fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
         />
       </CardHeader>
 

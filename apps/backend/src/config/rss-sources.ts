@@ -3,7 +3,7 @@ export const RSS_SOURCES = {
     name: 'Bondy Blog',
     url: 'https://www.bondyblog.fr/feed/',
     description: 'Blog d\'actualités et d\'investigation',
-    picture: 'https://www.bondyblog.fr/wp-content/uploads/2019/01/logo-bondy-blog.png',
+    picture: '/bondyblog.svg',
   },
   arretsurimage: {
     name: 'Arrêt sur Images',
