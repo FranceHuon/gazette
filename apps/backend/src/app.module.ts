@@ -5,6 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule'
 import { LoggerModule } from 'nestjs-pino'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { createMikroOrmConfig } from './mikro-orm.config'
 import { AuthModule } from './modules/auth/auth.module'
 import { ContentModule } from './modules/content/content.module'
 import { JobService } from './modules/job/job.service'
@@ -37,8 +38,7 @@ import { UsersModule } from './modules/user/user.module'
     MikroOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        const { createMikroOrmConfig } = await import('./mikro-orm.config')
+      useFactory: (configService: ConfigService) => {
         return createMikroOrmConfig(configService)
       },
     }),
