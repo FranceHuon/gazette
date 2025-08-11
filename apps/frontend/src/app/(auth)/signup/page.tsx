@@ -5,16 +5,13 @@ import FormSignUp from '@/components/custom/FormSignUp'
 import Title from '@/components/layout/Title'
 
 export default function SignupPage() {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'auth',
-  })
+  const { t } = useTranslation('common')
 
   return (
     <>
       <Title
-        text={t('signIn')}
+        text={t('auth.signup')}
         fontColor="chaletGreen"
-        fontSize={{ base: '2rem', md: '5rem' }}
       />
       <FormSignUp />
     </>
