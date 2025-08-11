@@ -61,7 +61,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         display="flex"
         flexDirection="column"
         pb={{ base: '80px', lg: '0' }}
-        tabIndex={-1}
+
         role="main"
         aria-label={`Contenu principal: ${getPageTitle()}`}
       >

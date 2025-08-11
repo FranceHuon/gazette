@@ -26,13 +26,6 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
       marginTop={isFirst ? '12px' : '-66px'}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-10px)', boxShadow: 'xl' }}
-      _focusWithin={{
-        transform: 'translateY(-10px)',
-        boxShadow: 'xl',
-        outline: '2px solid',
-        outlineColor: 'chaletGreen',
-        outlineOffset: '2px',
-      }}
       transition="all 0.2s ease-in-out"
       border="1px solid rgba(0, 0, 0, 0.1)"
       role="article"
@@ -54,7 +47,6 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
               maxW="100%"
               maxH={{ base: '80px', md: '120px' }}
               objectFit="contain"
-              fallbackSrc="https://via.placeholder.com/120x120?text=Logo"
             />
           </Flex>
           <Flex flexDirection="column" gap={2} alignItems="flex-start">
@@ -81,25 +73,11 @@ function LibraryCard({ content, dislike, isFirst, isLast }: LibraryCardProps) {
           type="button"
           onClick={() => dislike!(content.id)}
           cursor="pointer"
-          borderRadius="md"
-          p={1}
           _hover={{ transform: 'translateY(-2px)' }}
-          _focusVisible={{
-            transform: 'translateY(-2px) scale(1.05)',
-            boxShadow: '0 4px 12px rgba(96, 108, 56, 0.3)',
-          }}
           transition="transform 0.2s ease-in-out"
           alignItems="center"
           justifyContent="center"
           mr={4}
-          onKeyDown={(e: React.KeyboardEvent) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault()
-              dislike!(content.id)
-            }
-          }}
-          aria-label={`Supprimer l'article "${content.title}" de la bibliothèque`}
-          tabIndex={0}
         >
           <Trash2
             stroke="#606c38"

@@ -23,7 +23,7 @@ function Button({
       height={{ base: '40px', md: '50px' }}
       width={{ base: '100px', md: '150px' }}
       px={{ base: 2, md: 6 }}
-      _focusVisible={{
+      _disabled={{
         transform: 'translateY(-2px) scale(1.02)',
         boxShadow: '0 6px 16px rgba(96, 108, 56, 0.4)',
       }}

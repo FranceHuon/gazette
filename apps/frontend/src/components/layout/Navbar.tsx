@@ -38,13 +38,7 @@ function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
             color: '#283618',
           },
         }}
-        _focus={{
-          'transform': 'translateY(-2px)',
-          'color': '#283618',
-          '& svg': {
-            color: '#283618',
-          },
-        }}
+
       >
         <Icon size={isScrolled ? '1.5rem' : '2rem'} />
         <Text
