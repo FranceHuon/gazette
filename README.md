@@ -38,9 +38,10 @@ cd packages/shared && pnpm build && cd ../..
 
 ### 4. Configure environment
 
-Create a `.env` file in the root directory
-
-````
+```bash
+# Create a .env file in the root directory
+cp .env.example .env
+```
 
 ### 5. Start services
 
@@ -53,7 +54,7 @@ docker compose exec backend pnpm migration:up
 
 # Seed database (first time only)
 docker compose exec backend pnpm seeder:run
-````
+```
 
 ### 6. Start frontend
 
@@ -72,7 +73,7 @@ pnpm dev
 
 ## 🛠️ Useful Commands
 
-### Development
+#### Development
 
 ```bash
 # Stop services
