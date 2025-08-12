@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Arrêt sur images",
+    "description": "La critique média en toute indépendance : enquêtes, analyses, chroniques et émissions.",
+    "picture": "https://www.arretsurimages.net/assets/img/favicon/favicon-96x96.png",
+    "urlRss": "https://api.arretsurimages.net/api/public/rss/all-content"
+  },
+  {
+    "name": "Blast",
+    "description": "Blast, le média d’investigation indépendant",
+    "picture": "https://api.blast-info.fr/static/logo-blast-black.png",
+    "urlRss": "https://api.blast-info.fr/rss.xml"
+  },
+  {
+    "name": "Bondy Blog",
+    "description": "Média en ligne qui raconte les quartiers depuis 2005",
+    "picture": "/bondyblog.svg",
+    "urlRss": "https://www.bondyblog.fr/feed/"
+  }
+]
