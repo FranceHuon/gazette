@@ -21,6 +21,7 @@
     "migration:down": "mikro-orm migration:down",
     "migration:list": "mikro-orm migration:list",
     "migration:pending": "mikro-orm migration:pending",
+    "export:media": "ts-node src/scripts/export-media.ts",
     "seeder:run": "mikro-orm seeder:run",
     "seeder:create": "mikro-orm seeder:create"
   },
