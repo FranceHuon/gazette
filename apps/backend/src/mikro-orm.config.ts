@@ -1,4 +1,5 @@
 import type { Options } from '@mikro-orm/core'
+import * as path from 'node:path'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 
@@ -20,11 +21,11 @@ const config: Options<PostgreSqlDriver> = {
   dbName: process.env.DB_NAME || 'gazette_db',
   debug: process.env.NODE_ENV === 'development',
   metadataProvider: TsMorphMetadataProvider,
-  entities: ['dist/**/*.entity.js'],
-  entitiesTs: ['src/**/*.entity.ts'],
+  entities: [path.join(__dirname, '**/*.entity.js')],
+  entitiesTs: [path.join(__dirname, '**/*.entity.ts')],
   migrations: {
-    path: './dist/migrations',
-    pathTs: './src/migrations',
+    path: path.join(__dirname, 'migrations'),
+    pathTs: path.join(__dirname, '..', 'src', 'migrations'),
     tableName: 'mikro_orm_migrations',
     transactional: true,
     allOrNothing: true,
