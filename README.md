@@ -39,7 +39,7 @@ cd packages/shared && pnpm build && cd ../..
 ### 4. Configure environment
 
 ```bash
-# Create a .env file in the root directory
+# Create .env files in root and frontend directories
 cp .env.example .env
 ```
 
