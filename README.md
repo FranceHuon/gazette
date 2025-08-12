@@ -86,4 +86,4 @@ docker compose logs -f
 docker compose exec backend pnpm schema:fresh
 ```
 
-> **Note**: This project is developed as part of the curriculum at [Ada Tech School](https://adatechschool.fr/) with Myriam LE NAHELEC, Oriane DA SILVA and Eline LONGEPÉE
+> **Note**: This project is developed as part of the curriculum at [Ada Tech School](https://adatechschool.fr/) with Myriam LE NAHELEC, Oriane DA SILVA, Eline LONGEPÉE and France HUON
