@@ -73,7 +73,7 @@ function FormLogin() {
               padding="0.8rem"
               height="auto"
               variant="flushed"
-              placeholder={t('auth.email')}
+              placeholder={t('auth.placeholderEmail')}
               type="email"
               autoComplete="email"
               aria-describedby={errors.email ? 'email-error' : undefined}
@@ -91,7 +91,7 @@ function FormLogin() {
               rounded="md"
               shadow="md"
               variant="flushed"
-              placeholder="****************"
+              placeholder="***********"
               autoComplete="current-password"
               aria-describedby={errors.password ? 'password-error' : undefined}
               {...register('password', { required: t('forms.requiredField') })}
@@ -111,7 +111,6 @@ function FormLogin() {
             <Link
               href="/signup"
               style={{
-                textDecoration: 'underline',
                 fontWeight: 'bold',
               }}
               aria-label={`${t('auth.noAccountYet')} ${t('auth.create')}`}
