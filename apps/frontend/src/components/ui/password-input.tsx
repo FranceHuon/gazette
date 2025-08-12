@@ -38,7 +38,7 @@ function VisibilityTrigger({ ref, ...props }: ButtonProps & { ref?: React.RefObj
   const { t } = useTranslation()
   return (
     <IconButton
-      tabIndex={-1}
+
       ref={ref}
       mr="-2"
       size="sm"

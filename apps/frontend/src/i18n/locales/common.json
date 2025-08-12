@@ -1,6 +1,7 @@
 {
   "common": {
     "appTitle": "Gazette",
+    "appTitleMobile": "G",
     "appDescription": "Bienvenue sur Gazette, cette application vous permet de vous abonner à des médias et de consulter des articles",
     "readArticle": "Lire l'article →",
     "availableMedias": "Médias disponibles",
@@ -20,9 +21,8 @@
     "subscriptions": "Abonnements",
     "settings": "Paramètres",
     "menu": "Menu",
-    "account": "Mon compte",
-    "about": "À propos",
-    "policy": "Politique et confidentialité"
+    "account": "Mon compte"
+
   },
   "auth": {
     "login": "Se connecter",
@@ -35,6 +35,7 @@
     "signIn": "Inscription",
     "pseudo": "Pseudo",
     "email": "Adresse mail",
+    "placeholderEmail": "example@gmail.com",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "changePassword": "Changer de mot de passe",
@@ -47,7 +48,9 @@
     "loginErrorMessage": "Une erreur est survenue lors de la connexion",
     "signupError": "Erreur d'inscription",
     "signupErrorMessage": "Une erreur est survenue lors de la création du compte",
-    "signupSuccess": "Compte créé avec succès"
+    "signupSuccess": "Compte créé avec succès",
+    "policy": "Politique et confidentialité",
+    "about": "À propos"
   },
   "forms": {
     "requiredField": "Champ obligatoire",
@@ -82,5 +85,36 @@
     "removed": "Favori supprimé",
     "addError": "Impossible d'ajouter ce contenu aux favoris. Veuillez réessayer.",
     "removeError": "Impossible de supprimer le favori. Veuillez réessayer."
+  },
+  "landing": {
+    "hero": {
+      "description": "Agrégateur de flux RSS moderne qui centralise vos sources d'actualités préférées. Créez votre propre bibliothèque de contenus favoris.",
+      "subtitle": "Simple et entièrement gratuit."
+    },
+    "features": {
+      "title": "Pourquoi choisir Gazette ?",
+      "subtitle": "Une expérience de lecture moderne et personnalisée pour tous vos contenus",
+      "rssAggregation": {
+        "title": "Agrégation RSS",
+        "description": "Centralisez tous vos flux RSS préférés en un seul endroit"
+      },
+      "personalLibrary": {
+        "title": "Bibliothèque personnelle",
+        "description": "Sauvegardez vos articles favoris pour les relire plus tard"
+      },
+      "cleanInterface": {
+        "title": "Interface épurée",
+        "description": "Une expérience de lecture optimisée et sans distraction"
+      },
+      "responsive": {
+        "title": "Responsive",
+        "description": "Accédez à vos contenus sur tous vos appareils"
+      }
+    },
+    "cta": {
+      "title": "Prêt à démarrer ?",
+      "description": "Rejoignez Gazette dès aujourd'hui et transformez votre façon de consommer l'actualité",
+      "button": "Commencer gratuitement"
+    }
   }
 }
