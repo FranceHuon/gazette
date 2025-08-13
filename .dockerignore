@@ -11,9 +11,9 @@ coverage
 node_modules
 **/node_modules
 
-# Ignorer les dossiers de build locaux (dist)
-dist
-**/dist
+# Ignorer les dossiers de build locaux (dist) - SAUF pendant la copie depuis builder
+# dist
+# **/dist
 
 # Ignorer fichiers de logs
 *.log

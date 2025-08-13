@@ -1,7 +1,4 @@
 #!/bin/sh
 
-echo "Building backend..."
-pnpm --filter gazette_backend build
-
-echo "Starting application with pnpm..."
+echo "Starting application..."
 pnpm --filter gazette_backend start:prod

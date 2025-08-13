@@ -205,16 +205,13 @@ jobs:
 
           echo "✅ All services are accessible!"
 
-      - name: Run Lighthouse CI
+      - name: Run Lighthouse CI with Authentication
         env:
+          BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
           FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
         run: |
-          echo "Installing Lighthouse CLI..."
-          npm install -g @lhci/cli@0.15.x
-
-          echo "Running Lighthouse with localhost..."
-          lhci collect --url=http://localhost:${{ secrets.FRONTEND_PORT }}/
-          lhci upload --target=temporary-public-storage
+          echo "Running Lighthouse with authentication..."
+          node .github/scripts/lighthouse-auth.js
 
       - name: Cleanup services
         if: always()
