@@ -1,4 +1,4 @@
-import type { ButtonProps as ChakraButtonProps, ResponsiveValue } from '@chakra-ui/react'
+import type { ButtonProps as ChakraButtonProps } from '@chakra-ui/react'
 import { Button as ChakraButton, Text } from '@chakra-ui/react'
 
 type ButtonProps = ChakraButtonProps & {
@@ -27,8 +27,8 @@ function Button({
       }}
       {...props}
     >
-      <Text 
-        textTransform={capitalizeText ? 'capitalize' : 'uppercase'} 
+      <Text
+        textTransform={capitalizeText ? 'capitalize' : 'uppercase'}
         fontSize={fontSize || { base: '11px', md: '16px' }}
       >
         {text}
