@@ -33,8 +33,12 @@ function MediaCard({
     <Card
       width="100%"
       height={{ base: '120px', md: '160px' }}
-      borderRadius={{ base: '20px', md: '30px', lg: '24px' }}
-      padding={{ base: '16px', md: '20px' }}
+      borderRadius={{
+        base: isLast ? '20px' : '20px 20px 0 0',
+        md: isLast ? '30px' : '30px 30px 0 0',
+        lg: isLast ? '24px' : '24px 24px 0 0',
+      }}
+      padding={{ base: '16px', md: '22px' }}
       paddingBottom={{ base: '16px', md: isLast ? '20px' : '64px' }}
       marginTop={isFirst ? '12px' : '-50px'}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
@@ -66,11 +70,11 @@ function MediaCard({
             />
 
           </Flex>
-          <Flex flexDirection="column" justifyContent="space-between" alignItems="flex-start" flex={1}>
+          <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" flex={1} gap={{ base: 2, md: 3 }}>
             <Heading
               fontFamily={{ base: 'body', md: 'heading' }}
               noOfLines={{ base: 2, md: 3 }}
-              fontSize={{ base: '0.8rem', md: '1.2rem', lg: '1.5rem' }}
+              fontSize={{ base: '1rem', md: '1.4rem', lg: '1.7rem' }}
               lineHeight="1.2"
             >
               {media.name}
@@ -81,15 +85,12 @@ function MediaCard({
               alignItems={{ base: 'center', md: 'flex-start' }}
               justifyContent={{ base: 'space-between', md: 'flex-start' }}
               width="100%"
-              mt={{ base: 2, md: 0 }}
-              mb={{ base: 2, md: 0 }}
             >
               <Text
-                fontSize={{ base: 'md', md: 'xl' }}
+                fontSize={{ base: 'lg', md: '2xl' }}
                 textAlign="left"
                 lineHeight="1.4"
                 noOfLines={{ base: 3, md: 4 }}
-                marginBottom={{ base: 2, md: 2 }}
               >
                 {media.description}
               </Text>
@@ -104,6 +105,9 @@ function MediaCard({
                   bgColor="darkGreen"
                   text={t('unsubscribe')}
                   onClick={() => onUnsubscribe!(media.id)}
+                  height={{ base: '44px', md: '60px' }}
+                  width={{ base: '110px', md: '180px' }}
+                  fontSize={{ base: '20px', md: '20px' }}
                 />
               )
             : (
@@ -112,6 +116,9 @@ function MediaCard({
                   bgColor="chaletGreen"
                   text={t('subscribe')}
                   onClick={() => onSubscribe(media.id)}
+                  height={{ base: '44px', md: '60px' }}
+                  width={{ base: '110px', md: '180px' }}
+                  fontSize={{ base: '20px', md: '20px' }}
                 />
               )}
         </Flex>

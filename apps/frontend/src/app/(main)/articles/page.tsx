@@ -54,10 +54,12 @@ function ArticlesPageContent() {
                 <Heading
                   fontSize={{ base: 'xl', md: '2rem', lg: '3rem' }}
                   color="chaletGreen"
-                  _hover={{ color: 'darkGreen' }}
                   px={4}
                   py={4}
                   cursor="pointer"
+                  _hover={{
+                    transform: 'translateY(-2px) scale(1.1)',
+                  }}
                 >
                   Explorer
                 </Heading>
@@ -79,10 +81,12 @@ function ArticlesPageContent() {
                 <Heading
                   fontSize={{ base: 'xl', md: '2rem', lg: '3rem' }}
                   color="chaletGreen"
-                  _hover={{ color: 'darkGreen' }}
                   px={4}
                   py={4}
                   cursor="pointer"
+                  _hover={{
+                    transform: 'translateY(-2px) scale(1.1)',
+                  }}
                 >
                   Favoris
                 </Heading>
