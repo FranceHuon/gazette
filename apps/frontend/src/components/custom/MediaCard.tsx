@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardBody, CardHeader, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Card, Flex, Heading, Image, Text } from '@chakra-ui/react'
 import { MediaDto } from '@gazette/shared'
 import { useTranslation } from 'react-i18next'
 import Button from './Button'
@@ -10,6 +10,8 @@ interface MediaCardProps {
   onSubscribe: (mediaId: string) => void
   onUnsubscribe?: (mediaId: string) => void
   isSubscribed?: (mediaId: string) => boolean
+  isFirst?: boolean
+  isLast?: boolean
 }
 
 function MediaCard({
@@ -17,6 +19,8 @@ function MediaCard({
   onSubscribe,
   onUnsubscribe,
   isSubscribed,
+  isFirst,
+  isLast,
 }: MediaCardProps) {
   const { t } = useTranslation('common', {
     keyPrefix: 'subscriptions',
@@ -27,63 +31,72 @@ function MediaCard({
 
   return (
     <Card
-      width={{ base: '100%', sm: '250px', md: '300px', lg: '400px' }}
-      height={{ base: 'auto', sm: '250px', md: '300px', lg: '400px' }}
-      minHeight={{ base: '200px', sm: '250px', md: '300px', lg: '400px' }}
-      borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
-      boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
-      _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
+      width="100%"
+      height={{ base: '120px', md: '160px' }}
+      borderRadius={{ base: '20px', md: '30px', lg: '24px' }}
+      padding={{ base: '16px', md: '20px' }}
+      paddingBottom={{ base: '16px', md: isLast ? '20px' : '64px' }}
+      marginTop={isFirst ? '12px' : '-50px'}
+      boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
+      _hover={{ transform: 'translateY(-10px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
+      border="1px solid rgba(0, 0, 0, 0.1)"
       aria-label={`Média ${media.name}`}
-      padding={{ base: '18px', md: '24px' }}
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
     >
-      <CardHeader padding={0} display="flex" flexDirection={{ base: 'row', md: 'column' }} height={{ base: '60px', md: '100px' }} alignItems={{ base: 'center', md: 'flex-start' }} justifyContent={{ base: 'center', md: 'flex-start' }} gap={{ base: 3, md: 0 }}>
-        <Flex
-          width={{ base: '60px', md: '100px' }}
-          height={{ base: '60px', md: '100px' }}
-          minWidth={{ base: '60px', md: '100px' }}
-          minHeight={{ base: '60px', md: '100px' }}
-          maxWidth={{ base: '60px', md: '100px' }}
-          maxHeight={{ base: '60px', md: '100px' }}
-          justifyContent="center"
-          alignItems="center"
-          border="1px solid rgba(240,240,240,1)"
-          padding={3}
-          borderRadius={{ base: '13px', md: '24px' }}
-        >
-          <Image
-            src={media.picture}
-            alt={media.name}
-            maxW="100%"
-            maxH={{ base: '80px', md: '120px' }}
-            objectFit="contain"
-          />
+      <Flex flexDirection="row" justifyContent="space-between" gap={4} flex={1}>
+        <Flex gap={{ base: 2, md: 6 }} flex={1}>
+          <Flex
+            width={{ base: '50px', md: '90px' }}
+            height={{ base: '50px', md: '90px' }}
+            alignItems="center"
+            justifyContent="center"
+            padding={{ base: 1, md: 2 }}
+            marginRight={{ base: 4, md: 0 }}
+            flexShrink={0}
+          >
+            <Image
+              src={media.picture}
+              alt={media.name}
+              maxW="100%"
+              maxH={{ base: '80px', md: '140px' }}
+              objectFit="contain"
+            />
+
+          </Flex>
+          <Flex flexDirection="column" justifyContent="space-between" alignItems="flex-start" flex={1}>
+            <Heading
+              fontFamily={{ base: 'body', md: 'heading' }}
+              noOfLines={{ base: 2, md: 3 }}
+              fontSize={{ base: '0.8rem', md: '1.2rem', lg: '1.5rem' }}
+              lineHeight="1.2"
+            >
+              {media.name}
+            </Heading>
+
+            <Flex
+              flexDirection={{ base: 'row', md: 'column' }}
+              alignItems={{ base: 'center', md: 'flex-start' }}
+              justifyContent={{ base: 'space-between', md: 'flex-start' }}
+              width="100%"
+              mt={{ base: 2, md: 0 }}
+              mb={{ base: 2, md: 0 }}
+            >
+              <Text
+                fontSize={{ base: 'md', md: 'xl' }}
+                textAlign="left"
+                lineHeight="1.4"
+                noOfLines={{ base: 3, md: 4 }}
+                marginBottom={{ base: 2, md: 2 }}
+              >
+                {media.description}
+              </Text>
+            </Flex>
+          </Flex>
         </Flex>
-
-        <Heading
-          size={{ base: 'lg', md: 'xl' }}
-          fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
-          lineHeight="1.2"
-          flex={{ base: '1', md: 'none' }}
-          marginTop={{ base: 0, md: 4 }}
-        >
-          {media.name}
-        </Heading>
-
-      </CardHeader>
-
-      <CardBody padding={0} paddingTop={{ base: '16px', md: '20px' }} paddingBottom={{ base: '60px', md: '80px' }} display="flex" flexDirection="column" gap={{ base: 1, md: 2 }} justifyContent="center" flex="1">
-        <Text
-          fontSize={{ base: 'md', md: 'lg' }}
-          textAlign="left"
-          lineHeight="1.4"
-          noOfLines={{ base: 3, md: 4 }}
-          marginBottom={{ base: 2, md: 2 }}
-        >
-          {media.description}
-        </Text>
-
-        <Flex padding={0} justifyContent="flex-end" bottom={{ base: '18px', md: '24px' }} right={{ base: '18px', md: '24px' }} position="absolute">
+        <Flex alignItems="center" justifyContent="center">
           {!isSubscribeOnlyMode && isCurrentlySubscribed
             ? (
                 <Button
@@ -102,7 +115,7 @@ function MediaCard({
                 />
               )}
         </Flex>
-      </CardBody>
+      </Flex>
     </Card>
   )
 }
