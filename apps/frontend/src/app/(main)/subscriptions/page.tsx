@@ -26,7 +26,7 @@ function SubscriptionsPageContent() {
   }
 
   return (
-    <ResponsiveLayout>
+    <ResponsiveLayout backgroundColor="lightGray">
       <Flex flexDirection="column" gap={{ base: '24px', md: '32px', lg: '40px' }} width="100%">
         <Flex direction="column" gap={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <CardGrid>
