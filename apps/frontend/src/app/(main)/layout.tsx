@@ -1,11 +1,9 @@
 'use client'
 
 import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
-import { usePathname } from 'next/navigation'
 import GazetteMobile from '@/components/custom/GazetteMobile'
 import Header from '@/components/layout/Header'
 import Navbar from '@/components/layout/Navbar'
-import Title from '@/components/layout/Title'
 
 interface MainLayoutProps {
   children: React.JSX.Element | React.JSX.Element[]
@@ -13,24 +11,6 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const isMobile = useBreakpointValue({ base: true, md: false })
-  const pathname = usePathname()
-
-  const getPageTitle = () => {
-    switch (pathname) {
-      case '/explore':
-        return 'Explorer'
-      case '/settings':
-        return 'Paramètres'
-      case '/subscriptions':
-        return 'Abonnements'
-      case '/library':
-        return 'Bibliothèque'
-      case '/onboarding':
-        return 'Bienvenue'
-      default:
-        return 'Gazette'
-    }
-  }
 
   return (
 
@@ -46,11 +26,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
         ? (
             <Flex width="100%" justifyContent="flex-start" alignItems="center" padding={{ base: '16px', md: '20px' }} gap="16px">
               <GazetteMobile />
-              <Title fontColor="chaletGreen" text={getPageTitle()} fontSize="28px" />
             </Flex>
           )
         : (
-            <Header pageTitle={getPageTitle()} />
+            <Header />
           )}
 
       <Box
@@ -63,7 +42,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
         pb={{ base: '80px', lg: '0' }}
 
         role="main"
-        aria-label={`Contenu principal: ${getPageTitle()}`}
       >
         {children}
       </Box>

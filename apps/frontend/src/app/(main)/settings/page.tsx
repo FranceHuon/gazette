@@ -8,7 +8,7 @@ import Title from '@/components/layout/Title'
 
 function SettingsPageContent() {
   return (
-    <ResponsiveLayout>
+    <ResponsiveLayout backgroundColor="lightGray">
       <Flex
         display={{ base: 'flex', lg: 'none' }}
         gap={{ base: '24px', md: '32px' }}

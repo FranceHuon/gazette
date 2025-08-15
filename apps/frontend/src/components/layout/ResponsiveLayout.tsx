@@ -8,6 +8,7 @@ interface ResponsiveLayoutProps {
   maxWidth?: string
   padding?: object
   centered?: boolean
+  backgroundColor?: string
 }
 
 export function ResponsiveLayout({
@@ -15,6 +16,7 @@ export function ResponsiveLayout({
   maxWidth,
   padding,
   centered = true,
+  backgroundColor,
 }: ResponsiveLayoutProps) {
   const defaultPadding = {
     base: 4,
@@ -27,7 +29,6 @@ export function ResponsiveLayout({
       width="100%"
       minHeight="100%"
       flexGrow={1}
-      backgroundColor="lightGray"
     >
       <Box
         px={padding || defaultPadding}
@@ -35,6 +36,7 @@ export function ResponsiveLayout({
         maxWidth={maxWidth || 'none'}
         margin={centered ? '0 auto' : '0'}
         width="100%"
+        backgroundColor={backgroundColor}
       >
         {children}
       </Box>

@@ -1,8 +1,9 @@
 'use client'
 
 import { Box, Text } from '@chakra-ui/react'
-import { Compass, Library, Newspaper, User } from 'lucide-react'
+import { BookHeart, Newspaper, User } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/hooks/useAuth'
 
@@ -12,9 +13,10 @@ interface NavItemProps {
   label: string
   isScrolled: boolean
   spacing: string | number
+  isActive: boolean
 }
 
-function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
+function NavItem({ href, icon: Icon, label, isScrolled, isActive }: NavItemProps) {
   return (
     <Link href={href}>
       <Box
@@ -23,22 +25,25 @@ function NavItem({ href, icon: Icon, label, isScrolled }: NavItemProps) {
         alignItems="center"
         justifyContent="center"
         transition="all 0.2s ease"
-        color="chaletGreen"
+        color={isActive ? 'darkGreen' : 'chaletGreen'}
+        transform={isActive ? 'translateY(-2px) scale(1.1)' : 'none'}
         _hover={{
-          'transform': 'translateY(-2px)',
-          'color': '#283618',
-          '& svg': {
-            color: '#283618',
-          },
+          transform: isActive ? 'translateY(-2px) scale(1.1)' : 'translateY(-2px) scale(1.05)',
         }}
         _active={{
           'transform': 'translateY(-2px)',
-          'color': '#283618',
+          'color': 'darkGreen',
           '& svg': {
-            color: '#283618',
+            color: 'darkGreen',
           },
         }}
-
+        sx={isActive
+          ? {
+              '& svg': {
+                color: 'darkGreen',
+              },
+            }
+          : {}}
       >
         <Icon size={isScrolled ? '1.5rem' : '2rem'} />
         <Text
@@ -60,18 +65,17 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
   })
 
   const { user } = useAuth()
+  const pathname = usePathname()
 
   const menuItems = [
     {
-      href: '/explore',
-      icon: Compass,
-      label: t('explore'),
-    },
-    { href: '/library', icon: Library, label: t('library'),
+      href: '/articles',
+      icon: Newspaper,
+      label: t('articles'),
     },
     {
       href: '/subscriptions',
-      icon: Newspaper,
+      icon: BookHeart,
       label: t('subscriptions'),
     },
     {
@@ -99,6 +103,7 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
           label={item.label}
           isScrolled={isScrolled}
           spacing={0.5}
+          isActive={pathname === item.href}
         />
       ))}
     </Box>

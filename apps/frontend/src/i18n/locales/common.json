@@ -21,8 +21,8 @@
     "subscriptions": "Abonnements",
     "settings": "Paramètres",
     "menu": "Menu",
-    "account": "Mon compte"
-
+    "account": "Mon compte",
+    "articles": "Articles"
   },
   "auth": {
     "login": "Se connecter",
