@@ -27,7 +27,6 @@ async function loadUserProfile(setUser: (user: UserDto | null) => void): Promise
     return true
   }
   catch (error) {
-    // User not authenticated or network error
     console.warn('User not authenticated:', error)
     setUser(null)
     return false
@@ -75,7 +74,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const login = useCallback(async (email: string, password: string) => {
     await loginUser(email, password)
-    // Reset hasCheckedAuth to allow fresh check after login
     setHasCheckedAuth(false)
     await checkAuth()
   }, [checkAuth])

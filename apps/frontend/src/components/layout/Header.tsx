@@ -6,11 +6,7 @@ import { useScroll } from '@/hooks/useScroll'
 import Navbar from './Navbar'
 import Title from './Title'
 
-interface HeaderProps {
-  pageTitle: string
-}
-
-function Header({ pageTitle }: HeaderProps) {
+function Header() {
   const { t } = useTranslation()
   const { isScrolled } = useScroll({ threshold: 50 })
 
@@ -37,7 +33,6 @@ function Header({ pageTitle }: HeaderProps) {
         direction="column"
       >
         <Title text={t('common.appTitle')} fontColor="chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} />
-        <Title text={pageTitle} fontColor="chaletGreen" fontSize={isScrolled ? '1rem' : '2rem'} />
       </Flex>
       <Navbar isScrolled={isScrolled} />
     </Box>

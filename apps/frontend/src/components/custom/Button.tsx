@@ -3,15 +3,13 @@ import { Button as ChakraButton, Text } from '@chakra-ui/react'
 
 type ButtonProps = ChakraButtonProps & {
   text: string
-  height?: string
-  width?: string
-  fontSize?: string
   capitalizeText?: boolean
 }
 
 function Button({
   text,
   capitalizeText,
+  fontSize,
   ...props
 }: ButtonProps) {
   return (
@@ -29,7 +27,10 @@ function Button({
       }}
       {...props}
     >
-      <Text textTransform={capitalizeText ? 'capitalize' : 'uppercase'} fontSize={{ base: '11px', md: '16px' }}>
+      <Text
+        textTransform={capitalizeText ? 'capitalize' : 'uppercase'}
+        fontSize={fontSize || { base: '11px', md: '16px' }}
+      >
         {text}
       </Text>
     </ChakraButton>
