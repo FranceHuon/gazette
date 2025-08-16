@@ -36,7 +36,7 @@ function FormLogin() {
   const onSubmit = async (data: FormValuesLog) => {
     try {
       await login(data.email, data.password)
-      router.push('/explore')
+      router.push('/articles')
     }
     catch (error) {
       console.error(error)
