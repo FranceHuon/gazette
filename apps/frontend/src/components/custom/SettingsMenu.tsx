@@ -1,14 +1,15 @@
-import { Box, Flex, Link, List, ListItem } from '@chakra-ui/react'
+import { Box, Flex, Link, List, ListItem, useDisclosure } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { useToaster } from '@/components/ui/toaster'
 import { useAuth } from '@/hooks/useAuth'
+import PasswordModal from './Modal'
 
 function SettingsMenu() {
   const { t } = useTranslation('common', {
     keyPrefix: 'auth',
   })
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { logout, deleteAccount } = useAuth()
   const toaster = useToaster()
   const router = useRouter()
@@ -49,12 +50,14 @@ function SettingsMenu() {
         <Box bgColor="white" borderRadius="20px" padding="16px" width="100%" height="80px" display="flex" alignItems="center">
           <ListItem>
             <Link
+              onClick={onOpen}
               cursor="pointer"
               fontSize={{ base: '16px', md: '20px' }}
               fontWeight="bold"
             >
               {t('changePassword')}
             </Link>
+            <PasswordModal isOpen={isOpen} onClose={onClose} />
           </ListItem>
         </Box>
 
