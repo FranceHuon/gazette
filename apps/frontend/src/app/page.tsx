@@ -36,6 +36,13 @@ export default function LandingPage() {
   return (
     <Box>
       <Box bg="chaletGreen" minH="100vh" position="relative" overflow="hidden">
+        <Title
+          text="Croiser l'actu n'a jamais été aussi simple"
+          fontColor="white"
+          fontSize={{ base: '4rem', md: '6rem', lg: '8rem' }}
+          lineHeight="0.9"
+          as="h1"
+        />
         <Container maxW="7xl" h="100vh">
           <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} h="full" alignItems="center" gap={8}>
             <GridItem>

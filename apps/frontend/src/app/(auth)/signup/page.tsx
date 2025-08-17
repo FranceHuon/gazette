@@ -12,6 +12,7 @@ export default function SignupPage() {
       <Title
         text={t('auth.signup')}
         fontColor="chaletGreen"
+        as="h1"
       />
       <FormSignUp />
     </>

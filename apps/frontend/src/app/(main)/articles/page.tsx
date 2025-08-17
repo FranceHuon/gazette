@@ -34,6 +34,9 @@ function ArticlesPageContent() {
         gap={{ base: '24px', md: '32px', lg: '40px' }}
         width="100%"
       >
+        <Heading as="h1" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} color="chaletGreen" mb={4}>
+          Articles
+        </Heading>
 
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <Tabs isManual variant="unstyled" onChange={index => setActiveTabIndex(index)}>

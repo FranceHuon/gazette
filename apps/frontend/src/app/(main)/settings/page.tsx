@@ -29,6 +29,7 @@ function SettingsPageContent() {
                 text="Gérez votre compte"
                 fontColor="chaletGreen"
                 fontSize="4rem"
+                as="h1"
               />
               <Text
                 fontSize="lg"
