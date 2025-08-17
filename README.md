@@ -39,9 +39,21 @@ cd packages/shared && pnpm build && cd ../..
 ### 4. Configure environment
 
 ```bash
-# Create .env files in root and frontend directories
+# Create .env file in root directory (backend configuration)
 cp .env.example .env
+
+# Create .env file in frontend directory
+cd apps/frontend && cp .env.example .env && cd ../..
 ```
+
+**⚠️ Required environment variables:**
+
+The `.env` files must contain critical variables for the application to function properly. These sensitive variables are not provided in this repository for security reasons.
+
+**Required variables in `.env` (root):**
+
+- `DB_PASSWORD`: Database password
+- `JWT_SECRET`: Secret key for JWT authentication
 
 ### 5. Start services
 
