@@ -9,7 +9,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Title text={t('auth.login')} fontColor="chaletGreen" />
+      <Title text={t('auth.login')} fontColor="chaletGreen" as="h1" />
       <FormLogin />
     </>
   )

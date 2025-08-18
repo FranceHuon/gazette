@@ -22,7 +22,8 @@
     "settings": "Paramètres",
     "menu": "Menu",
     "account": "Mon compte",
-    "articles": "Articles"
+    "articles": "Articles",
+    "medias": "Médias"
   },
   "auth": {
     "login": "Se connecter",
