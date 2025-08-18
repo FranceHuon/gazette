@@ -74,9 +74,9 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
       label: t('articles'),
     },
     {
-      href: '/subscriptions',
+      href: '/medias',
       icon: BookHeart,
-      label: t('subscriptions'),
+      label: t('medias'),
     },
     {
       href: '/settings',

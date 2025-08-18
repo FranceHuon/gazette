@@ -1,13 +1,13 @@
 'use client'
 
-import { Flex } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
 import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
-function SubscriptionsPageContent() {
+function MediasPageContent() {
   const { medias } = useMedias()
   const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
 
@@ -25,6 +25,9 @@ function SubscriptionsPageContent() {
   return (
     <ResponsiveLayout backgroundColor="lightGray">
       <Flex flexDirection="column" gap={{ base: 12, md: 4 }} flexGrow={1} height="100%">
+        <Heading as="h1" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} color="chaletGreen" mb={4}>
+          Médias
+        </Heading>
         {medias?.map((media, index) => (
           <MediaCard
             key={media.id}
@@ -44,7 +47,7 @@ function SubscriptionsPageContent() {
 export default function SubscriptionsPage() {
   return (
     <AuthGuard>
-      <SubscriptionsPageContent />
+      <MediasPageContent />
     </AuthGuard>
   )
 }
