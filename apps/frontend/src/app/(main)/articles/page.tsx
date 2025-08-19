@@ -64,7 +64,7 @@ function ArticlesPageContent() {
                     transform: 'translateY(-2px) scale(1.1)',
                   }}
                 >
-                  Explorer
+                  À Explorer
                 </Heading>
               </Tab>
               <Tab
@@ -91,7 +91,7 @@ function ArticlesPageContent() {
                     transform: 'translateY(-2px) scale(1.1)',
                   }}
                 >
-                  Favoris
+                  Mes favoris
                 </Heading>
               </Tab>
             </TabList>

@@ -27,9 +27,7 @@ export class UsersController {
         pseudo: newUser.pseudo,
         email: newUser.email,
         createdAt: newUser.createdAt,
-        hasOnboarded: newUser.hasOnboarded,
       },
-      shouldRedirectToOnboarding: !newUser.hasOnboarded,
     }
   }
 
@@ -64,7 +62,6 @@ export class UsersController {
   @Get(':userId/subscriptions')
   @UseGuards(AuthGuard)
   async getUserSubscriptions(@Param('userId') userId: string, @Req() req: RequestWithUser): Promise<SubscriptionDto[]> {
-    // Vérifier que l'utilisateur demande ses propres abonnements
     if (req.user.id !== userId) {
       throw new NotFoundException('Access denied')
     }

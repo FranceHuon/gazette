@@ -2,26 +2,12 @@
   "common": {
     "appTitle": "Gazette",
     "appTitleMobile": "G",
-    "appDescription": "Bienvenue sur Gazette, cette application vous permet de vous abonner à des médias et de consulter des articles",
     "readArticle": "Lire l'article →",
-    "availableMedias": "Médias disponibles",
-    "loading": "Chargement...",
     "error": "Une erreur est survenue",
-    "success": "Succès",
-    "cancel": "Annuler",
-    "confirm": "Confirmer",
-    "save": "Sauvegarder",
-    "delete": "Supprimer",
-    "edit": "Modifier"
+    "success": "Succès"
   },
   "navigation": {
-    "home": "Accueil",
-    "explore": "Explorer",
-    "library": "Bibliothèque",
-    "subscriptions": "Abonnements",
     "settings": "Paramètres",
-    "menu": "Menu",
-    "account": "Mon compte",
     "articles": "Articles",
     "medias": "Médias"
   },
@@ -29,11 +15,9 @@
     "login": "Se connecter",
     "signup": "S'inscrire",
     "logout": "Se déconnecter",
-    "createAccount": "Créer un compte",
     "alreadyHaveAccount": "Vous avez un compte ?",
     "noAccountYet": "Pas encore de compte ?",
     "create": "Créer un compte",
-    "signIn": "Inscription",
     "pseudo": "Pseudo",
     "email": "Adresse mail",
     "placeholderEmail": "example@gmail.com",
@@ -43,19 +27,16 @@
     "deleteAccount": "Supprimer mon compte",
     "accountDeleted": "Votre compte a été supprimé avec succès",
     "errorDeletingAccount": "Une erreur est survenue lors de la suppression de votre compte",
-    "confirmDelete": "Votre compte a bien été supprimé",
     "confirmCreation": "Votre compte a bien été créé",
     "loginError": "Erreur de connexion",
     "loginErrorMessage": "Une erreur est survenue lors de la connexion",
     "signupError": "Erreur d'inscription",
     "signupErrorMessage": "Une erreur est survenue lors de la création du compte",
-    "signupSuccess": "Compte créé avec succès",
     "policy": "Politique et confidentialité",
     "about": "À propos"
   },
   "forms": {
     "requiredField": "Champ obligatoire",
-    "obligatoryFields": "* champs obligatoires",
     "passwordRequirements": "Votre mot de passe doit inclure :",
     "passwordRequirementsList": {
       "minLength": "au moins 8 caractères",
@@ -63,59 +44,20 @@
       "lowercase": "une minuscule",
       "number": "un chiffre",
       "specialChar": "un caractère spécial (- [ ] ( ) * ~ _ # : ?)"
-    },
-    "passwordInstructions": "Votre mot de passe doit inclure : <ul><li>au moins 8 caractères</li> <li>une majuscule</li> <li>une minuscule</li> <li>un chiffre</li> <li>un caractère spécial (+ - [ ] * ~ _ # : ?)</li></ul>"
+    }
   },
   "subscriptions": {
     "subscribe": "S'abonner",
     "unsubscribe": "Se désabonner",
-    "subscriber": "Abonné·e",
-    "availableMediasTitle": "Voici les médias disponibles",
-    "yourSubscriptions": "Vos abonnements"
+    "availableMediasTitle": "Voici les médias disponibles"
   },
   "ui": {
-    "togglePasswordVisibility": "Afficher/masquer le mot de passe",
-    "passwordStrength": {
-      "low": "Faible",
-      "medium": "Moyen",
-      "high": "Fort"
-    }
+    "togglePasswordVisibility": "Afficher/masquer le mot de passe"
   },
   "favorites": {
     "added": "Contenu ajouté aux favoris !",
     "removed": "Favori supprimé",
     "addError": "Impossible d'ajouter ce contenu aux favoris. Veuillez réessayer.",
     "removeError": "Impossible de supprimer le favori. Veuillez réessayer."
-  },
-  "landing": {
-    "hero": {
-      "description": "Agrégateur de flux RSS moderne qui centralise vos sources d'actualités préférées. Créez votre propre bibliothèque de contenus favoris.",
-      "subtitle": "Simple et entièrement gratuit."
-    },
-    "features": {
-      "title": "Pourquoi choisir Gazette ?",
-      "subtitle": "Une expérience de lecture moderne et personnalisée pour tous vos contenus",
-      "rssAggregation": {
-        "title": "Agrégation RSS",
-        "description": "Centralisez tous vos flux RSS préférés en un seul endroit"
-      },
-      "personalLibrary": {
-        "title": "Bibliothèque personnelle",
-        "description": "Sauvegardez vos articles favoris pour les relire plus tard"
-      },
-      "cleanInterface": {
-        "title": "Interface épurée",
-        "description": "Une expérience de lecture optimisée et sans distraction"
-      },
-      "responsive": {
-        "title": "Responsive",
-        "description": "Accédez à vos contenus sur tous vos appareils"
-      }
-    },
-    "cta": {
-      "title": "Prêt à démarrer ?",
-      "description": "Rejoignez Gazette dès aujourd'hui et transformez votre façon de consommer l'actualité",
-      "button": "Commencer gratuitement"
-    }
   }
 }
