@@ -61,7 +61,7 @@ function FormSignUp() {
       })
 
       if (shouldRedirectToOnboarding) {
-        router.push('/onboarding')
+        router.push('/medias')
       }
       else {
         router.push('/')

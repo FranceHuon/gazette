@@ -24,7 +24,4 @@ export class User {
 
   @OneToMany(() => Subscription, subscription => subscription.user)
   subscriptions = new Collection<Subscription>(this)
-
-  @Property()
-  hasOnboarded: boolean
 }
