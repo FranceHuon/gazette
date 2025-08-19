@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Flex, Text, VStack } from '@chakra-ui/react'
+import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import SettingsMenu from '@/components/custom/SettingsMenu'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -26,19 +26,11 @@ function SettingsPageContent() {
 
             <VStack spacing={3} textAlign="center">
               <Title
-                text="Gérez votre compte"
+                text="Gérez mon compte"
                 fontColor="chaletGreen"
                 fontSize="4rem"
                 as="h1"
               />
-              <Text
-                fontSize="lg"
-                color="rgba(31, 31, 31, 0.7)"
-                maxW="400px"
-                lineHeight="1.5"
-              >
-
-              </Text>
             </VStack>
 
             <Box width="100%" maxW="500px">

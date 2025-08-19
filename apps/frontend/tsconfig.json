@@ -15,6 +15,7 @@
       "@/*": [
         "./src/*"
       ],
+      "@gazette/shared/*": ["../../packages/shared/src/*"],
       "@components/*": [
         "./src/components/*"
       ],
