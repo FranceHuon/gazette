@@ -14,7 +14,6 @@ export const CreateUserSchema = z
 
 export type CreateUserDto = z.infer<typeof CreateUserSchema>
 
-// Schéma pour la validation côté frontend (inclut confirmPassword)
 export const SignUpFormSchema = z
   .object({
     pseudo: z.string().min(2, { message: 'must be at least 2 characters' }),
