@@ -62,7 +62,6 @@ import { UsersModule } from './modules/user/user.module'
           emit: 'ts',
         },
         validateRequired: true,
-        createDatabase: false,
       }),
     }),
     ScheduleModule.forRoot(),
