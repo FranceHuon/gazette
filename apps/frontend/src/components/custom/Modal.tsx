@@ -162,14 +162,14 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
               <Box
                 borderRadius="md"
                 borderLeft="4px"
-                borderLeftColor="blue.400"
-                bg="blue.50"
+                borderLeftColor="chaletGreen"
+                bg="green.50"
                 padding="16px"
               >
-                <Text fontSize="sm" fontWeight="semibold" color="blue.700" mb="8px">
+                <Text fontSize="sm" fontWeight="semibold" color="darkGreen" mb="8px">
                   {t('auth.passwordRequirements.title')}
                 </Text>
-                <Text fontSize="sm" color="blue.600">
+                <Text fontSize="sm" color="chaletGreen">
                   {t('auth.passwordRequirements.description')}
                 </Text>
               </Box>
@@ -184,6 +184,13 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 <PasswordInput
                   placeholder="Entrez votre mot de passe actuel"
                   autoComplete="current-password"
+                  _focus={{
+                    borderColor: 'chaletGreen',
+                    boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+                  }}
+                  _hover={{
+                    borderColor: 'gray.300',
+                  }}
                   {...register('currentPassword')}
                 />
               </Field>
@@ -199,6 +206,13 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                   <PasswordInput
                     placeholder="Entrez votre nouveau mot de passe"
                     autoComplete="new-password"
+                    _focus={{
+                      borderColor: 'chaletGreen',
+                      boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+                    }}
+                    _hover={{
+                      borderColor: 'gray.300',
+                    }}
                     {...register('newPassword')}
                   />
                   {newPassword && (
@@ -220,6 +234,13 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 <PasswordInput
                   placeholder="Confirmez votre nouveau mot de passe"
                   autoComplete="new-password"
+                  _focus={{
+                    borderColor: 'chaletGreen',
+                    boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+                  }}
+                  _hover={{
+                    borderColor: 'gray.300',
+                  }}
                   {...register('confirmPassword')}
                 />
               </Field>
@@ -249,7 +270,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
               />
               <Button
                 type="submit"
-                text={isLoading ? 'Modification...' : t('common.save')}
+                text={isLoading ? t('common.modifying') : t('common.save')}
                 width={{ base: '100%', md: 'auto' }}
                 isLoading={isLoading}
                 isDisabled={passwordStrength < 4}

@@ -4,7 +4,10 @@
     "appTitleMobile": "G",
     "readArticle": "Lire l'article →",
     "error": "Une erreur est survenue",
-    "success": "Succès"
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "modifying": "Modification..."
   },
   "navigation": {
     "settings": "Paramètres",
