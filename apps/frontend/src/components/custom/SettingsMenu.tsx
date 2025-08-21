@@ -84,26 +84,8 @@ function SettingsMenu() {
 
   return (
     <Flex direction="column" width="100%" gap={{ base: 3, md: 4 }}>
-      {menuItems.map((item, index) => (
-        <Box
-          key={index}
-          bgColor="white"
-          borderRadius={{ base: '16px', md: '20px' }}
-          padding={{ base: '20px', md: '24px' }}
-          width="100%"
-          cursor="pointer"
-          transition="all 0.2s ease"
-          _hover={{
-            transform: 'translateY(-2px)',
-            boxShadow: 'lg',
-            bgColor: 'gray.50',
-          }}
-          border="1px solid"
-          borderColor="gray.100"
-          onClick={item.onClick}
-          as={item.href ? Link : 'div'}
-          href={item.href}
-        >
+      {menuItems.map((item, index) => {
+        const cardContent = (
           <Flex alignItems="center" justifyContent="space-between" width="100%">
             <Flex alignItems="center" gap={{ base: 4, md: 5 }}>
               <Box
@@ -127,8 +109,44 @@ function SettingsMenu() {
               color="#9CA3AF"
             />
           </Flex>
-        </Box>
-      ))}
+        )
+
+        const cardProps = {
+          bgColor: 'white',
+          borderRadius: { base: '16px', md: '20px' },
+          padding: { base: '20px', md: '24px' },
+          width: '100%',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          _hover: {
+            transform: 'translateY(-2px)',
+            boxShadow: 'lg',
+            bgColor: 'gray.50',
+          },
+          border: '1px solid',
+          borderColor: 'gray.100',
+        }
+
+        if (item.href) {
+          return (
+            <Link key={index} href={item.href}>
+              <Box {...cardProps}>
+                {cardContent}
+              </Box>
+            </Link>
+          )
+        }
+
+        return (
+          <Box
+            key={index}
+            {...cardProps}
+            onClick={item.onClick}
+          >
+            {cardContent}
+          </Box>
+        )
+      })}
     </Flex>
   )
 }
