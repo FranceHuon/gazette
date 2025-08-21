@@ -89,18 +89,24 @@ function RssCard({
   return (
     <Card
       width={{ base: '100%', sm: '250px', md: '300px', lg: '400px' }}
-      height={{ base: 'auto', sm: '250px', md: '300px', lg: '400px' }}
-      minHeight={{ base: '200px', sm: '250px', md: '300px', lg: '400px' }}
+      height={{ base: '240px', sm: '250px', md: '300px', lg: '400px' }}
+      minHeight={{ base: '240px', sm: '250px', md: '300px', lg: '400px' }}
       borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
       padding={{ base: '16px', md: '20px' }}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
-
       transition="all 0.2s ease-in-out"
       aria-label={`Article: ${content.title}`}
-      position="relative"
+      display="flex"
+      flexDirection="column"
     >
-      <CardHeader padding={{ base: '12px', md: '16px' }} display="flex" alignItems="center" justifyContent="space-between">
+      <CardHeader
+        padding={{ base: '12px', md: '16px' }}
+        minHeight={{ base: '70px', md: '80px' }}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <Heading
           textStyle="cardTitle"
           noOfLines={2}
@@ -119,12 +125,13 @@ function RssCard({
 
       </CardHeader>
 
-      <CardBody padding={{ base: 3, md: 3 }} border="none">
+      <CardBody padding={{ base: 3, md: 3 }} border="none" flex="1" display="flex" flexDirection="column">
         <VStack spacing={{ base: 3, md: 3 }} align="stretch">
           <Heading
             textStyle="cardSubtitle"
-            noOfLines={3}
+            noOfLines={2}
             fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
+            textOverflow="ellipsis"
           >
             {content.title}
           </Heading>
@@ -152,7 +159,14 @@ function RssCard({
         </VStack>
       </CardBody>
 
-      <CardFooter padding={{ base: '18px', md: '24px' }} position="absolute" bottom={0} right={0} width="100%" display="flex" alignItems="center" justifyContent="space-between">
+      <CardFooter
+        padding={{ base: '16px', md: '12px' }}
+        paddingTop={{ base: '8px', md: '16px' }}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mt="auto"
+      >
         <Link
           href={content.link}
           isExternal

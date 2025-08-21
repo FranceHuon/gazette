@@ -5,9 +5,10 @@ import { Bell } from 'lucide-react'
 
 interface MobileHeaderProps {
   currentPage: string
+  showNotifications?: boolean
 }
 
-function MobileHeader({ currentPage }: MobileHeaderProps) {
+function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderProps) {
   return (
     <Box
       position="sticky"
@@ -42,13 +43,15 @@ function MobileHeader({ currentPage }: MobileHeaderProps) {
         </Flex>
 
         {/* Icône de notification optionnelle */}
-        <IconButton
-          variant="ghost"
-          icon={<Bell size={20} />}
-          size="sm"
-          aria-label="Notifications"
-          color="gray.500"
-        />
+        {showNotifications && (
+          <IconButton
+            variant="ghost"
+            icon={<Bell size={20} />}
+            size="sm"
+            aria-label="Notifications"
+            color="gray.500"
+          />
+        )}
       </Flex>
     </Box>
   )
