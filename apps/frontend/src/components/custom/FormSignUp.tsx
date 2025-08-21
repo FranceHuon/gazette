@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex, Input, List, ListItem, Stack, Text, useToast, VStack } from '@chakra-ui/react'
+import { Box, Flex, Input, List, ListItem, Stack, Text, useToast } from '@chakra-ui/react'
 import { SignUpFormSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -12,8 +12,6 @@ import { useAuth } from '@/hooks/useAuth'
 import { createUser } from '@/services/api/user'
 import { Field } from '../ui/field'
 import Button from './Button'
-
-const SignUpSchema = SignUpFormSchema
 
 function FormSignUp() {
   const { t } = useTranslation()
@@ -33,7 +31,7 @@ function FormSignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValuesSignUp>({
-    resolver: zodResolver(SignUpSchema),
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       pseudo: '',
       email: '',
@@ -44,7 +42,7 @@ function FormSignUp() {
 
   const onSubmit = async (data: FormValuesSignUp) => {
     try {
-      const { shouldRedirectToOnboarding } = await createUser({
+      await createUser({
         pseudo: data.pseudo,
         email: data.email,
         password: data.password,
@@ -60,12 +58,7 @@ function FormSignUp() {
         isClosable: true,
       })
 
-      if (shouldRedirectToOnboarding) {
-        router.push('/medias')
-      }
-      else {
-        router.push('/')
-      }
+      router.push('/articles')
     }
     catch (error) {
       console.error(error)
@@ -80,114 +73,196 @@ function FormSignUp() {
   }
 
   return (
-    <Flex>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack maxWidth="-webkit-fit-content" paddingTop={6}>
-          <VStack gap="2" justifyContent="flex-start" alignItems="flex-start">
-            <Field
-              label={t('auth.pseudo')}
-              isInvalid={!!errors.pseudo}
-              errorText={errors.pseudo?.message}
-            >
-              <Input
-                variant="flushed"
-                rounded="md"
-                shadow="none"
-                border="1px solid"
-                borderColor="lightGray"
-                padding="0.8rem"
-                height="auto"
-                placeholder="Gazette"
-                {...register('pseudo', { required: t('forms.requiredField') })}
-              />
-            </Field>
-            <Field
-              label={t('auth.email')}
-              isInvalid={!!errors.email}
-              errorText={errors.email?.message}
-            >
-              <Input
-                variant="flushed"
-                rounded="md"
-                shadow="none"
-                border="1px solid"
-                borderColor="lightGray"
-                padding="0.8rem"
-                height="auto"
-                placeholder={t('auth.placeholderEmail')}
-                {...register('email', { required: t('forms.requiredField') })}
-              />
-            </Field>
-
-            <Field
-              label={t('auth.password')}
-              isInvalid={!!errors.password}
-              errorText={errors.password?.message}
-            >
-              <PasswordInput
-                minW="md"
-                rounded="md"
-                shadow="none"
-                border="1px solid"
-                borderColor="lightGray"
-                padding="0.8rem"
-                height="auto"
-                variant="flushed"
-                placeholder="***********"
-                {...register('password', { required: t('forms.requiredField') })}
-              />
-            </Field>
-
-            <Field
-              label={t('auth.confirmPassword')}
-              isInvalid={!!errors.confirmPassword}
-              errorText={errors.confirmPassword?.message}
-            >
-              <PasswordInput
-                minW="md"
-                rounded="md"
-                shadow="none"
-                border="1px solid"
-                borderColor="lightGray"
-                padding="0.8rem"
-                height="auto"
-                variant="flushed"
-                placeholder="***********"
-                {...register('confirmPassword', {
-                  required: t('forms.requiredField'),
-                })}
-              />
-            </Field>
-
-            <Box fontSize="0.7rem">
-              <Text fontSize="0.7rem" mb="0.5rem">
-                {t('forms.passwordRequirements')}
-              </Text>
-              <List>
-                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.minLength')}</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.uppercase')}</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.lowercase')}</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.number')}</ListItem>
-                <ListItem listStyleType="disc" ml="1rem">{t('forms.passwordRequirementsList.specialChar')}</ListItem>
-              </List>
-            </Box>
-
-            <Button
-              type="submit"
-              textStyle="button"
-              text={t('auth.signup')}
-              py="1.5rem"
-              mt="1rem"
-              width="100%"
-              rounded="md"
+    <Flex direction="column" width="100%">
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+        <Stack spacing={{ base: 4, md: 6 }} width="100%">
+          <Field
+            label={t('auth.pseudo')}
+            isInvalid={!!errors.pseudo}
+            errorText={errors.pseudo?.message}
+          >
+            <Input
+              rounded="xl"
+              border="2px solid"
+              borderColor="gray.200"
+              padding={{ base: '16px', md: '18px' }}
+              height={{ base: '50px', md: '56px' }}
+              fontSize={{ base: 'md', md: 'lg' }}
+              placeholder="Gazette"
+              _focus={{
+                borderColor: 'chaletGreen',
+                boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+              }}
+              _hover={{
+                borderColor: 'gray.300',
+              }}
+              bg="white"
+              {...register('pseudo', { required: t('forms.requiredField') })}
             />
-            <Text width="100%" align="center">
-              {`${t('auth.alreadyHaveAccount')} `}
-              <Link href="/">
-                <b>{t('auth.login')}</b>
-              </Link>
+          </Field>
+
+          <Field
+            label={t('auth.email')}
+            isInvalid={!!errors.email}
+            errorText={errors.email?.message}
+          >
+            <Input
+              rounded="xl"
+              border="2px solid"
+              borderColor="gray.200"
+              padding={{ base: '16px', md: '18px' }}
+              height={{ base: '50px', md: '56px' }}
+              fontSize={{ base: 'md', md: 'lg' }}
+              placeholder={t('auth.placeholderEmail')}
+              type="email"
+              autoComplete="email"
+              _focus={{
+                borderColor: 'chaletGreen',
+                boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+              }}
+              _hover={{
+                borderColor: 'gray.300',
+              }}
+              bg="white"
+              {...register('email', { required: t('forms.requiredField') })}
+            />
+          </Field>
+
+          <Field
+            label={t('auth.password')}
+            isInvalid={!!errors.password}
+            errorText={errors.password?.message}
+          >
+            <PasswordInput
+              rounded="xl"
+              border="2px solid"
+              borderColor="gray.200"
+              padding={{ base: '16px', md: '18px' }}
+              height={{ base: '50px', md: '56px' }}
+              fontSize={{ base: 'md', md: 'lg' }}
+              placeholder="***********"
+              autoComplete="new-password"
+              _focus={{
+                borderColor: 'chaletGreen',
+                boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+              }}
+              _hover={{
+                borderColor: 'gray.300',
+              }}
+              bg="white"
+              {...register('password', { required: t('forms.requiredField') })}
+            />
+          </Field>
+
+          <Field
+            label={t('auth.confirmPassword')}
+            isInvalid={!!errors.confirmPassword}
+            errorText={errors.confirmPassword?.message}
+          >
+            <PasswordInput
+              rounded="xl"
+              border="2px solid"
+              borderColor="gray.200"
+              padding={{ base: '16px', md: '18px' }}
+              height={{ base: '50px', md: '56px' }}
+              fontSize={{ base: 'md', md: 'lg' }}
+              placeholder="***********"
+              autoComplete="new-password"
+              _focus={{
+                borderColor: 'chaletGreen',
+                boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
+              }}
+              _hover={{
+                borderColor: 'gray.300',
+              }}
+              bg="white"
+              {...register('confirmPassword', {
+                required: t('forms.requiredField'),
+              })}
+            />
+          </Field>
+
+          <Box
+            bg="green.50"
+            p={4}
+            rounded="xl"
+            border="1px solid"
+            borderColor="green.100"
+          >
+            <Text
+              fontSize={{ base: 'sm', md: 'md' }}
+              mb={3}
+              fontWeight="semibold"
+              color="darkGreen"
+            >
+              {t('forms.passwordRequirements')}
             </Text>
-          </VStack>
+            <List spacing={1}>
+              <ListItem fontSize={{ base: 'xs', md: 'sm' }} color="gray.600">
+                •
+                {' '}
+                {t('forms.passwordRequirementsList.minLength')}
+              </ListItem>
+              <ListItem fontSize={{ base: 'xs', md: 'sm' }} color="gray.600">
+                •
+                {' '}
+                {t('forms.passwordRequirementsList.uppercase')}
+              </ListItem>
+              <ListItem fontSize={{ base: 'xs', md: 'sm' }} color="gray.600">
+                •
+                {' '}
+                {t('forms.passwordRequirementsList.lowercase')}
+              </ListItem>
+              <ListItem fontSize={{ base: 'xs', md: 'sm' }} color="gray.600">
+                •
+                {' '}
+                {t('forms.passwordRequirementsList.number')}
+              </ListItem>
+              <ListItem fontSize={{ base: 'xs', md: 'sm' }} color="gray.600">
+                •
+                {' '}
+                {t('forms.passwordRequirementsList.specialChar')}
+              </ListItem>
+            </List>
+          </Box>
+
+          <Button
+            type="submit"
+            width="100%"
+            height={{ base: '50px', md: '56px' }}
+            rounded="xl"
+            text={t('auth.signup')}
+            bgColor="chaletGreen"
+            color="white"
+            fontSize={{ base: 'md', md: 'lg' }}
+            fontWeight="semibold"
+            _hover={{
+              bgColor: 'darkGreen',
+              transform: 'translateY(-1px)',
+              boxShadow: 'lg',
+            }}
+            transition="all 0.2s ease"
+            mt="2"
+          />
+
+          <Text
+            width="100%"
+            align="center"
+            fontSize={{ base: 'sm', md: 'md' }}
+            color="gray.600"
+          >
+            {`${t('auth.alreadyHaveAccount')} `}
+            <Link
+              href="/login"
+              style={{
+                fontWeight: 'bold',
+                color: 'var(--chakra-colors-chaletGreen)',
+                textDecoration: 'none',
+              }}
+            >
+              {t('auth.login')}
+            </Link>
+          </Text>
         </Stack>
       </form>
     </Flex>

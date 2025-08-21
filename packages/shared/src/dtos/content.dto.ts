@@ -2,7 +2,7 @@ export interface ContentDto {
   id: string
   title: string
   link: string
-  pubDate: string
+  date: string
   description?: string
   source: string
   logo?: string
