@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Flex, VStack } from '@chakra-ui/react'
+import { Flex, Heading, VStack } from '@chakra-ui/react'
 import SettingsMenu from '@/components/custom/SettingsMenu'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -8,38 +8,47 @@ import Title from '@/components/layout/Title'
 
 function SettingsPageContent() {
   return (
-    <ResponsiveLayout backgroundColor="lightGray">
+    <ResponsiveLayout>
       <Flex
-        display={{ base: 'flex', lg: 'none' }}
-        gap={{ base: '24px', md: '32px' }}
-        alignItems="center"
-        justifyContent="center"
+        flexDirection="column"
+        flexGrow={1}
+        gap={{ base: '24px', md: '32px', lg: '40px' }}
         width="100%"
-        minHeight="60vh"
       >
-        <SettingsMenu />
-      </Flex>
+        {/* Titre - masqué sur mobile, visible sur desktop */}
+        <Heading
+          as="h1"
+          fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          color="chaletGreen"
+          mb={4}
+          display={{ base: 'none', lg: 'block' }}
+        >
+          Paramètres
+        </Heading>
 
-      <Box display={{ base: 'none', lg: 'block' }}>
-        <Container maxW="4xl" py={16}>
-          <VStack spacing={12} align="center">
-
-            <VStack spacing={3} textAlign="center">
-              <Title
-                text="Gérez mon compte"
-                fontColor="chaletGreen"
-                fontSize="4rem"
-                as="h1"
-              />
-            </VStack>
-
-            <Box width="100%" maxW="500px">
-              <SettingsMenu />
-            </Box>
-
+        {/* Contenu principal */}
+        <Flex
+          flexDirection="column"
+          gap={{ base: '16px', md: '24px', lg: '32px' }}
+          backgroundColor="lightGray"
+          borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
+          padding={{ base: '24px', md: '32px', lg: '40px' }}
+          marginBottom={{ base: '20px', md: '0' }}
+        >
+          {/* Titre pour desktop dans le conteneur */}
+          <VStack spacing={3} textAlign="center" display={{ base: 'none', lg: 'flex' }}>
+            <Title
+              text="Gérez votre compte"
+              fontColor="chaletGreen"
+              fontSize="3rem"
+              as="h2"
+            />
           </VStack>
-        </Container>
-      </Box>
+
+          {/* Menu des paramètres */}
+          <SettingsMenu />
+        </Flex>
+      </Flex>
     </ResponsiveLayout>
   )
 }

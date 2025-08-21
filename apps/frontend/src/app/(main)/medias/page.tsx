@@ -11,9 +11,6 @@ function MediasPageContent() {
   const { medias } = useMedias()
   const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
 
-  // const subscribedMedias = medias?.filter(media => isSubscribed(media.id)) || []
-  // const unsubscribedMedias = medias?.filter(media => !isSubscribed(media.id)) || []
-
   const handleSubscribe = (mediaId: string) => {
     subscribe(mediaId)
   }
@@ -23,22 +20,44 @@ function MediasPageContent() {
   }
 
   return (
-    <ResponsiveLayout backgroundColor="lightGray">
-      <Flex flexDirection="column" gap={{ base: 12, md: 4 }} flexGrow={1} height="100%">
-        <Heading as="h1" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} color="chaletGreen" mb={4}>
+    <ResponsiveLayout>
+      <Flex
+        flexDirection="column"
+        flexGrow={1}
+        height="100%"
+        gap={{ base: '24px', md: '32px', lg: '40px' }}
+        width="100%"
+      >
+        <Heading
+          as="h1"
+          fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          color="chaletGreen"
+          mb={4}
+          display={{ base: 'none', lg: 'block' }}
+        >
           Médias
         </Heading>
-        {medias?.map((media, index) => (
-          <MediaCard
-            key={media.id}
-            media={media}
-            onSubscribe={handleSubscribe}
-            onUnsubscribe={handleUnsubscribe}
-            isSubscribed={isSubscribed}
-            isFirst={index === 0}
-            isLast={index === medias.length - 1}
-          />
-        ))}
+
+        <Flex
+          flexDirection="column"
+          gap={{ base: '12px', md: '24px', lg: '32px' }}
+          backgroundColor="lightGray"
+          borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
+          padding={{ base: '24px', md: '32px', lg: '40px' }}
+          marginBottom={{ base: '20px', md: '0' }}
+        >
+          {medias?.map((media, index) => (
+            <MediaCard
+              key={media.id}
+              media={media}
+              onSubscribe={handleSubscribe}
+              onUnsubscribe={handleUnsubscribe}
+              isSubscribed={isSubscribed}
+              isFirst={index === 0}
+              isLast={index === medias.length - 1}
+            />
+          ))}
+        </Flex>
       </Flex>
     </ResponsiveLayout>
   )

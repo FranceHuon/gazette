@@ -1,4 +1,5 @@
-import { Box, Flex, Link, List, ListItem } from '@chakra-ui/react'
+import { Box, Flex, Link, Text } from '@chakra-ui/react'
+import { ChevronRight, Info, Key, LogOut, Shield, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { useToaster } from '@/components/ui/toaster'
@@ -43,71 +44,109 @@ function SettingsMenu() {
     }
   }
 
+  const menuItems = [
+    {
+      icon: Key,
+      label: t('changePassword'),
+      onClick: () => console.log('Change password'), // À implémenter
+      color: 'chaletGreen',
+      hoverColor: 'darkGreen',
+    },
+    {
+      icon: LogOut,
+      label: t('logout'),
+      onClick: handleLogout,
+      color: 'chaletGreen',
+      hoverColor: 'darkGreen',
+    },
+    {
+      icon: Trash2,
+      label: t('deleteAccount'),
+      onClick: handleDeleteAccount,
+      color: 'red.500',
+      hoverColor: 'red.600',
+    },
+    {
+      icon: Info,
+      label: t('about'),
+      href: '/about',
+      color: 'chaletGreen',
+      hoverColor: 'darkGreen',
+    },
+    {
+      icon: Shield,
+      label: t('policy'),
+      onClick: () => console.log('Policy'), // À implémenter
+      color: 'chaletGreen',
+      hoverColor: 'darkGreen',
+    },
+  ]
+
   return (
-    <Flex direction="column" width="100%" justifyContent="center" alignItems="center">
-      <List spacing={4} variant="plain" width="100%">
-        <Box bgColor="white" borderRadius="20px" padding="16px" width="100%" height="80px" display="flex" alignItems="center">
-          <ListItem>
-            <Link
-              cursor="pointer"
-              fontSize={{ base: '16px', md: '20px' }}
-              fontWeight="bold"
-            >
-              {t('changePassword')}
-            </Link>
-          </ListItem>
-        </Box>
+    <Flex direction="column" width="100%" gap={{ base: 3, md: 4 }}>
+      {menuItems.map((item, index) => {
+        const cardContent = (
+          <Flex alignItems="center" justifyContent="space-between" width="100%">
+            <Flex alignItems="center" gap={{ base: 4, md: 5 }}>
+              <Box
+                p={2}
+                borderRadius="lg"
+                bgColor={item.color === 'red.500' ? 'red.50' : 'green.50'}
+                color={item.color}
+              >
+                <item.icon size={20} strokeWidth={2} />
+              </Box>
+              <Text
+                fontSize={{ base: '16px', md: '18px', lg: '20px' }}
+                fontWeight="semibold"
+                color="gray.800"
+              >
+                {item.label}
+              </Text>
+            </Flex>
+            <ChevronRight
+              size={18}
+              color="#9CA3AF"
+            />
+          </Flex>
+        )
 
-        <Box bgColor="white" borderRadius="20px" padding="16px" width="100%" height="80px" display="flex" alignItems="center">
-          <ListItem>
-            <Link
-              onClick={handleLogout}
-              cursor="pointer"
-              fontSize={{ base: '16px', md: '20px' }}
-              fontWeight="bold"
-            >
-              {t('logout')}
-            </Link>
-          </ListItem>
-        </Box>
+        const cardProps = {
+          bgColor: 'white',
+          borderRadius: { base: '16px', md: '20px' },
+          padding: { base: '20px', md: '24px' },
+          width: '100%',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          _hover: {
+            transform: 'translateY(-2px)',
+            boxShadow: 'lg',
+            bgColor: 'gray.50',
+          },
+          border: '1px solid',
+          borderColor: 'gray.100',
+        }
 
-        <Box bgColor="white" borderRadius="20px" padding="16px" width="100%" height="80px" display="flex" alignItems="center">
-          <ListItem>
-            <Link
-              onClick={handleDeleteAccount}
-              cursor="pointer"
-              fontSize={{ base: '16px', md: '20px' }}
-              fontWeight="bold"
-            >
-              {t('deleteAccount')}
+        if (item.href) {
+          return (
+            <Link key={index} href={item.href}>
+              <Box {...cardProps}>
+                {cardContent}
+              </Box>
             </Link>
-          </ListItem>
-        </Box>
+          )
+        }
 
-        <Box bgColor="white" borderRadius="20px" padding="16px" width="100%" height="80px" display="flex" alignItems="center">
-          <ListItem>
-            <Link
-              href="/about"
-              fontSize={{ base: '16px', md: '20px' }}
-              fontWeight="bold"
-            >
-              {t('about')}
-            </Link>
-          </ListItem>
-        </Box>
-
-        <Box bgColor="white" borderRadius="20px" padding="16px" width="100%" height="80px" display="flex" alignItems="center">
-          <ListItem>
-            <Link
-              fontSize={{ base: '16px', md: '20px' }}
-              fontWeight="bold"
-            >
-              {t('policy')}
-            </Link>
-          </ListItem>
-        </Box>
-      </List>
-
+        return (
+          <Box
+            key={index}
+            {...cardProps}
+            onClick={item.onClick}
+          >
+            {cardContent}
+          </Box>
+        )
+      })}
     </Flex>
   )
 }

@@ -32,15 +32,18 @@ function MediaCard({
   return (
     <Card
       width="100%"
-      height={{ base: '120px', md: '160px' }}
+      height={{ base: '180px', md: '160px' }}
       borderRadius={{
         base: isLast ? '20px' : '20px 20px 0 0',
         md: isLast ? '30px' : '30px 30px 0 0',
         lg: isLast ? '24px' : '24px 24px 0 0',
       }}
       padding={{ base: '16px', md: '22px' }}
-      paddingBottom={{ base: '16px', md: isLast ? '20px' : '64px' }}
-      marginTop={isFirst ? '12px' : '-50px'}
+      paddingBottom={{ base: isLast ? '20px' : '40px', md: isLast ? '20px' : '64px' }}
+      marginTop={{
+        base: isFirst ? '12px' : '-30px',
+        md: isFirst ? '12px' : '-50px',
+      }}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 0px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-10px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
@@ -50,51 +53,108 @@ function MediaCard({
       flexDirection="column"
       justifyContent="space-between"
     >
-      <Flex flexDirection="row" justifyContent="space-between" gap={4} flex={1}>
-        <Flex gap={{ base: 2, md: 6 }} flex={1}>
+      {/* Layout mobile */}
+      <Flex flexDirection="column" gap={3} flex={1} display={{ base: 'flex', md: 'none' }}>
+        <Flex gap={3} alignItems="flex-start">
           <Flex
-            width={{ base: '50px', md: '90px' }}
-            height={{ base: '50px', md: '90px' }}
+            width="50px"
+            height="50px"
             alignItems="center"
             justifyContent="center"
-            padding={{ base: 1, md: 2 }}
-            marginRight={{ base: 4, md: 0 }}
+            padding={1}
             flexShrink={0}
           >
             <Image
               src={media.picture}
               alt={media.name}
               maxW="100%"
-              maxH={{ base: '80px', md: '140px' }}
+              maxH="80px"
               objectFit="contain"
             />
-
           </Flex>
-          <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" flex={1} gap={{ base: 2, md: 3 }}>
+          <Flex flexDirection="column" flex={1} gap={2}>
             <Heading
-              fontFamily={{ base: 'body', md: 'heading' }}
-              noOfLines={{ base: 2, md: 3 }}
-              fontSize={{ base: '1rem', md: '1.4rem', lg: '1.7rem' }}
+              fontFamily="body"
+              noOfLines={2}
+              fontSize="1.3rem"
               lineHeight="1.2"
             >
               {media.name}
             </Heading>
-
-            <Flex
-              flexDirection={{ base: 'row', md: 'column' }}
-              alignItems={{ base: 'center', md: 'flex-start' }}
-              justifyContent={{ base: 'space-between', md: 'flex-start' }}
-              width="100%"
+            <Text
+              fontSize="sm"
+              textAlign="left"
+              lineHeight="1.4"
+              noOfLines={2}
+              color="gray.600"
             >
-              <Text
-                fontSize={{ base: 'lg', md: '2xl' }}
-                textAlign="left"
-                lineHeight="1.4"
-                noOfLines={{ base: 3, md: 4 }}
-              >
-                {media.description}
-              </Text>
-            </Flex>
+              {media.description}
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex justifyContent="center" width="100%">
+          {!isSubscribeOnlyMode && isCurrentlySubscribed
+            ? (
+                <Button
+                  color="white"
+                  bgColor="darkGreen"
+                  text={t('unsubscribe')}
+                  onClick={() => onUnsubscribe!(media.id)}
+                  height="40px"
+                  width="140px"
+                  fontSize="14px"
+                />
+              )
+            : (
+                <Button
+                  color="white"
+                  bgColor="chaletGreen"
+                  text={t('subscribe')}
+                  onClick={() => onSubscribe(media.id)}
+                  height="40px"
+                  width="140px"
+                  fontSize="14px"
+                />
+              )}
+        </Flex>
+      </Flex>
+
+      {/* Layout desktop (conservé) */}
+      <Flex flexDirection="row" justifyContent="space-between" gap={4} flex={1} display={{ base: 'none', md: 'flex' }}>
+        <Flex gap={6} flex={1}>
+          <Flex
+            width="90px"
+            height="90px"
+            alignItems="center"
+            justifyContent="center"
+            padding={2}
+            flexShrink={0}
+          >
+            <Image
+              src={media.picture}
+              alt={media.name}
+              maxW="100%"
+              maxH="140px"
+              objectFit="contain"
+            />
+          </Flex>
+          <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" flex={1} gap={3}>
+            <Heading
+              fontFamily="heading"
+              noOfLines={3}
+              fontSize={{ md: '1.4rem', lg: '1.7rem' }}
+              lineHeight="1.2"
+            >
+              {media.name}
+            </Heading>
+            <Text
+              fontSize={{ md: '2xl' }}
+              textAlign="left"
+              lineHeight="1.4"
+              noOfLines={4}
+            >
+              {media.description}
+            </Text>
           </Flex>
         </Flex>
         <Flex alignItems="center" justifyContent="center">
@@ -105,9 +165,9 @@ function MediaCard({
                   bgColor="darkGreen"
                   text={t('unsubscribe')}
                   onClick={() => onUnsubscribe!(media.id)}
-                  height={{ base: '44px', md: '60px' }}
-                  width={{ base: '110px', md: '180px' }}
-                  fontSize={{ base: '20px', md: '20px' }}
+                  height="60px"
+                  width="180px"
+                  fontSize="20px"
                 />
               )
             : (
@@ -116,9 +176,9 @@ function MediaCard({
                   bgColor="chaletGreen"
                   text={t('subscribe')}
                   onClick={() => onSubscribe(media.id)}
-                  height={{ base: '44px', md: '60px' }}
-                  width={{ base: '110px', md: '180px' }}
-                  fontSize={{ base: '20px', md: '20px' }}
+                  height="60px"
+                  width="180px"
+                  fontSize="20px"
                 />
               )}
         </Flex>

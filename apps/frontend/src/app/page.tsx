@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import Button from '@/components/custom/Button'
@@ -18,11 +18,12 @@ export default function LandingPage() {
         overflow="hidden"
         backgroundImage="url('/woman-reading-newspaper-coffee-shop.jpg')"
         backgroundSize="cover"
-        backgroundPosition="center"
+        backgroundPosition={{ base: 'center', md: 'center' }}
         backgroundRepeat="no-repeat"
         display="flex"
         flexDirection="column"
-        justifyContent="space-between"
+        justifyContent="center"
+        alignItems="center"
         _before={{
           content: '""',
           position: 'absolute',
@@ -30,74 +31,101 @@ export default function LandingPage() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.3)',
+          background: {
+            base: 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.5) 100%)',
+            md: 'rgba(255, 255, 255, 0.4)',
+          },
           zIndex: 1,
         }}
-        pb={16}
+        px={{ base: 4, md: 8 }}
+        py={{ base: 8, md: 16 }}
       >
 
-        <Link href="/">
-          <Title
-            text={t('common.appTitle')}
-            fontColor="darkGreen"
-            fontSize={{ base: '4rem', md: '12rem', lg: '14rem' }}
-            lineHeight="0.9"
-            position="relative"
-            zIndex={2}
-            as="h1"
-            textAlign="center"
-            m={16}
-          />
-        </Link>
-        <Title
-          text="Croiser l'actu n'a jamais été aussi simple"
-          fontColor="darkGreen"
-          fontSize={{ base: '4rem', md: '6rem', lg: '8rem' }}
-          lineHeight="0.9"
-          as="h1"
-          position="relative"
-          zIndex={2}
-          textAlign="center"
-        />
-        <Flex gap={10} justifyContent="center" position="relative" zIndex={2} w="100%">
+        <Container maxW="6xl" position="relative" zIndex={2}>
+          <VStack spacing={{ base: 8, md: 12, lg: 16 }} align="center" textAlign="center">
 
-          <Link href="/signup">
-            <Button
-              width="300px"
-              text={t('auth.signup')}
-              bgColor="chaletGreen"
-              color="white"
-              _hover={{
-                transform: 'translateY(-2px)',
-              }}
-              cursor="pointer"
-              rounded="md"
-              py="3.5rem"
-              px="6rem"
-              fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
-              mt="1rem"
+            {/* Logo/Titre principal */}
+            <Link href="/">
+              <Title
+                text={t('common.appTitle')}
+                fontColor="darkGreen"
+                fontSize={{ base: '3rem', sm: '4rem', md: '8rem', lg: '12rem', xl: '14rem' }}
+                lineHeight="0.9"
+                as="h1"
+                textAlign="center"
+                _hover={{ transform: 'scale(1.02)', transition: 'transform 0.2s ease' }}
+              />
+            </Link>
+
+            {/* Sous-titre */}
+            <Title
+              text="Croiser l'actu n'a jamais été aussi simple"
+              fontColor="darkGreen"
+              fontSize={{ base: '1.2rem', sm: '1.5rem', md: '2.5rem', lg: '4rem', xl: '5rem' }}
+              lineHeight={{ base: '1.3', md: '1.2' }}
+              as="h2"
+              textAlign="center"
+              maxW={{ base: '90%', md: '80%', lg: '100%' }}
+              fontWeight="medium"
             />
-          </Link>
 
-          <Link href="/login">
-            <Button
-              width="300px"
-              text={t('auth.login')}
-              bgColor="chaletGreen"
-              color="white"
-              _hover={{
-                transform: 'translateY(-2px)',
-              }}
-              cursor="pointer"
-              rounded="md"
-              py="3.5rem"
-              px="6rem"
-              fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
-              mt="1rem"
-            />
-          </Link>
+            {/* Boutons d'action */}
+            <Flex
+              direction={{ base: 'column', sm: 'row' }}
+              gap={{ base: 4, md: 6, lg: 8 }}
+              justify="center"
+              align="center"
+              w="100%"
+              mt={{ base: 4, md: 8 }}
+            >
 
-        </Flex>
+              <Link href="/signup">
+                <Button
+                  width={{ base: '280px', sm: '300px', md: '350px', lg: '400px' }}
+                  height={{ base: '60px', md: '80px', lg: '100px' }}
+                  text={t('auth.signup')}
+                  bgColor="chaletGreen"
+                  color="white"
+                  _hover={{
+                    transform: 'translateY(-4px)',
+                    boxShadow: 'xl',
+                    bgColor: 'darkGreen',
+                  }}
+                  cursor="pointer"
+                  rounded={{ base: 'xl', md: '2xl' }}
+                  fontSize={{ base: 'lg', sm: 'xl', md: '2xl', lg: '3xl' }}
+                  fontWeight="semibold"
+                  transition="all 0.3s ease"
+                  shadow="lg"
+                />
+              </Link>
+
+              <Link href="/login">
+                <Button
+                  width={{ base: '280px', sm: '300px', md: '350px', lg: '400px' }}
+                  height={{ base: '60px', md: '80px', lg: '100px' }}
+                  text={t('auth.login')}
+                  bgColor="white"
+                  color="chaletGreen"
+                  border="2px solid"
+                  borderColor="chaletGreen"
+                  _hover={{
+                    transform: 'translateY(-4px)',
+                    boxShadow: 'xl',
+                    bgColor: 'chaletGreen',
+                    color: 'white',
+                  }}
+                  cursor="pointer"
+                  rounded={{ base: 'xl', md: '2xl' }}
+                  fontSize={{ base: 'lg', sm: 'xl', md: '2xl', lg: '3xl' }}
+                  fontWeight="semibold"
+                  transition="all 0.3s ease"
+                  shadow="lg"
+                />
+              </Link>
+            </Flex>
+          </VStack>
+        </Container>
       </Box>
     </Box>
   )

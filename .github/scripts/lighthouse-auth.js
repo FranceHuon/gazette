@@ -23,11 +23,9 @@ const FRONTEND_URL = 'http://localhost:3002'
 const PAGES_TO_AUDIT = [
   '/login',
   '/signup',
-  '/explore',
-  '/library',
-  '/subscriptions',
+  '/articles',
+  '/medias',
   '/settings',
-  '/onboarding',
 ]
 
 async function loginAndGetCookie(testUser) {
