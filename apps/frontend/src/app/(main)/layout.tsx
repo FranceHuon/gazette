@@ -1,8 +1,10 @@
 'use client'
 
 import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
-import GazetteMobile from '@/components/custom/GazetteMobile'
+import { usePathname } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 import Header from '@/components/layout/Header'
+import MobileHeader from '@/components/layout/MobileHeader'
 import Navbar from '@/components/layout/Navbar'
 
 interface MainLayoutProps {
@@ -11,6 +13,22 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const isMobile = useBreakpointValue({ base: true, md: false })
+  const pathname = usePathname()
+  const { t } = useTranslation('common', { keyPrefix: 'navigation' })
+
+  // Fonction pour obtenir le nom de la page courante
+  const getCurrentPageName = () => {
+    switch (pathname) {
+      case '/articles':
+        return t('articles')
+      case '/medias':
+        return t('medias')
+      case '/settings':
+        return t('settings')
+      default:
+        return 'Gazette'
+    }
+  }
 
   return (
 
@@ -24,9 +42,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
     >
       {isMobile
         ? (
-            <Flex width="100%" justifyContent="flex-start" alignItems="center" padding={{ base: '16px', md: '20px' }} gap="16px">
-              <GazetteMobile />
-            </Flex>
+            <MobileHeader currentPage={getCurrentPageName()} />
           )
         : (
             <Header />
