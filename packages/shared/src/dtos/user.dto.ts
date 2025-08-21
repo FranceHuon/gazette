@@ -18,9 +18,7 @@ export interface CreateUserResponse {
     pseudo: string
     email: string
     createdAt: Date
-    hasOnboarded: boolean
   }
-  shouldRedirectToOnboarding: boolean
 }
 
 export interface ApiUser {

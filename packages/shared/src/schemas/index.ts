@@ -14,14 +14,8 @@ export const CreateUserSchema = z
 
 export type CreateUserDto = z.infer<typeof CreateUserSchema>
 
-export const SignUpFormSchema = z
-  .object({
-    pseudo: z.string().min(2, { message: 'must be at least 2 characters' }),
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(8, { message: 'must contains at least 8 characters' })
-      .regex(passwordValidation, { message: 'Password must contain at least one uppercase, one lowercase, one number, and one special character (- [ ] ( ) * ~ _ # : ?)' }),
+export const SignUpFormSchema = CreateUserSchema
+  .extend({
     confirmPassword: z.string(),
   })
   .refine(values => values.password === values.confirmPassword, {

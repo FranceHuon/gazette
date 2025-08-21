@@ -13,8 +13,6 @@ import { createUser } from '@/services/api/user'
 import { Field } from '../ui/field'
 import Button from './Button'
 
-const SignUpSchema = SignUpFormSchema
-
 function FormSignUp() {
   const { t } = useTranslation()
   const router = useRouter()
@@ -33,7 +31,7 @@ function FormSignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValuesSignUp>({
-    resolver: zodResolver(SignUpSchema),
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       pseudo: '',
       email: '',
@@ -44,7 +42,7 @@ function FormSignUp() {
 
   const onSubmit = async (data: FormValuesSignUp) => {
     try {
-      const { shouldRedirectToOnboarding } = await createUser({
+      await createUser({
         pseudo: data.pseudo,
         email: data.email,
         password: data.password,
@@ -60,12 +58,7 @@ function FormSignUp() {
         isClosable: true,
       })
 
-      if (shouldRedirectToOnboarding) {
-        router.push('/medias')
-      }
-      else {
-        router.push('/')
-      }
+      router.push('/articles')
     }
     catch (error) {
       console.error(error)
