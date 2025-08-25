@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
   VStack,
 } from '@chakra-ui/react'
 import { ChangePasswordSchema } from '@gazette/shared'
@@ -18,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useToaster } from '@/components/ui/toaster'
+import { changePassword } from '@/services/api/user'
 import { Field } from '../ui/field'
 import { PasswordInput } from '../ui/password-input'
 import Button from './Button'
@@ -30,7 +31,7 @@ interface PasswordModalProps {
 
 function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
   const { t } = useTranslation('common')
-  const toaster = useToaster()
+  const toast = useToast()
   const [isLoading, setIsLoading] = useState(false)
 
   interface ChangePasswordForm {
@@ -56,17 +57,13 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
   const onSubmit = async (data: ChangePasswordForm) => {
     setIsLoading(true)
     try {
-      // TODO: Implémenter l'appel API pour changer le mot de passe
-      // eslint-disable-next-line no-console
-      console.log('Changing password:', data)
-
-      // Simulation de l'appel API
-      await new Promise(resolve => setTimeout(resolve, 1000))
-
-      toaster.create({
+      await changePassword(data.currentPassword, data.newPassword, data.confirmPassword)
+      toast({
+        title: t('common.success'),
         description: t('auth.passwordChanged'),
-        type: 'success',
-        duration: 5000,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       })
 
       reset()
@@ -74,10 +71,12 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
     }
     catch (error) {
       console.error('Erreur lors du changement de mot de passe:', error)
-      toaster.create({
+      toast({
+        title: t('common.error'),
         description: t('auth.passwordChangeError'),
-        type: 'error',
-        duration: 5000,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
       })
     }
     finally {
