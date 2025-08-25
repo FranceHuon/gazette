@@ -1,14 +1,11 @@
 'use client'
 
-import type { BoxProps, ButtonProps, InputProps } from '@chakra-ui/react'
+import type { ButtonProps, InputProps } from '@chakra-ui/react'
 import {
-  Box,
   InputGroup as ChakraInputGroup,
-  HStack,
   IconButton,
   Input,
   InputRightElement,
-  Stack,
   useControllableState,
 } from '@chakra-ui/react'
 import * as React from 'react'
@@ -31,7 +28,7 @@ export interface PasswordVisibilityProps {
 }
 
 export interface PasswordInputProps extends InputProps, PasswordVisibilityProps {
-  rootProps?: BoxProps
+  rootProps?: React.ComponentProps<typeof ChakraInputGroup>
 }
 
 function VisibilityTrigger({ ref, ...props }: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }) {
@@ -99,51 +96,4 @@ export function PasswordInput({ ref, ...props }: PasswordInputProps & { ref?: Re
       </InputRightElement>
     </ChakraInputGroup>
   )
-}
-
-interface PasswordStrengthMeterProps extends BoxProps {
-  max?: number
-  value: number
-}
-
-export function PasswordStrengthMeter({ ref, ...props }: PasswordStrengthMeterProps & { ref?: React.RefObject<HTMLDivElement | null> }) {
-  const { max = 4, value, ...rest } = props
-
-  const percent = (value / max) * 100
-  const { label, color } = getColor(percent)
-
-  const strengthBars = React.useMemo(() => {
-    return Array.from({ length: max }).map((_, i) => ({
-      id: `strength-bar-${i + 1}`,
-      isActive: i < value,
-    }))
-  }, [max, value])
-
-  return (
-    <Stack align="flex-end" spacing="1" ref={ref} {...rest}>
-      <HStack width="full">
-        {strengthBars.map(({ id, isActive }) => (
-          <Box
-            key={id}
-            height="1"
-            flex="1"
-            rounded="sm"
-            bg={isActive ? color : 'gray.200'}
-          />
-        ))}
-      </HStack>
-      {label && <HStack fontSize="xs">{label}</HStack>}
-    </Stack>
-  )
-}
-
-function getColor(percent: number) {
-  switch (true) {
-    case percent < 33:
-      return { label: 'Low', color: 'red.500' }
-    case percent < 66:
-      return { label: 'Medium', color: 'orange.500' }
-    default:
-      return { label: 'High', color: 'green.500' }
-  }
 }
