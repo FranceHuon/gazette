@@ -33,3 +33,16 @@ export const LogUserSchema = z
   })
 
 export type LoginUserDto = z.infer<typeof LogUserSchema>
+
+export const ChangePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(8, { message: 'must contains at least 8 characters' }).regex(passwordValidation, { message: 'Password must contain at least one uppercase, one lowercase, one number, and one special character (- [ ] ( ) * ~ _ # : ?)' }),
+    newPassword: z.string().min(8, { message: 'must contains at least 8 characters' }).regex(passwordValidation, { message: 'Password must contain at least one uppercase, one lowercase, one number, and one special character (- [ ] ( ) * ~ _ # : ?)' }),
+    confirmPassword: z.string().min(8, { message: 'must contains at least 8 characters' }).regex(passwordValidation, { message: 'Password must contain at least one uppercase, one lowercase, one number, and one special character (- [ ] ( ) * ~ _ # : ?)' }),
+  })
+  .refine(values => values.newPassword === values.confirmPassword, {
+    message: 'Passwords must match!',
+    path: ['confirmPassword'],
+  })
+
+export type ChangePasswordDto = z.infer<typeof ChangePasswordSchema>

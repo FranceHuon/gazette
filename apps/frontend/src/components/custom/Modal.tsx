@@ -13,34 +13,15 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { ChangePasswordSchema } from '@gazette/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { z } from 'zod'
 import { useToaster } from '@/components/ui/toaster'
 import { Field } from '../ui/field'
-import { PasswordInput, PasswordStrengthMeter } from '../ui/password-input'
+import { PasswordInput } from '../ui/password-input'
 import Button from './Button'
-
-// Schema de validation
-function createChangePasswordSchema(t: (key: string) => string) {
-  return z.object({
-    currentPassword: z.string().min(1, t('forms.requiredField')),
-    newPassword: z.string()
-      .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
-      .regex(/[A-Z]/, 'Le mot de passe doit contenir au moins une majuscule')
-      .regex(/[a-z]/, 'Le mot de passe doit contenir au moins une minuscule')
-      .regex(/\d/, 'Le mot de passe doit contenir au moins un chiffre')
-      .regex(/\W/, 'Le mot de passe doit contenir au moins un caractère spécial'),
-    confirmPassword: z.string().min(1, t('forms.requiredField')),
-  }).refine(data => data.newPassword === data.confirmPassword, {
-    message: t('auth.passwordMismatch'),
-    path: ['confirmPassword'],
-  })
-}
-
-type ChangePasswordForm = z.infer<ReturnType<typeof createChangePasswordSchema>>
 
 interface PasswordModalProps {
   isOpen: boolean
@@ -52,12 +33,15 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
   const toaster = useToaster()
   const [isLoading, setIsLoading] = useState(false)
 
-  const ChangePasswordSchema = createChangePasswordSchema(t)
+  interface ChangePasswordForm {
+    currentPassword: string
+    newPassword: string
+    confirmPassword: string
+  }
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm<ChangePasswordForm>({
@@ -68,26 +52,6 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
       confirmPassword: '',
     },
   })
-
-  const newPassword = watch('newPassword')
-
-  // Calcul de la force du mot de passe
-  const calculatePasswordStrength = (password: string): number => {
-    let strength = 0
-    if (password.length >= 8)
-      strength++
-    if (/[A-Z]/.test(password))
-      strength++
-    if (/[a-z]/.test(password))
-      strength++
-    if (/\d/.test(password))
-      strength++
-    if (/\W/.test(password))
-      strength++
-    return Math.min(strength, 4)
-  }
-
-  const passwordStrength = calculatePasswordStrength(newPassword || '')
 
   const onSubmit = async (data: ChangePasswordForm) => {
     setIsLoading(true)
@@ -158,7 +122,6 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody padding={{ base: '16px', md: '24px' }}>
             <VStack spacing="24px" align="stretch">
-              {/* Informations sur les exigences */}
               <Box
                 borderRadius="md"
                 borderLeft="4px"
@@ -174,7 +137,6 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 </Text>
               </Box>
 
-              {/* Mot de passe actuel */}
               <Field
                 label={t('auth.currentPassword')}
                 isInvalid={!!errors.currentPassword}
@@ -195,7 +157,6 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 />
               </Field>
 
-              {/* Nouveau mot de passe */}
               <Field
                 label={t('auth.newPassword')}
                 isInvalid={!!errors.newPassword}
@@ -215,16 +176,10 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                     }}
                     {...register('newPassword')}
                   />
-                  {newPassword && (
-                    <PasswordStrengthMeter
-                      value={passwordStrength}
-                      max={4}
-                    />
-                  )}
+
                 </VStack>
               </Field>
 
-              {/* Confirmation du nouveau mot de passe */}
               <Field
                 label={t('auth.confirmNewPassword')}
                 isInvalid={!!errors.confirmPassword}
@@ -273,7 +228,6 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 text={isLoading ? t('common.modifying') : t('common.save')}
                 width={{ base: '100%', md: 'auto' }}
                 isLoading={isLoading}
-                isDisabled={passwordStrength < 4}
               />
             </Flex>
           </ModalFooter>
