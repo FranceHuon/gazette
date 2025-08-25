@@ -20,12 +20,11 @@ export class UsersService {
     return user
   }
 
-  async getAll(): Promise<User[]> {
-    const users = await this.em.findAll(User)
+  async getAll(): Promise<Omit<User, 'password'>[]> {
+    const users = await this.em.findAll(User, {})
     return users.map(user => ({
       pseudo: user.pseudo,
       email: user.email,
-      password: user.password,
       id: user.id,
       createdAt: user.createdAt,
       lastConnection: user.lastConnection,
@@ -33,8 +32,17 @@ export class UsersService {
     }))
   }
 
-  async findOne(email: string): Promise<User> {
+  async findOneById(id: string): Promise<User> {
+    const user = await this.em.findOneOrFail(User, { id })
+    if (!user)
+      throw new NotFoundException(`User with ID ${id} not found`)
+    return user
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
     const user = await this.em.findOneOrFail(User, { email })
+    if (!user)
+      throw new NotFoundException(`User with email ${email} not found`)
     return user
   }
 
@@ -44,6 +52,11 @@ export class UsersService {
       throw new NotFoundException(`User with ID ${id} not found`)
     }
     await this.em.removeAndFlush(user)
+  }
+
+  async updatePassword(user: User, newPassword: string): Promise<void> {
+    user.password = await hashPassword(newPassword)
+    await this.em.persistAndFlush(user)
   }
 }
 

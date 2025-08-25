@@ -1,4 +1,4 @@
-import type { LoginDto } from '@gazette/shared'
+import type { ChangePasswordDto, LoginDto } from '@gazette/shared'
 import type { Request, Response } from 'express'
 import {
   Body,
@@ -59,5 +59,12 @@ export class AuthController {
       message: 'Profile OK',
       user: req.user,
     }
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('change-password')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Req() req: RequestWithUser) {
+    await this.authService.changePassword(changePasswordDto, req.user.id)
+    return { message: 'Password changed' }
   }
 }
