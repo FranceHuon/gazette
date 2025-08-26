@@ -1,6 +1,6 @@
-import type { LoginDto } from '@gazette/shared'
+import type { ChangePasswordDto, LoginDto } from '@gazette/shared'
 import type { Response } from 'express'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import { UsersService, verifyPassword } from '../user/user.service'
@@ -15,7 +15,7 @@ export class AuthService {
 
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
     try {
-      const user = await this.usersService.findOne(loginDto.email)
+      const user = await this.usersService.findOneByEmail(loginDto.email)
       if (!user) {
         throw new UnauthorizedException('Invalid credentials')
       }
@@ -46,5 +46,29 @@ export class AuthService {
       secure: this.configService.get('NODE_ENV') === 'production',
       sameSite: 'strict',
     })
+  }
+
+  async changePassword(changePasswordDto: ChangePasswordDto, userId: string): Promise<{ message: string }> {
+    const user = await this.usersService.findOneById(userId)
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials')
+    }
+
+    const isPasswordValid = await verifyPassword(changePasswordDto.currentPassword, user.password)
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials')
+    }
+
+    if (changePasswordDto.newPassword !== changePasswordDto.confirmPassword) {
+      throw new BadRequestException('Passwords do not match')
+    }
+
+    if (changePasswordDto.currentPassword === changePasswordDto.newPassword) {
+      throw new BadRequestException('New password must be different from old password')
+    }
+
+    await this.usersService.updatePassword(user, changePasswordDto.newPassword)
+
+    return { message: 'Password changed' }
   }
 }

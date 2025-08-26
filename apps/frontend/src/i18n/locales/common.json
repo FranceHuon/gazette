@@ -4,7 +4,10 @@
     "appTitleMobile": "G",
     "readArticle": "Lire l'article →",
     "error": "Une erreur est survenue",
-    "success": "Succès"
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "modifying": "Modification..."
   },
   "navigation": {
     "settings": "Paramètres",
@@ -33,7 +36,22 @@
     "signupError": "Erreur d'inscription",
     "signupErrorMessage": "Une erreur est survenue lors de la création du compte",
     "policy": "Politique et confidentialité",
-    "about": "À propos"
+    "about": "À propos",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "passwordChanged": "Votre mot de passe a été modifié avec succès",
+    "passwordChangeError": "Une erreur est survenue lors du changement de mot de passe",
+    "passwordRequirements": {
+      "title": "Exigences du mot de passe",
+      "description": "Votre nouveau mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial.",
+      "minLength": "Au moins 8 caractères",
+      "uppercase": "Une majuscule (A-Z)",
+      "lowercase": "Une minuscule (a-z)",
+      "number": "Un chiffre (0-9)",
+      "specialChar": "Un caractère spécial (!@#$%^&*)"
+    },
+    "passwordMismatch": "Les mots de passe ne correspondent pas"
   },
   "forms": {
     "requiredField": "Champ obligatoire",

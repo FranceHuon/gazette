@@ -41,7 +41,7 @@ export class UsersController {
   @Get('by-email')
   @UseGuards(AuthGuard)
   async findOne(@Query('email') email: string) {
-    const user = await this.usersService.findOne(email)
+    const user = await this.usersService.findOneByEmail(email)
     return user
   }
 

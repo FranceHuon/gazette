@@ -53,3 +53,16 @@ export async function deleteUserAccount(): Promise<void> {
     .delete('users/me')
     .json()
 }
+
+export async function changePassword(currentPassword: string, newPassword: string, confirmPassword: string): Promise<void> {
+  try {
+    await api
+      .post('auth/change-password', {
+        json: { currentPassword, newPassword, confirmPassword },
+      })
+  }
+  catch (error) {
+    console.error('Failed to change password:', error)
+    throw error
+  }
+}
