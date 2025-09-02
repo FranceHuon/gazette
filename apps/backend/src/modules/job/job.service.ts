@@ -8,7 +8,7 @@ export class JobService {
     private readonly contentService: ContentService,
   ) {}
 
-  @Cron('0 0 * * *') // toutes les 24 heures (minuit)
+  @Cron('0 0 * * *')
   async handleCron() {
     console.warn('[CRON] Lancement de la synchronisation des flux RSS...')
 
