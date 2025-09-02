@@ -13,14 +13,4 @@ export class MediaController {
     console.warn('[MediaController] Médias trouvés:', medias.map(m => ({ id: m.id, name: m.name, urlRss: m.urlRss })))
     return medias
   }
-
-  @Get('details')
-  async getDetails() {
-    return this.mediaService.getAllWithDetails()
-  }
-
-  @Get('mapping')
-  async getMapping() {
-    return this.mediaService.getMediaIdsBySource()
-  }
 }
