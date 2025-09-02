@@ -19,6 +19,12 @@ export class Media {
   @Property()
   urlRss!: string
 
+  @Property({ nullable: true })
+  sourceKey?: string
+
+  @Property({ default: true })
+  isActive = true
+
   @Property()
   createdAt = new Date()
 
