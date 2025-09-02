@@ -1,6 +1,7 @@
 import { EntityManager } from '@mikro-orm/core'
 import { Injectable } from '@nestjs/common'
 import { Content } from 'src/entities/content.entity'
+import { Media } from '@/entities/media.entity'
 import { MediaService } from '../media/media.service'
 import { RssService } from '../rss/rss.service'
 
@@ -27,7 +28,6 @@ export class ContentService {
   }
 
   async getByUserSubscriptions(userId: string): Promise<Content[]> {
-    // Cette méthode récupère tous les articles des médias auxquels l'utilisateur est abonné
     const contents = await this.em.find(Content, {
       media: {
         subscribers: {
@@ -44,12 +44,11 @@ export class ContentService {
   async syncRssFeeds(): Promise<{ created: number, updated: number, errors: number }> {
     const em = this.em.fork()
     const rssItems = await this.rssService.fetchAllFeeds()
-    const mediaMap = await this.mediaService.getMediaMap()
 
     const result = { created: 0, updated: 0, errors: 0 }
 
     for (const item of rssItems) {
-      const media = mediaMap.get(item.source)
+      const media = await em.findOne(Media, { sourceKey: item.source })
 
       if (!media) {
         console.warn(`[ContentService] Aucun média trouvé pour la source: ${item.source}`)
