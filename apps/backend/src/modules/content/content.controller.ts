@@ -1,15 +1,7 @@
-import type { Request } from 'express'
 import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { RequestWithUser } from '@/interfaces/request.interface'
 import { AuthGuard } from '@/modules/auth/auth.guard'
 import { ContentService } from '@/modules/content/content.service'
-
-interface RequestWithUser extends Request {
-  user: {
-    id: string
-    email: string
-    pseudo: string
-  }
-}
 
 @Controller('contents')
 export class ContentController {
