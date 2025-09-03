@@ -1,25 +1,25 @@
 import { CreateLikeDto } from '@gazette/shared'
 import { EntityManager } from '@mikro-orm/core'
-import { Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { Content } from 'src/entities/content.entity'
-import { Like } from 'src/entities/like.entity'
-import { User } from 'src/entities/user.entity'
+import { Inject, Injectable } from '@nestjs/common'
+import { Content } from '@/entities/content.entity'
+import { Like } from '@/entities/like.entity'
+import { BaseUserRelationService } from '@/utils/base-user-relation.service'
 
 @Injectable()
-export class LikesService {
-  constructor(@Inject(EntityManager) private readonly em: EntityManager) {}
+export class LikesService extends BaseUserRelationService<Like> {
+  constructor(@Inject(EntityManager) em: EntityManager) {
+    super(em)
+  }
 
   async create(dto: CreateLikeDto): Promise<Like> {
-    const user = await this.em.findOne(User, { id: dto.userId })
-    if (!user)
-      throw new NotFoundException('User not found')
-    const content = await this.em.findOne(Content, { id: dto.contentId })
-    if (!content)
-      throw new NotFoundException('Content not found')
-    const existingLike = await this.em.findOne(Like, {
+    const user = await this.validateUser(dto.userId)
+    const content = await this.validateEntity(Content, dto.contentId, 'Content not found')
+
+    const existingLike = await this.checkExisting(Like, {
       user: { id: dto.userId },
       content: { id: dto.contentId },
     })
+
     if (existingLike) {
       return existingLike
     }
@@ -27,19 +27,14 @@ export class LikesService {
     const like = new Like()
     like.user = user
     like.content = content
-    await this.em.persistAndFlush(like)
-    return like
+    return this.createEntity(like)
   }
 
   async findByUserId(userId: string): Promise<Like[]> {
-    const likes = await this.em.find(Like, { user: userId }, { populate: ['content'] })
-    return likes
+    return this.findEntitiesByUserId(Like, userId, ['content', 'user'])
   }
 
   async delete(id: string): Promise<void> {
-    const like = await this.em.findOne(Like, { id })
-    if (!like)
-      throw new NotFoundException('Like not found')
-    await this.em.removeAndFlush(like)
+    return this.deleteEntity(Like, id, 'Like not found')
   }
 }
