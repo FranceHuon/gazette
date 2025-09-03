@@ -7,7 +7,8 @@
     "success": "Succès",
     "cancel": "Annuler",
     "save": "Enregistrer",
-    "modifying": "Modification..."
+    "modifying": "Modification...",
+    "tagline": "Croiser l'actu n'a jamais été aussi simple"
   },
   "navigation": {
     "settings": "Paramètres",
@@ -24,6 +25,7 @@
     "pseudo": "Pseudo",
     "email": "Adresse mail",
     "placeholderEmail": "example@gmail.com",
+    "placeholderPseudo": "Gazette",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "changePassword": "Changer de mot de passe",
@@ -42,6 +44,10 @@
     "confirmNewPassword": "Confirmer le nouveau mot de passe",
     "passwordChanged": "Votre mot de passe a été modifié avec succès",
     "passwordChangeError": "Une erreur est survenue lors du changement de mot de passe",
+    "loginForm": "Formulaire de connexion",
+    "placeholderCurrentPassword": "Entrez votre mot de passe actuel",
+    "placeholderNewPassword": "Entrez votre nouveau mot de passe",
+    "placeholderConfirmNewPassword": "Confirmez votre nouveau mot de passe",
     "passwordRequirements": {
       "title": "Exigences du mot de passe",
       "description": "Votre nouveau mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial.",
@@ -76,6 +82,22 @@
     "added": "Contenu ajouté aux favoris !",
     "removed": "Favori supprimé",
     "addError": "Impossible d'ajouter ce contenu aux favoris. Veuillez réessayer.",
-    "removeError": "Impossible de supprimer le favori. Veuillez réessayer."
+    "removeError": "Impossible de supprimer le favori. Veuillez réessayer.",
+    "addToFavorites": "Ajouter l'article \"{{title}}\" aux favoris",
+    "removeFromFavorites": "Retirer l'article \"{{title}}\" des favoris"
+  },
+  "pages": {
+    "toExplore": "À Explorer",
+    "myFavorites": "Mes favoris",
+    "manageAccount": "Gérez votre compte"
+  },
+  "aria": {
+    "mainNavigation": "Menu de navigation principal",
+    "mainHeader": "En-tête principal",
+    "applicationGazette": "Application Gazette",
+    "mobileMainNavigation": "Navigation principale mobile",
+    "notifications": "Notifications",
+    "articleLabel": "Article: {{title}}",
+    "mediaLabel": "Média {{name}}"
   }
 }
