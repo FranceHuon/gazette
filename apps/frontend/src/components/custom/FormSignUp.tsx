@@ -88,7 +88,7 @@ function FormSignUp() {
               padding={{ base: '16px', md: '18px' }}
               height={{ base: '50px', md: '56px' }}
               fontSize={{ base: 'md', md: 'lg' }}
-              placeholder="Gazette"
+              placeholder={t('auth.placeholderPseudo')}
               _focus={{
                 borderColor: 'chaletGreen',
                 boxShadow: '0 0 0 1px var(--chakra-colors-chaletGreen)',
