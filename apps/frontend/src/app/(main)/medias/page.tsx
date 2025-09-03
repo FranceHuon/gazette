@@ -1,6 +1,7 @@
 'use client'
 
 import { Flex, Heading } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 import MediaCard from '@/components/custom/MediaCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -8,6 +9,7 @@ import { useMedias } from '@/hooks/useMedias'
 import { useSubscriptionsContext } from '@/hooks/useSubscriptions'
 
 function MediasPageContent() {
+  const { t } = useTranslation()
   const { medias } = useMedias()
   const { subscribe, unsubscribe, isSubscribed } = useSubscriptionsContext()
 
@@ -35,7 +37,7 @@ function MediasPageContent() {
           mb={4}
           display={{ base: 'none', lg: 'block' }}
         >
-          Médias
+          {t('navigation.medias')}
         </Heading>
 
         <Flex

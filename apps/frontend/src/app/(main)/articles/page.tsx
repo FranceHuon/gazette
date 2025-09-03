@@ -2,6 +2,7 @@
 
 import { Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import RssCard from '@/components/custom/RssCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -10,6 +11,7 @@ import { useContents } from '@/hooks/useContents'
 import { useLikes } from '@/hooks/useLikes'
 
 function ArticlesPageContent() {
+  const { t } = useTranslation()
   const { contents } = useContents()
   const { like, dislike, isLiked } = useLikes()
   const [activeTabIndex, setActiveTabIndex] = useState(0)
@@ -41,7 +43,7 @@ function ArticlesPageContent() {
           mb={4}
           display={{ base: 'none', lg: 'block' }}
         >
-          Articles
+          {t('navigation.articles')}
         </Heading>
 
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
@@ -70,7 +72,7 @@ function ArticlesPageContent() {
                     transform: 'translateY(-2px) scale(1.1)',
                   }}
                 >
-                  À Explorer
+                  {t('pages.toExplore')}
                 </Heading>
               </Tab>
               <Tab
@@ -97,7 +99,7 @@ function ArticlesPageContent() {
                     transform: 'translateY(-2px) scale(1.1)',
                   }}
                 >
-                  Mes favoris
+                  {t('pages.myFavorites')}
                 </Heading>
               </Tab>
             </TabList>

@@ -14,6 +14,7 @@ interface LikeButtonProps {
 }
 
 function LikeButton({ contentId, contentTitle, isLiked, onLike, onDislike }: LikeButtonProps) {
+  const { t } = useTranslation()
   const handleClick = () => {
     if (isLiked) {
       onDislike(contentId)
@@ -49,8 +50,8 @@ function LikeButton({ contentId, contentTitle, isLiked, onLike, onDislike }: Lik
       onClick={handleClick}
       aria-label={
         isLiked
-          ? `Retirer l'article "${contentTitle}" des favoris`
-          : `Ajouter l'article "${contentTitle}" aux favoris`
+          ? t('favorites.removeFromFavorites', { title: contentTitle })
+          : t('favorites.addToFavorites', { title: contentTitle })
       }
     >
       <Heart
@@ -96,7 +97,7 @@ function RssCard({
       boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
-      aria-label={`Article: ${content.title}`}
+      aria-label={t('aria.articleLabel', { title: content.title })}
       display="flex"
       flexDirection="column"
     >

@@ -59,7 +59,7 @@ export default function LandingPage() {
 
             {/* Sous-titre */}
             <Title
-              text="Croiser l'actu n'a jamais été aussi simple"
+              text={t('common.tagline')}
               fontColor="darkGreen"
               fontSize={{ base: '1.2rem', sm: '1.5rem', md: '2.5rem', lg: '4rem', xl: '5rem' }}
               lineHeight={{ base: '1.3', md: '1.2' }}
