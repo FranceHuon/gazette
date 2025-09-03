@@ -12,8 +12,8 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { AuthGuard } from './auth.guard'
-import { AuthService } from './auth.service'
+import { AuthGuard } from '@/modules/auth/auth.guard'
+import { AuthService } from '@/modules/auth/auth.service'
 
 interface RequestWithUser extends Request {
   user: {

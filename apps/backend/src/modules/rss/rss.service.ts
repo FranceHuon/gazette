@@ -1,8 +1,8 @@
 import { FeedSource, RssItemDto } from '@gazette/shared'
 import { EntityManager } from '@mikro-orm/core'
 import { Injectable } from '@nestjs/common'
-import { Media } from 'src/entities/media.entity'
-import { createGenericRssFeed } from './feeds/generic-rss.feed'
+import { Media } from '@/entities/media.entity'
+import { createGenericRssFeed } from '@/modules/rss/feeds/generic-rss.feed'
 
 interface FeedConfig {
   sourceKey: string

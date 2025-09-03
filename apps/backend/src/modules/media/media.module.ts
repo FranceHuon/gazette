@@ -1,9 +1,9 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs'
 import { Module } from '@nestjs/common'
-import { Media } from 'src/entities/media.entity'
-import { JwtConfigModule } from '../jwt/jwt.config.module'
-import { MediaController } from './media.controlller'
-import { MediaService } from './media.service'
+import { Media } from '@/entities/media.entity'
+import { JwtConfigModule } from '@/modules/jwt/jwt.config.module'
+import { MediaController } from '@/modules/media/media.controlller'
+import { MediaService } from '@/modules/media/media.service'
 
 @Module({
   imports: [

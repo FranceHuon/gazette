@@ -3,7 +3,7 @@ import type { Response } from 'express'
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
-import { UsersService, verifyPassword } from '../user/user.service'
+import { UsersService, verifyPassword } from '@/modules/user/user.service'
 
 @Injectable()
 export class AuthService {
