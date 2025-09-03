@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Cron } from '@nestjs/schedule'
-import { ContentService } from '../content/content.service'
+import { ContentService } from '@/modules/content/content.service'
 
 @Injectable()
 export class JobService {
