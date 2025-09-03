@@ -1,6 +1,6 @@
 import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
-import { PrimaryKeyUuid } from '../utils/PrimaryKeyUuid.decorator'
-import { Subscription } from './subscription.entity'
+import { Subscription } from '@/entities/subscription.entity'
+import { PrimaryKeyUuid } from '@/utils/PrimaryKeyUuid.decorator'
 
 @Entity()
 export class User {

@@ -6,10 +6,6 @@ export interface ContentDto {
   description?: string
   source: string
   logo?: string
-  mediaId?: string
-}
-
-export interface ContentWithMediaDto extends ContentDto {
   media: {
     id: string
     name: string

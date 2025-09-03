@@ -1,7 +1,7 @@
 import type { Request } from 'express'
-import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '../auth/auth.guard'
-import { ContentService } from './content.service'
+import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@/modules/auth/auth.guard'
+import { ContentService } from '@/modules/content/content.service'
 
 interface RequestWithUser extends Request {
   user: {
@@ -14,18 +14,6 @@ interface RequestWithUser extends Request {
 @Controller('contents')
 export class ContentController {
   constructor(private readonly contentService: ContentService) {}
-
-  @Get()
-  async getAll() {
-    const contents = await this.contentService.getAll()
-    return contents
-  }
-
-  @Get('media/:mediaId')
-  async getByMediaId(@Param('mediaId') mediaId: string) {
-    const contents = await this.contentService.getByMediaId(mediaId)
-    return contents
-  }
 
   @Get('user/subscriptions')
   @UseGuards(AuthGuard)

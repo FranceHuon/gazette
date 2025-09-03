@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { JwtConfigModule } from '../jwt/jwt.config.module'
-import { MediaModule } from '../media/media.module'
-import { RssModule } from '../rss/rss.module'
-import { ContentController } from './content.controller'
-import { ContentService } from './content.service'
+import { ContentController } from '@/modules/content/content.controller'
+import { ContentService } from '@/modules/content/content.service'
+import { JwtConfigModule } from '@/modules/jwt/jwt.config.module'
+import { MediaModule } from '@/modules/media/media.module'
+import { RssModule } from '@/modules/rss/rss.module'
 
 @Module({
   imports: [RssModule, MediaModule, JwtConfigModule],

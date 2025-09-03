@@ -2,7 +2,7 @@ import type { EntityManager } from '@mikro-orm/core'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { Seeder } from '@mikro-orm/seeder'
-import { Media } from '../entities/media.entity'
+import { Media } from '@/entities/media.entity'
 
 export class MediaSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {

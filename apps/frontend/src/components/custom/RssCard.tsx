@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardBody, CardFooter, CardHeader, Flex, Heading, Image, Link, Text, VStack } from '@chakra-ui/react'
-import { ContentWithMediaDto } from '@gazette/shared'
+import { ContentDto } from '@gazette/shared'
 import { Heart } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -69,7 +69,7 @@ function LikeButton({ contentId, contentTitle, isLiked, onLike, onDislike }: Lik
 }
 
 interface RssCardProps {
-  content: ContentWithMediaDto
+  content: ContentDto
   like: (contentId: string) => void
   dislike: (contentId: string) => void
   isLiked: (contentId: string) => boolean

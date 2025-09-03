@@ -1,7 +1,7 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core'
-import { PrimaryKeyUuid } from '../utils/PrimaryKeyUuid.decorator'
-import { Content } from './content.entity'
-import { User } from './user.entity'
+import { Content } from '@/entities/content.entity'
+import { User } from '@/entities/user.entity'
+import { PrimaryKeyUuid } from '@/utils/PrimaryKeyUuid.decorator'
 
 @Entity()
 export class Like {

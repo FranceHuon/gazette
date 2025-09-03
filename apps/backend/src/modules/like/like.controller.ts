@@ -1,16 +1,9 @@
 import { CreateLikeDto } from '@gazette/shared'
 import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common'
-import { Like } from 'src/entities/like.entity'
-import { AuthGuard } from '../auth/auth.guard'
+import { Like } from '@/entities/like.entity'
+import { RequestWithUser } from '@/interfaces/request.interface'
+import { AuthGuard } from '@/modules/auth/auth.guard'
 import { LikesService } from './like.service'
-
-interface RequestWithUser extends Request {
-  user: {
-    id: string
-    email: string
-    pseudo: string
-  }
-}
 
 @Controller()
 export class LikesController {
