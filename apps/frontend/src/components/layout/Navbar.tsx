@@ -63,6 +63,7 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
   const { t } = useTranslation('common', {
     keyPrefix: 'navigation',
   })
+  const tAria = useTranslation('common', { keyPrefix: 'aria' }).t
 
   const { user } = useAuth()
   const pathname = usePathname()
@@ -93,7 +94,7 @@ function Navbar({ isScrolled }: { isScrolled: boolean }) {
       gap={{ base: 4, md: isScrolled ? 8 : 12 }}
       justifyContent={{ base: 'space-between', md: 'end' }}
       role="navigation"
-      aria-label="Menu de navigation principal"
+      aria-label={tAria('mainNavigation')}
     >
       {menuItems.map(item => (
         <NavItem

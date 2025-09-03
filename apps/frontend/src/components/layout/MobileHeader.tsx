@@ -2,6 +2,7 @@
 
 import { Box, Flex, Heading, IconButton } from '@chakra-ui/react'
 import { Bell } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface MobileHeaderProps {
   currentPage: string
@@ -9,6 +10,8 @@ interface MobileHeaderProps {
 }
 
 function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderProps) {
+  const { t } = useTranslation('common', { keyPrefix: 'aria' })
+
   return (
     <Box
       position="sticky"
@@ -42,13 +45,12 @@ function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderPro
           </Heading>
         </Flex>
 
-        {/* Icône de notification optionnelle */}
         {showNotifications && (
           <IconButton
             variant="ghost"
             icon={<Bell size={20} />}
             size="sm"
-            aria-label="Notifications"
+            aria-label={t('notifications')}
             color="gray.500"
           />
         )}

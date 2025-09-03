@@ -8,6 +8,7 @@ import Title from './Title'
 
 function Header() {
   const { t } = useTranslation()
+  const tAria = useTranslation('common', { keyPrefix: 'aria' }).t
   const { isScrolled } = useScroll({ threshold: 50 })
 
   return (
@@ -27,7 +28,7 @@ function Header() {
       boxShadow={isScrolled ? 'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.01) 0px 4px 6px -2px' : 'none'}
       transition="box-shadow 0.2s ease-in-out"
       role="banner"
-      aria-label="En-tête principal"
+      aria-label={tAria('mainHeader')}
     >
       <Flex
         direction="column"

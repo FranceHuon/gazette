@@ -25,6 +25,7 @@ function MediaCard({
   const { t } = useTranslation('common', {
     keyPrefix: 'subscriptions',
   })
+  const tAria = useTranslation('common', { keyPrefix: 'aria' }).t
 
   const isSubscribeOnlyMode = !onUnsubscribe || !isSubscribed
   const isCurrentlySubscribed = isSubscribed ? isSubscribed(media.id) : false
@@ -48,7 +49,7 @@ function MediaCard({
       _hover={{ transform: 'translateY(-10px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
       border="1px solid rgba(0, 0, 0, 0.1)"
-      aria-label={`Média ${media.name}`}
+      aria-label={tAria('mediaLabel', { name: media.name })}
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
@@ -119,7 +120,6 @@ function MediaCard({
         </Flex>
       </Flex>
 
-      {/* Layout desktop (conservé) */}
       <Flex flexDirection="row" justifyContent="space-between" gap={4} flex={1} display={{ base: 'none', md: 'flex' }}>
         <Flex gap={6} flex={1}>
           <Flex
