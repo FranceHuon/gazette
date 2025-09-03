@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/core'
 import { Injectable } from '@nestjs/common'
-import { Media } from 'src/entities/media.entity'
+import { Media } from '@/entities/media.entity'
 
 @Injectable()
 export class MediaService {
@@ -8,9 +8,5 @@ export class MediaService {
 
   async findAll(): Promise<Media[]> {
     return this.em.find(Media, {})
-  }
-
-  async findBySource(sourceKey: string): Promise<Media | null> {
-    return this.em.findOne(Media, { sourceKey })
   }
 }

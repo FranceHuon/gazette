@@ -1,15 +1,8 @@
 import { Body, Controller, Delete, Post, Req, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '../auth/auth.guard'
-import { SubscriptionsService } from '../subscription/subscription.service'
+import { RequestWithUser } from '@/interfaces/request.interface'
+import { AuthGuard } from '@/modules/auth/auth.guard'
+import { SubscriptionsService } from '@/modules/subscription/subscription.service'
 import { UsersService } from './user.service'
-
-interface RequestWithUser extends Request {
-  user: {
-    id: string
-    email: string
-    pseudo: string
-  }
-}
 
 @Controller('users')
 export class UsersController {
