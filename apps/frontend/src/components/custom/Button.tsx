@@ -29,7 +29,7 @@ function Button({
     >
       <Text
         textTransform={capitalizeText ? 'capitalize' : 'uppercase'}
-        fontSize={fontSize || { base: '11px', md: '16px' }}
+        fontSize={fontSize || { base: 'xs', md: 'sm' }}
       >
         {text}
       </Text>

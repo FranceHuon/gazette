@@ -15,6 +15,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const isMobile = useBreakpointValue({ base: true, md: false })
   const pathname = usePathname()
   const { t } = useTranslation('common', { keyPrefix: 'navigation' })
+  const tAria = useTranslation('common', { keyPrefix: 'aria' }).t
 
   // Fonction pour obtenir le nom de la page courante
   const getCurrentPageName = () => {
@@ -37,8 +38,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
       width="100%"
       position="relative"
       direction="column"
-      role="application"
-      aria-label="Application Gazette"
     >
       {isMobile
         ? (
@@ -56,8 +55,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
         display="flex"
         flexDirection="column"
         pb={{ base: '80px', lg: '0' }}
-
-        role="main"
       >
         {children}
       </Box>
@@ -76,7 +73,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         borderColor="gray.200"
         boxShadow="0 -2px 10px rgba(0, 0, 0, 0.1)"
         role="navigation"
-        aria-label="Navigation principale mobile"
+        aria-label={tAria('mobileMainNavigation')}
       >
         <Navbar isScrolled={false} />
       </Box>

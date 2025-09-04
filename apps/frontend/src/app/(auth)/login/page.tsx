@@ -17,7 +17,7 @@ export default function LoginPage() {
       <VStack spacing={2} textAlign="center" display={{ base: 'none', md: 'flex' }}>
         <Heading
           as="h1"
-          fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
           color="chaletGreen"
           fontWeight="bold"
         >

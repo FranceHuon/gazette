@@ -19,7 +19,7 @@ export function Field({ ref, ...props }: FieldProps & { ref?: React.RefObject<HT
       ref={ref}
       {...rest}
     >
-      {label && <FormLabel fontSize="0.8rem" textTransform="uppercase" fontWeight="bold">{label}</FormLabel>}
+      {label && <FormLabel fontSize="xs" textTransform="uppercase" fontWeight="bold">{label}</FormLabel>}
       {children}
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}

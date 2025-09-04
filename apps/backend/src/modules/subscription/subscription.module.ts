@@ -1,9 +1,9 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs'
 import { Module } from '@nestjs/common'
-import { Media } from 'src/entities/media.entity'
-import { Subscription } from 'src/entities/subscription.entity'
-import { User } from 'src/entities/user.entity'
-import { JwtConfigModule } from '../jwt/jwt.config.module'
+import { Media } from '@/entities/media.entity'
+import { Subscription } from '@/entities/subscription.entity'
+import { User } from '@/entities/user.entity'
+import { JwtConfigModule } from '@/modules/jwt/jwt.config.module'
 import { SubscriptionsController } from './subscription.controller'
 import { SubscriptionsService } from './subscription.service'
 

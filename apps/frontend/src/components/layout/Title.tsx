@@ -10,7 +10,7 @@ function Title({ fontColor, text, ...props }: TitleProps) {
     <Heading
       fontFamily="Staatliches"
       color={fontColor}
-      fontSize={{ base: '3rem', md: '6rem' }}
+      fontSize={{ base: '4xl', md: '7xl' }}
       transition="all 0.3s ease"
       {...props}
     >

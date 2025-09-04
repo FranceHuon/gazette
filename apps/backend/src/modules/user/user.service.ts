@@ -1,7 +1,7 @@
 import { EntityManager } from '@mikro-orm/core'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { User } from '@/entities/user.entity'
-import { hashPassword, verifyPassword } from './user.utils'
+import { hashPassword, verifyPassword } from '@/modules/user/user.utils'
 
 @Injectable()
 export class UsersService {
@@ -18,18 +18,6 @@ export class UsersService {
     user.password = hashedPassword
     await this.em.persistAndFlush(user)
     return user
-  }
-
-  async getAll(): Promise<Omit<User, 'password'>[]> {
-    const users = await this.em.findAll(User, {})
-    return users.map(user => ({
-      pseudo: user.pseudo,
-      email: user.email,
-      id: user.id,
-      createdAt: user.createdAt,
-      lastConnection: user.lastConnection,
-      subscriptions: user.subscriptions,
-    }))
   }
 
   async findOneById(id: string): Promise<User> {

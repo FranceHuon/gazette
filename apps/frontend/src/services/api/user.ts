@@ -20,11 +20,6 @@ export async function createUser(user: CreateUserDto): Promise<CreateUserRespons
   }
 }
 
-export async function getAllUsers(): Promise<CreateUserDto[]> {
-  return await api
-    .get('users')
-    .json()
-}
 export async function loginUser(
   email: string,
   password: string,

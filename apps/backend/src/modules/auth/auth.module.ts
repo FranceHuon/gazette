@@ -1,11 +1,11 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs'
 import { Module } from '@nestjs/common'
-import { User } from 'src/entities/user.entity'
-import { JwtConfigModule } from '../jwt/jwt.config.module'
-import { UsersModule } from '../user/user.module'
-import { AuthController } from './auth.controller'
-import { AuthGuard } from './auth.guard'
-import { AuthService } from './auth.service'
+import { User } from '@/entities/user.entity'
+import { AuthController } from '@/modules/auth/auth.controller'
+import { AuthGuard } from '@/modules/auth/auth.guard'
+import { AuthService } from '@/modules/auth/auth.service'
+import { JwtConfigModule } from '@/modules/jwt/jwt.config.module'
+import { UsersModule } from '@/modules/user/user.module'
 
 @Module({
   imports: [
