@@ -48,7 +48,7 @@ function NavItem({ href, icon: Icon, label, isScrolled, isActive }: NavItemProps
         <Icon size={isScrolled ? '1.5rem' : '2rem'} />
         <Text
           fontFamily="heading"
-          fontSize={{ base: '1rem', md: isScrolled ? '1.5rem' : '2rem' }}
+          fontSize={{ base: 'md', md: isScrolled ? 'lg' : 'xl' }}
           transition="all 0.2s ease"
           color="inherit"
         >

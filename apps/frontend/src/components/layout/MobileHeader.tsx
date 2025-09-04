@@ -14,6 +14,7 @@ function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderPro
 
   return (
     <Box
+      as="header"
       position="sticky"
       top={0}
       zIndex={20}
@@ -23,6 +24,7 @@ function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderPro
       px={4}
       py={3}
       boxShadow="0 2px 8px rgba(0,0,0,0.05)"
+      aria-label={t('mobileHeader')}
     >
       <Flex justify="space-between" align="center">
         <Flex align="center" gap={3}>
@@ -40,7 +42,7 @@ function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderPro
           >
             G
           </Box>
-          <Heading size="lg" color="chaletGreen">
+          <Heading as="h1" size="lg" color="chaletGreen">
             {currentPage}
           </Heading>
         </Flex>
@@ -51,7 +53,7 @@ function MobileHeader({ currentPage, showNotifications = true }: MobileHeaderPro
             icon={<Bell size={20} />}
             size="sm"
             aria-label={t('notifications')}
-            color="gray.500"
+            color="gray.600"
           />
         )}
       </Flex>

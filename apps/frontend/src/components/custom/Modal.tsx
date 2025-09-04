@@ -103,7 +103,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
         maxH={{ base: '100vh', md: '90vh' }}
       >
         <ModalHeader
-          fontSize={{ base: '20px', md: '24px' }}
+          fontSize={{ base: 'lg', md: 'xl' }}
           fontWeight="bold"
           paddingBottom="12px"
           borderBottom="1px solid"

@@ -21,8 +21,9 @@ function SettingsPageContent() {
         {/* Titre - masqué sur mobile, visible sur desktop */}
         <Heading
           as="h1"
-          fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
           color="chaletGreen"
+          fontWeight="bold"
           mb={4}
           display={{ base: 'none', lg: 'block' }}
         >
@@ -43,7 +44,7 @@ function SettingsPageContent() {
             <Title
               text={t('pages.manageAccount')}
               fontColor="chaletGreen"
-              fontSize="3rem"
+              fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
               as="h2"
             />
           </VStack>

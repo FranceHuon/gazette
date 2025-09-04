@@ -38,8 +38,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
       width="100%"
       position="relative"
       direction="column"
-      role="application"
-      aria-label={tAria('applicationGazette')}
     >
       {isMobile
         ? (
@@ -57,8 +55,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
         display="flex"
         flexDirection="column"
         pb={{ base: '80px', lg: '0' }}
-
-        role="main"
       >
         {children}
       </Box>
