@@ -2,7 +2,6 @@ import { EntityManager } from '@mikro-orm/core'
 import { Injectable } from '@nestjs/common'
 import { Content } from '@/entities/content.entity'
 import { Media } from '@/entities/media.entity'
-import { MediaService } from '@/modules/media/media.service'
 import { RssService } from '@/modules/rss/rss.service'
 
 @Injectable()
@@ -10,7 +9,6 @@ export class ContentService {
   constructor(
     private readonly rssService: RssService,
     private readonly em: EntityManager,
-    private readonly mediaService: MediaService,
   ) {}
 
   async getByUserSubscriptions(userId: string): Promise<Content[]> {

@@ -1,5 +1,5 @@
 import type { ChangePasswordDto, LoginDto } from '@gazette/shared'
-import type { Request, Response } from 'express'
+import type { Response } from 'express'
 import {
   Body,
   Controller,
@@ -12,16 +12,9 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { RequestWithUser } from '@/interfaces/request.interface'
 import { AuthGuard } from '@/modules/auth/auth.guard'
 import { AuthService } from '@/modules/auth/auth.service'
-
-interface RequestWithUser extends Request {
-  user: {
-    id: string
-    email: string
-    pseudo: string
-  }
-}
 
 @Controller('auth')
 export class AuthController {

@@ -101,7 +101,7 @@ function SettingsMenu() {
                   <item.icon size={20} strokeWidth={2} />
                 </Box>
                 <Text
-                  fontSize={{ base: '16px', md: '18px', lg: '20px' }}
+                  fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
                   fontWeight="semibold"
                   color="gray.800"
                 >
