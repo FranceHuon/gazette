@@ -27,13 +27,18 @@ function Header() {
       py={4}
       boxShadow={isScrolled ? 'rgba(0, 0, 0, 0.05) 0px 10px 15px -3px, rgba(0, 0, 0, 0.01) 0px 4px 6px -2px' : 'none'}
       transition="box-shadow 0.2s ease-in-out"
-      role="banner"
       aria-label={tAria('mainHeader')}
     >
       <Flex
         direction="column"
       >
-        <Title text={t('common.appTitle')} fontColor="chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} />
+        <Title
+          text={t('common.appTitle')}
+          fontColor="chaletGreen"
+          lineHeight="1"
+          fontSize={isScrolled ? '4xl' : '6xl'}
+          as="h2"
+        />
       </Flex>
       <Navbar isScrolled={isScrolled} />
     </Box>

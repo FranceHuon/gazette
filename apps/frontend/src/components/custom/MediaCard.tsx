@@ -67,7 +67,7 @@ function MediaCard({
           >
             <Image
               src={media.picture}
-              alt={media.name}
+              alt={`Logo de ${media.name}`}
               maxW="100%"
               maxH="80px"
               objectFit="contain"
@@ -75,9 +75,10 @@ function MediaCard({
           </Flex>
           <Flex flexDirection="column" flex={1} gap={2}>
             <Heading
+              as="h3"
               fontFamily="body"
               noOfLines={2}
-              fontSize="1.3rem"
+              fontSize="lg"
               lineHeight="1.2"
             >
               {media.name}
@@ -103,7 +104,7 @@ function MediaCard({
                   onClick={() => onUnsubscribe!(media.id)}
                   height="40px"
                   width="140px"
-                  fontSize="14px"
+                  fontSize="sm"
                 />
               )
             : (
@@ -114,7 +115,7 @@ function MediaCard({
                   onClick={() => onSubscribe(media.id)}
                   height="40px"
                   width="140px"
-                  fontSize="14px"
+                  fontSize="sm"
                 />
               )}
         </Flex>
@@ -132,7 +133,7 @@ function MediaCard({
           >
             <Image
               src={media.picture}
-              alt={media.name}
+              alt={`Logo de ${media.name}`}
               maxW="100%"
               maxH="140px"
               objectFit="contain"
@@ -140,9 +141,10 @@ function MediaCard({
           </Flex>
           <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" flex={1} gap={3}>
             <Heading
+              as="h3"
               fontFamily="heading"
               noOfLines={3}
-              fontSize={{ md: '1.4rem', lg: '1.7rem' }}
+              fontSize={{ md: 'xl', lg: '2xl' }}
               lineHeight="1.2"
             >
               {media.name}
@@ -167,7 +169,7 @@ function MediaCard({
                   onClick={() => onUnsubscribe!(media.id)}
                   height="60px"
                   width="180px"
-                  fontSize="20px"
+                  fontSize="lg"
                 />
               )
             : (
@@ -178,7 +180,7 @@ function MediaCard({
                   onClick={() => onSubscribe(media.id)}
                   height="60px"
                   width="180px"
-                  fontSize="20px"
+                  fontSize="lg"
                 />
               )}
         </Flex>

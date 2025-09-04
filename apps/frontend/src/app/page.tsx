@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Flex, VStack } from '@chakra-ui/react'
+import { Box, Container, Flex, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import Button from '@/components/custom/Button'
@@ -44,12 +44,11 @@ export default function LandingPage() {
         <Container maxW="6xl" position="relative" zIndex={2}>
           <VStack spacing={{ base: 8, md: 12, lg: 16 }} align="center" textAlign="center">
 
-            {/* Logo/Titre principal */}
             <Link href="/">
               <Title
                 text={t('common.appTitle')}
                 fontColor="darkGreen"
-                fontSize={{ base: '3rem', sm: '4rem', md: '8rem', lg: '12rem', xl: '14rem' }}
+                fontSize={{ base: '5xl', sm: '6xl', md: '9xl', lg: '9xl', xl: '9xl' }}
                 lineHeight="0.9"
                 as="h1"
                 textAlign="center"
@@ -57,11 +56,10 @@ export default function LandingPage() {
               />
             </Link>
 
-            {/* Sous-titre */}
             <Title
               text={t('common.tagline')}
               fontColor="darkGreen"
-              fontSize={{ base: '1.2rem', sm: '1.5rem', md: '2.5rem', lg: '4rem', xl: '5rem' }}
+              fontSize={{ base: 'lg', sm: 'xl', md: '3xl', lg: '5xl', xl: '6xl' }}
               lineHeight={{ base: '1.3', md: '1.2' }}
               as="h2"
               textAlign="center"
@@ -69,14 +67,32 @@ export default function LandingPage() {
               fontWeight="medium"
             />
 
-            {/* Boutons d'action */}
+            <VStack spacing={4} textAlign="center" maxW="800px" mx="auto">
+              <Text
+                fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
+                color="gray.700"
+                lineHeight="1.6"
+                px={{ base: 4, md: 0 }}
+              >
+                Découvrez une nouvelle façon de suivre l'actualité.
+                Abonnez-vous à vos médias préférés et organisez vos lectures selon vos envies.
+              </Text>
+              <Text
+                fontSize={{ base: 'sm', md: 'md' }}
+                color="gray.600"
+                fontWeight="medium"
+              >
+                Simple • Organisé • Personnalisable
+              </Text>
+            </VStack>
+
             <Flex
               direction={{ base: 'column', sm: 'row' }}
               gap={{ base: 4, md: 6, lg: 8 }}
               justify="center"
               align="center"
               w="100%"
-              mt={{ base: 4, md: 8 }}
+              mt={{ base: 6, md: 8 }}
             >
 
               <Link href="/signup">

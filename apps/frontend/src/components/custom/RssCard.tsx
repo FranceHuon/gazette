@@ -109,16 +109,17 @@ function RssCard({
         justifyContent="space-between"
       >
         <Heading
+          as="h3"
           textStyle="cardTitle"
           noOfLines={2}
-          fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
+          fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
         >
           {content.media?.name}
         </Heading>
 
         <Image
           src={content.media?.picture}
-          alt={content.media?.name}
+          alt={`Logo de ${content.media?.name}`}
           maxW={{ base: '50px', md: '50px' }}
           maxH={{ base: '50px', md: '50px' }}
           objectFit="contain"
@@ -129,14 +130,15 @@ function RssCard({
       <CardBody padding={{ base: 3, md: 3 }} border="none" flex="1" display="flex" flexDirection="column">
         <VStack spacing={{ base: 3, md: 3 }} align="stretch">
           <Heading
+            as="h4"
             textStyle="cardSubtitle"
             noOfLines={2}
-            fontSize={{ base: '1rem', md: '1.2rem', lg: '1.5rem' }}
+            fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
             textOverflow="ellipsis"
           >
             {content.title}
           </Heading>
-          <Text fontSize="0.75rem" color="gray.500">
+          <Text fontSize="xs" color="gray.600">
             {new Date(content.date).toLocaleDateString('fr-FR', {
               day: 'numeric',
               month: 'short',
@@ -146,7 +148,7 @@ function RssCard({
           <Text
             textStyle="cardContent"
             noOfLines={{ base: 3, md: 4 }}
-            fontSize="0.9rem"
+            fontSize="sm"
             display={{ base: 'none', md: '-webkit-box' }}
             overflow="hidden"
             textOverflow="ellipsis"
