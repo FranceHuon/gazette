@@ -1,12 +1,15 @@
 'use client'
 
 import { Flex, Heading, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 import SettingsMenu from '@/components/custom/SettingsMenu'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
 import Title from '@/components/layout/Title'
 
 function SettingsPageContent() {
+  const { t } = useTranslation()
+
   return (
     <ResponsiveLayout>
       <Flex
@@ -18,12 +21,13 @@ function SettingsPageContent() {
         {/* Titre - masqué sur mobile, visible sur desktop */}
         <Heading
           as="h1"
-          fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
           color="chaletGreen"
+          fontWeight="bold"
           mb={4}
           display={{ base: 'none', lg: 'block' }}
         >
-          Paramètres
+          {t('navigation.settings')}
         </Heading>
 
         {/* Contenu principal */}
@@ -38,9 +42,9 @@ function SettingsPageContent() {
           {/* Titre pour desktop dans le conteneur */}
           <VStack spacing={3} textAlign="center" display={{ base: 'none', lg: 'flex' }}>
             <Title
-              text="Gérez votre compte"
+              text={t('pages.manageAccount')}
               fontColor="chaletGreen"
-              fontSize="3rem"
+              fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
               as="h2"
             />
           </VStack>

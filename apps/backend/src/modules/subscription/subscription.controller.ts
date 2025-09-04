@@ -1,17 +1,9 @@
-import type { Request } from 'express'
 import { CreateSubscriptionDto } from '@gazette/shared'
 import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common'
-import { Subscription } from 'src/entities/subscription.entity'
-import { AuthGuard } from '../auth/auth.guard'
+import { Subscription } from '@/entities/subscription.entity'
+import { RequestWithUser } from '@/interfaces/request.interface'
+import { AuthGuard } from '@/modules/auth/auth.guard'
 import { SubscriptionsService } from './subscription.service'
-
-interface RequestWithUser extends Request {
-  user: {
-    id: string
-    email: string
-    pseudo: string
-  }
-}
 
 @Controller()
 export class SubscriptionsController {

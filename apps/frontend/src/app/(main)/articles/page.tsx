@@ -1,7 +1,10 @@
 'use client'
 
-import { Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react'
+import { Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack } from '@chakra-ui/react'
+import { BookOpen, Heart } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import EmptyState from '@/components/custom/EmptyState'
 import RssCard from '@/components/custom/RssCard'
 import { AuthGuard } from '@/components/guards/AuthGuard'
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout'
@@ -10,6 +13,7 @@ import { useContents } from '@/hooks/useContents'
 import { useLikes } from '@/hooks/useLikes'
 
 function ArticlesPageContent() {
+  const { t } = useTranslation()
   const { contents } = useContents()
   const { like, dislike, isLiked } = useLikes()
   const [activeTabIndex, setActiveTabIndex] = useState(0)
@@ -34,19 +38,27 @@ function ArticlesPageContent() {
         gap={{ base: '24px', md: '32px', lg: '40px' }}
         width="100%"
       >
-        <Heading
-          as="h1"
-          fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
-          color="chaletGreen"
-          mb={4}
-          display={{ base: 'none', lg: 'block' }}
-        >
-          Articles
-        </Heading>
+        <VStack spacing={2} align="start" display={{ base: 'none', lg: 'flex' }} mb={6}>
+          <Heading
+            as="h1"
+            fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+            color="chaletGreen"
+            fontWeight="bold"
+          >
+            {t('navigation.articles')}
+          </Heading>
+          <Text
+            fontSize={{ base: 'md', md: 'lg' }}
+            color="gray.600"
+            maxW="600px"
+          >
+            {t('explanations.articlesPage.subtitle')}
+          </Text>
+        </VStack>
 
         <VStack spacing={{ base: '16px', md: '24px', lg: '32px' }} align="stretch">
           <Tabs isManual variant="unstyled" onChange={index => setActiveTabIndex(index)}>
-            <TabList border="none">
+            <TabList border="none" role="tablist" aria-label={t('aria.articleTabs')}>
               <Tab
                 backgroundColor="white"
                 borderTopLeftRadius={{ base: '20px', md: '30px', lg: '40px' }}
@@ -61,16 +73,18 @@ function ArticlesPageContent() {
                 transition="all 0.2s ease"
               >
                 <Heading
-                  fontSize={{ base: 'xl', md: '2rem', lg: '3rem' }}
+                  as="h2"
+                  fontSize={{ base: 'lg', md: 'xl', lg: '2xl' }}
                   color="chaletGreen"
                   px={4}
                   py={4}
                   cursor="pointer"
+                  fontWeight="semibold"
                   _hover={{
                     transform: 'translateY(-2px) scale(1.1)',
                   }}
                 >
-                  À Explorer
+                  {t('pages.toExplore')}
                 </Heading>
               </Tab>
               <Tab
@@ -88,16 +102,18 @@ function ArticlesPageContent() {
                 transition="all 0.2s ease"
               >
                 <Heading
-                  fontSize={{ base: 'xl', md: '2rem', lg: '3rem' }}
+                  as="h2"
+                  fontSize={{ base: 'lg', md: 'xl', lg: '2xl' }}
                   color="chaletGreen"
                   px={4}
                   py={4}
                   cursor="pointer"
+                  fontWeight="semibold"
                   _hover={{
                     transform: 'translateY(-2px) scale(1.1)',
                   }}
                 >
-                  Mes favoris
+                  {t('pages.myFavorites')}
                 </Heading>
               </Tab>
             </TabList>
@@ -108,30 +124,54 @@ function ArticlesPageContent() {
               border="none"
             >
               <TabPanel pt={{ base: '24px', md: '32px', lg: '40px' }} border="none">
-                <CardGrid>
-                  {nonLikedContents.map(content => (
-                    <RssCard
-                      key={content.id}
-                      content={content}
-                      like={handleLike}
-                      dislike={handleDislike}
-                      isLiked={isLiked}
-                    />
-                  ))}
-                </CardGrid>
+                {nonLikedContents.length > 0
+                  ? (
+                      <CardGrid>
+                        {nonLikedContents.map(content => (
+                          <RssCard
+                            key={content.id}
+                            content={content}
+                            like={handleLike}
+                            dislike={handleDislike}
+                            isLiked={isLiked}
+                          />
+                        ))}
+                      </CardGrid>
+                    )
+                  : (
+                      <EmptyState
+                        icon={BookOpen}
+                        title={t('emptyStates.noArticles.title')}
+                        description={t('emptyStates.noArticles.description')}
+                        actionText={t('emptyStates.noArticles.actionText')}
+                        actionPath="/medias"
+                      />
+                    )}
               </TabPanel>
               <TabPanel pt={{ base: '24px', md: '32px', lg: '40px' }} border="none">
-                <CardGrid>
-                  {likedContents.map(content => (
-                    <RssCard
-                      key={content.id}
-                      content={content}
-                      like={handleLike}
-                      dislike={handleDislike}
-                      isLiked={isLiked}
-                    />
-                  ))}
-                </CardGrid>
+                {likedContents.length > 0
+                  ? (
+                      <CardGrid>
+                        {likedContents.map(content => (
+                          <RssCard
+                            key={content.id}
+                            content={content}
+                            like={handleLike}
+                            dislike={handleDislike}
+                            isLiked={isLiked}
+                          />
+                        ))}
+                      </CardGrid>
+                    )
+                  : (
+                      <EmptyState
+                        icon={Heart}
+                        title={t('emptyStates.noFavorites.title')}
+                        description={t('emptyStates.noFavorites.description')}
+                        actionText={t('emptyStates.noFavorites.actionText')}
+                        onAction={() => setActiveTabIndex(0)}
+                      />
+                    )}
               </TabPanel>
             </TabPanels>
           </Tabs>

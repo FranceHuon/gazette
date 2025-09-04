@@ -1,20 +1,18 @@
 import { FeedSource, RssItemDto } from '@gazette/shared'
 import { XMLParser } from 'fast-xml-parser'
-import { RSS_SOURCES, RssSourceKey } from '../../../config/rss-sources'
 
 interface GenericRssConfig {
-  sourceKey: RssSourceKey
+  sourceKey: string
+  url: string
   titleCleaner?: (title: string) => string
   descriptionCleaner?: (description: string) => string
   extractLogo?: (channel: unknown) => string | undefined
 }
 
 export function createGenericRssFeed(config: GenericRssConfig): FeedSource {
-  const sourceConfig = RSS_SOURCES[config.sourceKey]
-
   return {
     name: config.sourceKey,
-    url: sourceConfig.url,
+    url: config.url,
 
     async fetch(): Promise<RssItemDto[]> {
       const res = await fetch(this.url)

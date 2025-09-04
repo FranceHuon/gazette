@@ -70,7 +70,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
       onClose()
     }
     catch (error) {
-      console.error('Erreur lors du changement de mot de passe:', error)
+      console.error('Password change error:', error)
       toast({
         title: t('common.error'),
         description: t('auth.passwordChangeError'),
@@ -103,7 +103,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
         maxH={{ base: '100vh', md: '90vh' }}
       >
         <ModalHeader
-          fontSize={{ base: '20px', md: '24px' }}
+          fontSize={{ base: 'lg', md: 'xl' }}
           fontWeight="bold"
           paddingBottom="12px"
           borderBottom="1px solid"
@@ -143,7 +143,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 isRequired
               >
                 <PasswordInput
-                  placeholder="Entrez votre mot de passe actuel"
+                  placeholder={t('auth.placeholderCurrentPassword')}
                   autoComplete="current-password"
                   _focus={{
                     borderColor: 'chaletGreen',
@@ -164,7 +164,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
               >
                 <VStack spacing="8px" align="stretch">
                   <PasswordInput
-                    placeholder="Entrez votre nouveau mot de passe"
+                    placeholder={t('auth.placeholderNewPassword')}
                     autoComplete="new-password"
                     _focus={{
                       borderColor: 'chaletGreen',
@@ -186,7 +186,7 @@ function PasswordModal({ isOpen, onClose }: PasswordModalProps) {
                 isRequired
               >
                 <PasswordInput
-                  placeholder="Confirmez votre nouveau mot de passe"
+                  placeholder={t('auth.placeholderConfirmNewPassword')}
                   autoComplete="new-password"
                   _focus={{
                     borderColor: 'chaletGreen',

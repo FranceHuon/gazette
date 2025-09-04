@@ -1,6 +1,6 @@
 import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
-import { PrimaryKeyUuid } from '../utils/PrimaryKeyUuid.decorator'
-import { Subscription } from './subscription.entity'
+import { Subscription } from '@/entities/subscription.entity'
+import { PrimaryKeyUuid } from '@/utils/PrimaryKeyUuid.decorator'
 
 @Entity()
 export class Media {
@@ -18,6 +18,12 @@ export class Media {
 
   @Property()
   urlRss!: string
+
+  @Property({ nullable: true })
+  sourceKey?: string
+
+  @Property({ default: true })
+  isActive = true
 
   @Property()
   createdAt = new Date()

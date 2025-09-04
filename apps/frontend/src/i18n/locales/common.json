@@ -7,7 +7,8 @@
     "success": "Succès",
     "cancel": "Annuler",
     "save": "Enregistrer",
-    "modifying": "Modification..."
+    "modifying": "Modification...",
+    "tagline": "Croiser l'actu n'a jamais été aussi simple"
   },
   "navigation": {
     "settings": "Paramètres",
@@ -24,6 +25,7 @@
     "pseudo": "Pseudo",
     "email": "Adresse mail",
     "placeholderEmail": "example@gmail.com",
+    "placeholderPseudo": "Gazette",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "changePassword": "Changer de mot de passe",
@@ -42,6 +44,10 @@
     "confirmNewPassword": "Confirmer le nouveau mot de passe",
     "passwordChanged": "Votre mot de passe a été modifié avec succès",
     "passwordChangeError": "Une erreur est survenue lors du changement de mot de passe",
+    "loginForm": "Formulaire de connexion",
+    "placeholderCurrentPassword": "Entrez votre mot de passe actuel",
+    "placeholderNewPassword": "Entrez votre nouveau mot de passe",
+    "placeholderConfirmNewPassword": "Confirmez votre nouveau mot de passe",
     "passwordRequirements": {
       "title": "Exigences du mot de passe",
       "description": "Votre nouveau mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial.",
@@ -76,6 +82,71 @@
     "added": "Contenu ajouté aux favoris !",
     "removed": "Favori supprimé",
     "addError": "Impossible d'ajouter ce contenu aux favoris. Veuillez réessayer.",
-    "removeError": "Impossible de supprimer le favori. Veuillez réessayer."
+    "removeError": "Impossible de supprimer le favori. Veuillez réessayer.",
+    "addToFavorites": "Ajouter l'article \"{{title}}\" aux favoris",
+    "removeFromFavorites": "Retirer l'article \"{{title}}\" des favoris"
+  },
+  "pages": {
+    "toExplore": "À Explorer",
+    "myFavorites": "Mes favoris",
+    "manageAccount": "Gérez votre compte"
+  },
+  "aria": {
+    "mainNavigation": "Menu de navigation principal",
+    "mainHeader": "En-tête principal",
+    "applicationGazette": "Application Gazette",
+    "mobileMainNavigation": "Navigation principale mobile",
+    "mobileHeader": "En-tête mobile",
+    "notifications": "Notifications",
+    "articleLabel": "Article: {{title}}",
+    "mediaLabel": "Média {{name}}",
+    "articleTabs": "Onglets pour organiser vos articles"
+  },
+  "emptyStates": {
+    "noArticles": {
+      "title": "Aucun article disponible",
+      "description": "Il n'y a pas encore d'articles à découvrir. Abonnez-vous à des médias pour commencer à recevoir du contenu !",
+      "actionText": "Découvrir les médias"
+    },
+    "noFavorites": {
+      "title": "Aucun favori pour le moment",
+      "description": "Vous n'avez pas encore ajouté d'articles à vos favoris. Explorez les articles et cliquez sur ❤️ pour les sauvegarder ici !",
+      "actionText": "Explorer les articles"
+    },
+    "noMedias": {
+      "title": "Aucun média disponible",
+      "description": "Il n'y a pas de médias disponibles pour le moment. Revenez plus tard pour découvrir de nouveaux contenus !",
+      "actionText": "Actualiser"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bienvenue sur Gazette !",
+      "description": "Votre nouvelle façon de croiser l'actualité. Découvrez comment ça fonctionne en 3 étapes simples.",
+      "step1": {
+        "title": "1. Explorez les médias",
+        "description": "Parcourez notre sélection de sources d'information et abonnez-vous à celles qui vous intéressent"
+      },
+      "step2": {
+        "title": "2. Découvrez les articles",
+        "description": "Consultez les derniers articles de vos médias favoris dans la section Articles"
+      },
+      "step3": {
+        "title": "3. Sauvegardez vos favoris",
+        "description": "Ajoutez les articles qui vous plaisent à vos favoris pour les retrouver facilement"
+      },
+      "getStarted": "Commencer l'exploration"
+    }
+  },
+  "explanations": {
+    "articlesPage": {
+      "subtitle": "Découvrez les derniers articles de vos médias préférés",
+      "tabExplore": "Articles récents de vos abonnements à découvrir",
+      "tabFavorites": "Articles que vous avez sauvegardés"
+    },
+    "mediasPage": {
+      "subtitle": "Choisissez vos sources d'information préférées",
+      "description": "Abonnez-vous aux médias qui vous intéressent pour recevoir leurs derniers articles dans votre fil d'actualité."
+    }
   }
 }
