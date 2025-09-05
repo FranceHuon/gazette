@@ -48,11 +48,12 @@ export default function LandingPage() {
               <Title
                 text={t('common.appTitle')}
                 fontColor="darkGreen"
-                fontSize={{ base: '5xl', sm: '6xl', md: '9xl', lg: '9xl', xl: '9xl' }}
+                fontSize={{ base: '3rem', sm: '4rem', md: '8rem', lg: '14rem', xl: '18rem' }}
                 lineHeight="0.9"
                 as="h1"
                 textAlign="center"
                 _hover={{ transform: 'scale(1.02)', transition: 'transform 0.2s ease' }}
+                letterSpacing="widest"
               />
             </Link>
 
@@ -66,25 +67,6 @@ export default function LandingPage() {
               maxW={{ base: '90%', md: '80%', lg: '100%' }}
               fontWeight="medium"
             />
-
-            <VStack spacing={4} textAlign="center" maxW="800px" mx="auto">
-              <Text
-                fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
-                color="gray.700"
-                lineHeight="1.6"
-                px={{ base: 4, md: 0 }}
-              >
-                Découvrez une nouvelle façon de suivre l'actualité.
-                Abonnez-vous à vos médias préférés et organisez vos lectures selon vos envies.
-              </Text>
-              <Text
-                fontSize={{ base: 'sm', md: 'md' }}
-                color="gray.600"
-                fontWeight="medium"
-              >
-                Simple • Organisé • Personnalisable
-              </Text>
-            </VStack>
 
             <Flex
               direction={{ base: 'column', sm: 'row' }}
