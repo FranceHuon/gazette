@@ -37,6 +37,7 @@ export class RssService {
     return text
       .replace(/&#8217;/g, '\'')
       .replace(/&#233;/g, 'é')
+      .replace(/&#183;/g, '·')
       .replace(/&rsquo;/g, '\'')
       .replace(/&eacute;/g, 'é')
       .replace(/&nbsp;/g, ' ')
@@ -50,6 +51,7 @@ export class RssService {
       .replace(/<[^>]*>/g, '')
       .replace(/&#8217;/g, '\'')
       .replace(/&#233;/g, 'é')
+      .replace(/&#183;/g, '·')
       .replace(/&rsquo;/g, '\'')
       .replace(/&eacute;/g, 'é')
       .replace(/&nbsp;/g, ' ')
