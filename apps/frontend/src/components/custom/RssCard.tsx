@@ -93,7 +93,7 @@ function RssCard({
       height={{ base: '240px', sm: '250px', md: '300px', lg: '400px' }}
       minHeight={{ base: '240px', sm: '250px', md: '300px', lg: '400px' }}
       borderRadius={{ base: '20px', md: '30px', lg: '40px' }}
-      padding={{ base: '16px', md: '20px' }}
+      padding={{ base: 4, md: 5 }}
       boxShadow="rgba(0, 0, 0, 0.1) 0px 5px 10px -6px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"
       _hover={{ transform: 'translateY(-2px)', boxShadow: 'xl' }}
       transition="all 0.2s ease-in-out"
@@ -102,7 +102,7 @@ function RssCard({
       flexDirection="column"
     >
       <CardHeader
-        padding={{ base: '12px', md: '16px' }}
+        padding={{ base: 3, md: 4 }}
         minHeight={{ base: '70px', md: '80px' }}
         display="flex"
         alignItems="center"
@@ -163,8 +163,8 @@ function RssCard({
       </CardBody>
 
       <CardFooter
-        padding={{ base: '16px', md: '12px' }}
-        paddingTop={{ base: '8px', md: '16px' }}
+        padding={{ base: 4, md: 3 }}
+        paddingTop={{ base: 2, md: 4 }}
         display="flex"
         alignItems="center"
         justifyContent="space-between"
