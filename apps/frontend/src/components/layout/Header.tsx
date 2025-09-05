@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Link } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { useScroll } from '@/hooks/useScroll'
 import Navbar from './Navbar'
@@ -32,13 +32,7 @@ function Header() {
       <Flex
         direction="column"
       >
-        <Title
-          text={t('common.appTitle')}
-          fontColor="chaletGreen"
-          lineHeight="1"
-          fontSize={isScrolled ? '4xl' : '6xl'}
-          as="h2"
-        />
+        <Link href="/" _hover={{ textDecoration: 'none' }}><Title text={t('common.appTitle')} fontColor="chaletGreen" lineHeight="1" fontSize={isScrolled ? '4rem' : '6rem'} _hover={{ color: 'darkGreen' }} letterSpacing="wider" /></Link>
       </Flex>
       <Navbar isScrolled={isScrolled} />
     </Box>
