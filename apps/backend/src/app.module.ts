@@ -17,6 +17,7 @@ import { MediaModule } from '@/modules/media/media.module'
 import { RssModule } from '@/modules/rss/rss.module'
 import { SubscriptionsModule } from '@/modules/subscription/subscription.module'
 import { UsersModule } from '@/modules/user/user.module'
+import { TypesenseModule } from './modules/typesense/typesense.module'
 
 @Module({
   imports: [
@@ -74,6 +75,7 @@ import { UsersModule } from '@/modules/user/user.module'
     RssModule,
     MediaModule,
     SubscriptionsModule,
+    TypesenseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
